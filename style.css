@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Passion+One&family=Poppins:wght@200;400&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Orbitron:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
 * {
     font-family: 'Poppins', sans-serif;
 }
@@ -57,7 +59,7 @@ a:hover {
 
 /* LAINDING */
 .landing {
-    padding: 10px 100px;
+    padding: 10px 200px 10px 100px;
     /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000 100%), url("assets/bg-masthead.jpg"); */
     background-size: cover;
     color: black;
@@ -91,7 +93,9 @@ a:hover {
     width: 500px;
 }
 
-.profile-description h6 {
+h6,
+h1,
+p {
     margin: 0;
 }
 
@@ -99,25 +103,33 @@ a:hover {
     font-weight: bold;
     font-size: 5rem;
     margin-bottom: 8px;
-    overflow: hidden;
+    /* overflow: hidden;
     border-right: .15em solid rgb(0, 0, 0);
-    /* The typwriter cursor */
     white-space: nowrap;
-    
-    /* Keeps the content on a single line */
     animation: typewriter 4s steps(44) 1s 1 normal both,
-             blinkTextCursor 0.5s steps(44) infinite normal;
+             blinkTextCursor 0.5s steps(44) infinite normal; */
 }
 
 /* The typing effect */
-@keyframes typewriter{
-    from{width: 0;}
-    to{width: 5.78em;}
-  }
-  @keyframes blinkTextCursor{
-    from{border-right-color: rgba(0, 0, 0, 0.75);}
-    to{border-right-color: transparent;}
-  }
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 5.78em;
+    }
+}
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgba(0, 0, 0, 0.75);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
 
 .hire {
     background-color: #64A19D;
@@ -156,7 +168,37 @@ a:hover {
     text-underline-offset: 2px;
 }
 
-.been-through {
+/* .been-through {
 
-    /* animation: fadeIn 2.5s normal; */
+    animation: fadeIn 2.5s normal;
+} */
+
+/* About us */
+
+.about-us {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    height: 100vh;
+}
+
+.about-us  p{
+    margin-right: 100px;
+}
+
+.first-name {
+    transform: rotate(-90deg) translateX(-15%);
+    margin: 0px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 50px;
+}
+
+.second-name{
+    transform: rotate(-90deg) translateY(50%);
+    margin: 0px;
+    font-family: 'Climate Crisis', cursive;
+    font-size: 80px;
+    letter-spacing: 6px;
+    
 }
