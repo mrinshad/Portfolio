@@ -12,8 +12,12 @@
     scroll-behavior: smooth;
 }
 
-.icon-size{
+.icon-size {
     height: 11px;
+}
+
+section {
+    height: 100vh;
 }
 
 header {
@@ -72,7 +76,6 @@ a:hover {
     background-size: cover;
     color: black;
     background-position: center;
-    height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -188,6 +191,11 @@ p {
     border-radius: 50px;
     padding: 15px 20px 15px 20px;
     transform: rotate(-90deg);
+    cursor: pointer;
+}
+
+.invert-color{
+    filter: invert(100%);
 }
 
 
@@ -200,7 +208,6 @@ p {
 .about-us {
     display: block;
     padding: 0px 20px;
-    height: 100vh;
     margin: auto;
     /* width:100; */
 }
@@ -259,3 +266,130 @@ p {
       --size-divisor: .67;
     }
   } */
+
+/* Project section */
+.project-section {
+    display: block;
+    padding: 0px 20px;
+    margin: auto;
+    height: 80vh;
+}
+
+/* contact me part*/
+.contact-section {
+    display: block;
+    padding: 0px 20px;
+    margin: auto;
+    height: 80vh;
+}
+
+.contact-desc h1 {
+    font-size: 60px;
+}
+
+.contact-desc p {
+    width: 530px;
+}
+
+.contact-desc h1 img {
+    height: 45px;
+}
+
+.contact-section {
+    margin-left: 50px;
+}
+
+
+.contact-section form input,label {
+    margin-top: 10px;
+    min-width: 70vh;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid black;
+    display: block;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    cursor: pointer; /* "hand" cursor */
+    display: flex;
+    justify-content: space-between;
+}
+.inputfile + label img{
+    height: 28px;
+    padding: 10px 5px 0px 0px;
+}
+.inputfile + label * {
+	pointer-events: none;
+}
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.mail-button{
+    padding: 12px 25px;
+    border: none;
+    background-color: #000;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.mail-button img{
+    height: 20px;
+    padding-left: 5px;
+}
+
+.pro{
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+/* connectivity section */
+
+.connectivity{
+    background-color: rgb(245, 245, 245);
+    height: 30vh;display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.connectivity .container{
+    display: block;
+}
+.connectivity .container .logo{
+    width: 100vh;
+}
+.connectivity .container a,ul{
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    width: 100%;
+}
+
+.max-width{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.connectivity .container ul{
+padding-top: 80px;
+}
