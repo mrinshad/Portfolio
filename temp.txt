@@ -1,0 +1,15 @@
+.profile-description {
+    position: relative;
+    bottom: 20%;
+    left: 10%;
+    /* animation: fadeIn 1.5s both; */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 4rem;
+    text-align: left;
+    width: 600px;
+}
+
+.been-through {
+    transform: rotate(-35deg) rotateX(35deg) rotateY(30deg);
+}
