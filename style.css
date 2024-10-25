@@ -152,11 +152,21 @@ p {
     font-size: 18px;
     justify-content: center;
     align-items: center;
+    width: 150px;
+}
+
+.hire:hover{
+    background-color: #fff;
+    color: #000;
+    border: 0.5px solid black;
+    img{
+        filter:  invert(0%);
+    }
 }
 
 .hire img {
     filter: invert(100%);
-    height: 40px;
+    height: 20px;
     padding-right: 10px;
 }
 
@@ -171,12 +181,13 @@ p {
     align-items: center;
 }
 
-.buttons a {
-    color: black;
-    font-size: 1.2rem;
-    padding-left: 30px;
-    text-underline-offset: 2px;
+
+
+.buttons a:hover {
+   text-decoration: none;
+   cursor: pointer;
 }
+
 
 /* .been-through {
 
@@ -273,6 +284,60 @@ p {
     margin: auto;
     height: 100vh;
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 50px; /* Set both row and column gap to the same value */
+    /* padding: 50px; */
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+  }
+  
+
+  .project-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    border:solid 2px #41403E;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius:15px 255px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+  }
+
+  .project-card:hover {
+    transform: scale(1.05);
+    background-color: #000;
+    color: white;
+  }
+
+  .project-image {
+    width: 100%;
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover;
+  }
+
+  .project-details {
+    padding: 20px;
+  }
+
+  .project-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .project-description {
+    font-size: 1rem;
+    color: #555;
+  }
 
 /* contact me part*/
 .contact-section {
@@ -358,6 +423,15 @@ p {
     justify-content: center;
     align-items: center;
     height: 80vh;
+}
+
+.more{
+    width: 100%;
+    text-align: center;
+    a{
+        /* text-decoration: none; */
+        color: #000;
+    }
 }
 
 /* connectivity section */
