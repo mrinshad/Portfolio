@@ -121,11 +121,57 @@ window.addEventListener('scroll', function() {
     landing.style.transform = `translateY(${scrollPosition * 0.03}px)`;
   }
   
-  // Subtle rotation for project cards on scroll
+  // Enhanced animation for project cards on scroll
   const projectCards = document.querySelectorAll('.project-card');
   projectCards.forEach((card, index) => {
     const rotateAmount = Math.sin(scrollPosition / 1000 + index) * 1;
-    card.style.transform = `rotate(${rotateAmount}deg)`;
+    // Add a slight scale effect based on scroll position
+    const scaleAmount = 1 + Math.sin(scrollPosition / 1200 + index) * 0.02;
+    card.style.transform = `rotate(${rotateAmount}deg) scale(${scaleAmount})`;
   });
+});
+
+// Improve form submission with validation
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.querySelector('.contact-section form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simple form validation
+      const name = this.querySelector('input[type="text"]');
+      const email = this.querySelector('input[type="email"]');
+      const message = this.querySelector('textarea');
+      
+      let isValid = true;
+      
+      if (!name.value.trim()) {
+        name.style.borderColor = 'red';
+        isValid = false;
+      } else {
+        name.style.borderColor = '';
+      }
+      
+      if (!email.value.trim() || !email.value.includes('@')) {
+        email.style.borderColor = 'red';
+        isValid = false;
+      } else {
+        email.style.borderColor = '';
+      }
+      
+      if (!message.value.trim()) {
+        message.style.borderColor = 'red';
+        isValid = false;
+      } else {
+        message.style.borderColor = '';
+      }
+      
+      if (isValid) {
+        // Submit form - this would be replaced with actual form submission
+        alert('Thanks for reaching out! I will get back to you soon.');
+        this.reset();
+      }
+    });
+  }
 });
 
