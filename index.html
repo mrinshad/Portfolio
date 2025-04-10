@@ -2,265 +2,275 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>My Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
+    <style>
+      /* Page load animation */
+      body {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      body.loaded {
+        opacity: 1;
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Add the overlay element after the opening body tag -->
+    <div class="menu-overlay"></div>
+    
     <header>
-      <nav>
-        <a href="#" class="logo">m.rinshad</a>
-        <ul>
-          <li><a href="#about-us">About</a></li>
-          <li><a href="#projection-section">Projects</a></li>
-          <li><a href="#contact-section">Contact</a></li>
-        </ul>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a href="#" class="logo">m.rinshad</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item"><a class="nav-link" href="#about-us">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="#projection-section">Projects</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact-section">Contact</a></li>
+            </ul>
+          </div>
+        </div>
       </nav>
     </header>
     <main>
       <section class="landing" id="wrapper">
-        <div class="profile-description">
-          <h6>Hello Welcome</h6>
-          <div class="name">I’m Rinshad</div>
-          <a
-            href="https://www.linkedin.com/in/yourprofile"
-            target="_blank"
-            class="hire"
-          >
-            <img src="assets/icons/linkedin-logo.png" alt="" /> LinkedIn
-          </a>
-
-          <p>
-            I'm a beginner developer with a passion for web and Android
-            development. I'm constantly learning and strive to create simple,
-            user-friendly interfaces
-          </p>
-        </div>
-        <div class="been-through">
-          <h1>8+</h1>
-          <p>Months<br />Experience</p>
-          <br />
-          <br />
-          <h1>5+</h1>
-          <p>Projects</p>
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-8 col-md-12 profile-description">
+              <span class="greeting">Hello, Welcome</span>
+              <h1 class="name">I'm Rinshad</h1>
+              <p class="intro-text">
+                I'm a developer with a passion for web and Android
+                development. I'm constantly learning and strive to create simple,
+                user-friendly interfaces.
+              </p>
+              <div class="cta-buttons">
+                <a href="https://www.linkedin.com/in/mrinshad" target="_blank" class="btn-primary">
+                  <img src="assets/icons/linkedin-logo.png" alt="" /> LinkedIn
+                </a>
+                <a href="#projection-section" class="btn-secondary">View Projects</a>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12 stats-container">
+              <div class="stat-card">
+                <div class="stat-item">
+                  <div class="stat-number">8+</div>
+                  <div class="stat-label">Months<br/>Experience</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-number">5+</div>
+                  <div class="stat-label">Projects</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       <hr />
-      <button class="back-to-top hidden">
-        Back To Top
-        <img class="icon-size" src="assets/icons/right-arrow.png" alt="" />
+      <!-- Modified Back to Top Button for maximum visibility -->
+      <button class="back-to-top">
+        TOP
+        <img src="assets/icons/right-arrow.png" alt="Up" />
       </button>
+      
       <section class="about-us" id="about-us">
         <h1 class="section-name">About me :)</h1>
         <div class="container">
-          <div class="my-name">
-            <h1 class="first-name">MOHAMMED</h1>
-            <h1 class="second-name">RINSHAD</h1>
-          </div>
-          <div class="content">
-            <p>
-              I am a devoloper with experience in both Android and web
-              devolopment. After completing my diploma in Computer Engineering,
-              I joined Wizzo Technologies as an Android and web devoloper.
-              During my time at Wizzo, I gained valuable experience working with
-              a team to create mobile and web applications that were both
-              user-friendly and productive.<br /><br />
+          <div class="row">
+            <div class="col-lg-4 col-md-12 my-name">
+              <h1 class="first-name">MOHAMMED</h1>
+              <h1 class="second-name">RINSHAD</h1>
+            </div>
+            <div class="col-lg-8 col-md-12 content">
+              <p>
+                I am a devoloper with experience in both Android and web
+                devolopment. After completing my diploma in Computer Engineering,
+                I joined Wizzo Technologies as an Android and web devoloper.
+                During my time at Wizzo, I gained valuable experience working with
+                a team to create mobile and web applications that were both
+                user-friendly and productive.<br /><br />
 
-              At Wizzo Technologies, I was responsible for designing and
-              developing front-end and back-end for Android and web
-              applications. I worked closely with other developers to ensure
-              that the applications were functional and met the needs of the
-              end-users. My work at Wizzo helped me to develop my technical
-              skills and taught me the importance of teamwork and collaboration
-              in achieving project goals.<br /><br />
+                At Wizzo Technologies, I was responsible for designing and
+                developing front-end and back-end for Android and web
+                applications. I worked closely with other developers to ensure
+                that the applications were functional and met the needs of the
+                end-users. My work at Wizzo helped me to develop my technical
+                skills and taught me the importance of teamwork and collaboration
+                in achieving project goals.<br /><br />
 
-              After a few months at Wizzo, I decided to further my education by
-              joining an engineering college to obtain my degree. Throughout my
-              education, I continued to hone my skills in design and
-              development, staying up-to-date with the latest trends and
-              technologies in the field. <br /><br />
+                After a few months at Wizzo, I decided to further my education by
+                joining an engineering college to obtain my degree. Throughout my
+                education, I continued to hone my skills in design and
+                development, staying up-to-date with the latest trends and
+                technologies in the field. <br /><br />
 
-              In my free time, I enjoy exploring new ideas and techniques, and
-              experimenting with different tools and software. I believe that my
-              experience and education make me a valuable asset to any project,
-              and I am always eager to learn and take on new challenges.
-            </p>
+                In my free time, I enjoy exploring new ideas and techniques, and
+                experimenting with different tools and software. I believe that my
+                experience and education make me a valuable asset to any project,
+                and I am always eager to learn and take on new challenges.
+              </p>
+            </div>
           </div>
         </div>
       </section>
+      
       <hr />
+      
       <section class="project-section" id="projection-section">
         <h1 class="section-name">My Projects (⌐■_■)</h1>
-        <div class="container pro">
-          <div class="grid-container">
-            <!-- Project Card 1 -->
-            <a
-              href="https://github.com/mrinshad/IPTS-Intelligent-particpantion-tracking-system"
-              target="_blank"
-              class="project-card"
-            >
-              <div class="project-details">
-                <div class="project-title">
-                  IPTS (Intelligent Participant Tracking System)
-                </div>
-                <div class="project-description">
-                  Web application which uses facial recognition to accurately
-                  monitor and track individuals in real-time for enhanced
-                  security and efficient participant management built using
-                  Python Flask and SQL.
-                </div>
+        <div class="container">
+          <div class="pro">
+            <div class="grid-container row">
+              <!-- Project Card 1 -->
+              <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <a href="https://github.com/mrinshad/IPTS-Intelligent-particpantion-tracking-system" target="_blank" class="project-card">
+                  <span class="project-tag">Web App</span>
+                  <h3 class="project-title">IPTS</h3>
+                  <p class="project-description">
+                    Intelligent Participant Tracking System using facial recognition to accurately
+                    monitor and track individuals in real-time.
+                  </p>
+                  <div class="project-footer">
+                    <span class="tech-stack">Python • Flask • SQL</span>
+                    <span class="view-project">View →</span>
+                  </div>
+                </a>
               </div>
-            </a>
 
-            <!-- Project Card 2 -->
-            <a
-              href="https://github.com/mrinshad/Hotel-Management-Desktop"
-              target="_blank"
-              class="project-card"
-            >
-              <div class="project-details">
-                <div class="project-title">Hotel Management Application</div>
-                <div class="project-description">
-                  Desktop application which manages your hotel business
-                  developed using Netbeans and SQL Database and iReport for
-                  billing and invoices. It provides functionalities like booking
-                  management, customer handling, and report generation.
-                </div>
+              <!-- Project Card 2 -->
+              <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <a href="https://github.com/mrinshad/Hotel-Management-Desktop" target="_blank" class="project-card">
+                  <span class="project-tag">Desktop App</span>
+                  <h3 class="project-title">Hotel Management System</h3>
+                  <p class="project-description">
+                    Desktop application for hotel business management with booking, customer handling, and reporting features.
+                  </p>
+                  <div class="project-footer">
+                    <span class="tech-stack">Java • SQL • iReport</span>
+                    <span class="view-project">View →</span>
+                  </div>
+                </a>
               </div>
-            </a>
 
-            <!-- Project Card 3 -->
-            <a
-              href="https://github.com/mrinshad/WalletManager"
-              target="_blank"
-              class="project-card"
-            >
-              <div class="project-details">
-                <div class="project-title">Wallet Manager</div>
-                <div class="project-description">
-                  A financial management app designed for daily usage, developed
-                  using Java and SQLite for local database and Firebase for
-                  cloud services. It allows users to track expenses, manage
-                  budgets, and set financial goals.
-                </div>
+              <!-- Project Card 3 -->
+              <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <a href="https://github.com/mrinshad/WalletManager" target="_blank" class="project-card">
+                  <span class="project-tag">Mobile App</span>
+                  <h3 class="project-title">Wallet Manager</h3>
+                  <p class="project-description">
+                    Financial management app for tracking expenses, managing budgets, and setting financial goals.
+                  </p>
+                  <div class="project-footer">
+                    <span class="tech-stack">Java • SQLite • Firebase</span>
+                    <span class="view-project">View →</span>
+                  </div>
+                </a>
               </div>
-            </a>
 
-            <!-- Project Card 4 -->
-            <a
-              href="https://github.com/mrinshad/Sales_forecasting_algorithms"
-              target="_blank"
-              class="project-card"
-            >
-              <div class="project-details">
-                <div class="project-title">Sales Forecasting System</div>
-                <div class="project-description">
-                  This project revolves around predicting customer sales based
-                  on historical data. It involves the exploration and
-                  manipulation of sales data, preparing it for machine learning
-                  model training. The focus is on employing various algorithms
-                  to forecast future sales accurately.
-                </div>
+              <!-- Project Card 4 -->
+              <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <a href="https://github.com/mrinshad/Sales_forecasting_algorithms" target="_blank" class="project-card">
+                  <span class="project-tag">Data Science</span>
+                  <h3 class="project-title">Sales Forecasting System</h3>
+                  <p class="project-description">
+                    ML model for predicting customer sales based on historical data for accurate forecasting.
+                  </p>
+                  <div class="project-footer">
+                    <span class="tech-stack">Python • ML Algorithms • Data Analysis</span>
+                    <span class="view-project">View →</span>
+                  </div>
+                </a>
               </div>
-            </a>
 
-            <!-- Project Card 5 -->
-            <a
-              href="https://github.com/mrinshad/ecommy-adminpanel"
-              target="_blank"
-              class="project-card"
-            >
-              <div class="project-details">
-                <div class="project-title">Ecommy-adminpanel</div>
-                <div class="project-description">
-                  This is an E-commerce admin panel for managing products,
-                  orders, and users efficiently, built using Angular. It
-                  features user authentication, role management, and real-time
-                  data updates to streamline administrative tasks for e-commerce
-                  businesses.
-                </div>
+              <!-- Project Card 5 -->
+              <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <a href="https://github.com/mrinshad/ecommy-adminpanel" target="_blank" class="project-card">
+                  <span class="project-tag">Web App</span>
+                  <h3 class="project-title">Ecommy Admin Panel</h3>
+                  <p class="project-description">
+                    E-commerce admin panel for managing products, orders, and users with role management.
+                  </p>
+                  <div class="project-footer">
+                    <span class="tech-stack">Angular • REST API • Authentication</span>
+                    <span class="view-project">View →</span>
+                  </div>
+                </a>
               </div>
-            </a>
 
-            <!-- Project Card 6 -->
-            <a
-              href="https://github.com/mrinshad/CardioFed"
-              target="_blank"
-              class="project-card"
-            >
-              <div class="project-details">
-                <div class="project-title">CardioFed</div>
-                <div class="project-description">
-                  This project utilizes federated learning with XGBoost for
-                  early cardiovascular disease detection, ensuring data privacy
-                  through Federated XGBoost Bagging. Built on the Flower
-                  architecture, it enables collaborative model training across
-                  decentralized healthcare datasets, providing accurate
-                  predictive analytics while safeguarding patient data privacy.
-                </div>
+              <!-- Project Card 6 -->
+              <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <a href="https://github.com/mrinshad/CardioFed" target="_blank" class="project-card">
+                  <span class="project-tag">ML</span>
+                  <h3 class="project-title">CardioFed</h3>
+                  <p class="project-description">
+                    Federated learning system for early cardiovascular disease detection while ensuring data privacy.
+                  </p>
+                  <div class="project-footer">
+                    <span class="tech-stack">Federated XGBoost • Flower • Healthcare</span>
+                    <span class="view-project">View →</span>
+                  </div>
+                </a>
               </div>
-            </a>
+            </div>
           </div>
-        </div>
-        <div class="more">
-            <a  href="http://github.com/mrinshad">Click here for more of my works!</a>
+          <div class="more">
+            <a href="http://github.com/mrinshad">Click here for more of my works!</a>
+          </div>
         </div>
       </section>
 
       <hr />
+      
       <section class="contact-section" id="contact-section">
         <h1 class="section-name">Contact me っ•́｡•́)</h1>
         <div class="container">
-          <div class="contact-desc">
-            <h1>
-              Got a Project ? <br />
-              Let's talk.
-              <img
-                src="assets/icons/right-arrow 1.png"
-                class="icon-size"
-                alt=""
-              />
-            </h1>
-            <p>
-              I hope you find my portfolio inspiring and engaging, and I look
-              forward to hearing your feedback. Please feel free to contact me
-              if you have any questions or would like to collaborate on a
-              project.
-            </p>
+          <div class="row">
+            <div class="col-lg-6 col-md-12 contact-desc">
+              <h1>
+                Got a Project ? <br />
+                Let's talk.
+                <img src="assets/icons/right-arrow 1.png" class="icon-size" alt="" />
+              </h1>
+              <p>
+                I hope you find my portfolio inspiring and engaging, and I look
+                forward to hearing your feedback. Please feel free to contact me
+                if you have any questions or would like to collaborate on a
+                project.
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <form action="">
+                <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Your good Name" autocomplete="name" />
+                </div>
+                <div class="mb-3">
+                  <input type="email" class="form-control" placeholder="Your email address" autocomplete="email" />
+                </div>
+                <div class="mb-3">
+                  <textarea class="form-control" placeholder="Tell me something about your project details" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                  <input type="file" name="file" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+                  <label for="file"><strong>Add the docs here</strong><img src="assets/icons/attach-file.png" class="icon-size" alt="" /></label>
+                </div>
+                <button class="mail-button">
+                  Send Mail
+                  <img src="assets/icons/mail.png" class="icon-size invert-color" alt="" />
+                </button>
+              </form>
+            </div>
           </div>
-          <form action="">
-            <input type="text" name="" id="" placeholder="Your good Name" />
-            <input type="text" name="" id="" placeholder="Your email address" />
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Tell me something about your project deatils"
-            />
-            <input
-              type="file"
-              name="file"
-              id="file"
-              class="inputfile"
-              data-multiple-caption="{count} files selected"
-              multiple
-            />
-            <label for="file"
-              ><strong>Add the docs here</strong
-              ><img src="assets/icons/attach-file.png" class="icon-size" alt=""
-            /></label>
-            <button class="mail-button">
-              Send Mail
-              <img
-                src="assets/icons/mail.png"
-                class="icon-size invert-color"
-                alt=""
-              />
-            </button>
-          </form>
         </div>
       </section>
+      
       <hr />
 
       <section class="connectivity">
@@ -268,24 +278,17 @@
           <div class="max-width">
             <a href="#" class="logo">m.rinshad</a>
           </div>
-          <ul>
-            <li>
-              <a href="https://www.linkedin.com/in/mohammed-rinshad"
-                >LinkedIn</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://instagram.com/rinshad_morayur?igshid=ZDdkNTZiNTM="
-                >Instagram</a
-              >
-            </li>
+          <ul class="social-links">
+            <li><a href="https://www.linkedin.com/in/mrinshad">LinkedIn</a></li>
+            <li><a href="https://instagram.com/rinshad_morayur?igshid=ZDdkNTZiNTM=">Instagram</a></li>
             <li><a href="https://github.com/mrinshad">github</a></li>
             <li><a href="https://twitter.com/goblinTheDev">twitter</a></li>
           </ul>
         </div>
       </section>
     </main>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
 </html>
