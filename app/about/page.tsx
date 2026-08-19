@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Calendar, MapPin } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { profileData, leadershipExperience, employmentExperience, skillCategories, educationData } from "@/data"
 
@@ -39,91 +39,112 @@ const leadershipSummaries: { [key: string]: string } = {
 export default function AboutPage() {
   return (
     <main className="py-16 lg:py-24 space-y-24">
-      <div className="container max-w-5xl px-6 space-y-20">
-        {/* Page Header */}
-        <div className="space-y-6 border-b border-border/50 pb-12">
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            About Rinshad
-          </div>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
-            Background & Experience
-          </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-3xl font-normal">
-            Full-Stack Software Engineer currently at <span className="text-foreground font-semibold">Tata Consultancy Services (TCS)</span>, with proven experience in technical leadership, system architecture, and cloud-native application delivery.
-          </p>
+      {/* 1. Header Section */}
+      <div className="container max-w-5xl px-6 space-y-6">
+        <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          About Rinshad
         </div>
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
+          Background & Experience
+        </h1>
+        <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-3xl font-normal">
+          Full-Stack Software Engineer currently at <span className="text-foreground font-semibold">Tata Consultancy Services (TCS)</span>, with proven experience in technical leadership, system architecture, and cloud-native application delivery.
+        </p>
+      </div>
 
-        {/* Continuous Tech Ticker with Icons */}
-        <div className="w-full border-y border-border/40 py-4 overflow-hidden marquee-container">
-          <div className="flex w-max items-center gap-10 animate-marquee-fast">
-            {[...techTickerItems, ...techTickerItems, ...techTickerItems].map(
-              (tech, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground whitespace-nowrap"
-                >
-                  <TechIcon name={tech} className="h-3.5 w-3.5 text-foreground" />
-                  <span>{tech}</span>
-                  <span className="h-1 w-1 rounded-full bg-emerald-500/50 ml-6" />
-                </div>
-              )
-            )}
-          </div>
+      {/* 2. Full-Width Continuous Tech Ticker (Touches both ends of the viewport) */}
+      <div className="w-full border-y border-border/40 py-4 overflow-hidden marquee-container">
+        <div className="flex w-max items-center gap-10 animate-marquee-fast">
+          {[...techTickerItems, ...techTickerItems, ...techTickerItems].map(
+            (tech, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground whitespace-nowrap"
+              >
+                <TechIcon name={tech} className="h-3.5 w-3.5 text-foreground" />
+                <span>{tech}</span>
+                <span className="h-1 w-1 rounded-full bg-emerald-500/50 ml-6" />
+              </div>
+            )
+          )}
         </div>
+      </div>
 
-        {/* Primary Employment Experience (Executive Rows) */}
-        <div className="space-y-10">
+      {/* 3. Main Content Container */}
+      <div className="container max-w-5xl px-6 space-y-24">
+        {/* Primary Employment Timeline */}
+        <div className="space-y-12">
           <div className="border-b border-foreground pb-4 flex items-center justify-between">
             <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
-              Professional Employment
+              Professional Employment Timeline
             </h2>
             <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-              Career Timeline
+              {employmentExperience.length} Milestones
             </span>
           </div>
 
-          <div className="space-y-10">
-            {employmentExperience.map((item) => (
-              <div
-                key={item.id}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 border-b border-border/50 pb-8"
-              >
-                <div className="md:col-span-4 space-y-1">
-                  <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                    {item.period}
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground">
-                    {item.company}
-                  </h3>
-                  <div className="text-xs font-mono text-muted-foreground">
-                    {item.role} • {item.location}
-                  </div>
-                </div>
+          <div className="relative border-l-2 border-border/70 ml-3 sm:ml-5 pl-6 sm:pl-10 space-y-12">
+            {employmentExperience.map((item, idx) => {
+              const isCurrent = idx === 0
 
-                <div className="md:col-span-8 space-y-3">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+              return (
+                <div key={item.id} className="relative group space-y-3">
+                  {/* Timeline Node Dot */}
+                  <div
+                    className={`absolute -left-[31px] sm:-left-[47px] top-1.5 h-3.5 w-3.5 rounded-full border-2 transition-all duration-300 ${
+                      isCurrent
+                        ? "border-emerald-500 bg-emerald-500 ring-4 ring-emerald-500/20 scale-110"
+                        : "border-foreground bg-background group-hover:bg-foreground"
+                    }`}
+                  />
+
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-xs font-mono uppercase tracking-wider text-foreground font-bold bg-muted/60 px-2.5 py-1 rounded">
+                      {item.period}
+                    </span>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {item.location}
+                    </span>
+                    {isCurrent && (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-500 uppercase">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        Current Position
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="space-y-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                      {item.company}
+                    </h3>
+                    <div className="text-sm font-medium text-foreground/80">
+                      {item.role}
+                    </div>
+                  </div>
+
+                  <p className="text-base text-muted-foreground leading-relaxed max-w-3xl">
                     {employmentSummaries[item.id] || item.responsibilities[0]}
                   </p>
 
                   {item.technologies && item.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-4 pt-1 text-xs font-mono uppercase text-muted-foreground">
+                    <div className="flex flex-wrap gap-x-5 gap-y-2 pt-2 text-xs font-mono uppercase text-muted-foreground">
                       {item.technologies.map((tech) => (
-                        <span key={tech} className="inline-flex items-center gap-1 text-foreground">
-                          <TechIcon name={tech} className="h-3 w-3 text-muted-foreground" />
+                        <span key={tech} className="inline-flex items-center gap-1.5 text-foreground">
+                          <TechIcon name={tech} className="h-3.5 w-3.5 text-muted-foreground" />
                           {tech}
                         </span>
                       ))}
                     </div>
                   )}
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 
         {/* Leadership & Consulting Experience */}
-        <div className="space-y-10 pt-4">
+        <div className="space-y-8 pt-4">
           <div className="border-b border-foreground pb-4 flex items-center justify-between">
             <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
               Leadership & Consulting
@@ -133,7 +154,7 @@ export default function AboutPage() {
             </span>
           </div>
 
-          <div className="space-y-10">
+          <div className="space-y-8">
             {leadershipExperience.map((item) => (
               <div
                 key={item.id}
