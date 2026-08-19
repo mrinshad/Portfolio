@@ -1,14 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --font-poppins: 'Poppins', sans-serif;
-    --font-dancing-script: 'Dancing Script', cursive;
-
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -28,13 +23,17 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
-    --radius: 0.75rem;
+    --radius: 0.625rem;
+
+    /* Status Accents */
+    --status-emerald: 158 64% 45%;
+    --status-emerald-bg: 156 72% 95%;
   }
 
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
+    --card: 240 10% 4.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
@@ -51,12 +50,15 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+
+    /* Dark Status Accents */
+    --status-emerald: 158 64% 52%;
+    --status-emerald-bg: 160 84% 10%;
   }
 
   * {
     @apply border-border;
     box-sizing: border-box;
-    font-family: var(--font-poppins);
   }
 
   html {
@@ -64,17 +66,32 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased font-sans;
     min-height: 100vh;
   }
 }
 
+/* Typography Utilities */
 .font-dancing {
-  font-family: var(--font-dancing-script);
+  font-family: var(--font-dancing), cursive;
 }
 
-.highlight-span {
-  font-weight: 600;
-  color: #000000;
-  background: linear-gradient(transparent 70%, rgba(0, 0, 0, 0.08) 30%);
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
