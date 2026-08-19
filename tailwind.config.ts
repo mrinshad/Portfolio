@@ -66,6 +66,31 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "marquee-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
+        pulseSlow: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.4" },
+        },
+      },
+      animation: {
+        marquee: "marquee 35s linear infinite",
+        "marquee-fast": "marquee 20s linear infinite",
+        "marquee-reverse": "marquee-reverse 35s linear infinite",
+        float: "float 4s ease-in-out infinite",
+        pulseSlow: "pulseSlow 3s ease-in-out infinite",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

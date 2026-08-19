@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Inter, Dancing_Script, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
@@ -40,13 +41,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontSans.variable} ${fontDancing.variable} ${fontMono.variable} scroll-smooth`}
+      suppressHydrationWarning
+      className={`${fontSans.variable} ${fontDancing.variable} ${fontMono.variable}`}
     >
-      <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-foreground selection:text-background">
-        <Navbar />
-        {children}
-        <Footer />
-        <BackToTop />
+      <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-foreground selection:text-background flex flex-col justify-between">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <Navbar />
+          <div className="flex-1">{children}</div>
+          <Footer />
+          <BackToTop />
+        </ThemeProvider>
       </body>
     </html>
   )

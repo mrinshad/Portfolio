@@ -1,58 +1,76 @@
 import Link from "next/link"
-import { Linkedin, Instagram, Github, Twitter } from "lucide-react"
+import { Linkedin, Github, Mail, Phone, ArrowUpRight } from "lucide-react"
+import { profileData } from "@/data"
 
-const socialLinks = [
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/mrinshad",
-    icon: Linkedin,
-  },
-  {
-    name: "Instagram",
-    href: "https://instagram.com/rinshad_morayur?igshid=ZDdkNTZiNTM=",
-    icon: Instagram,
-  },
-  {
-    name: "GitHub",
-    href: "https://github.com/mrinshad",
-    icon: Github,
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com/goblinTheDev",
-    icon: Twitter,
-  },
+const footerLinks = [
+  { name: "Selected Work", href: "/work" },
+  { name: "About & Experience", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ]
 
 export function Footer() {
-  return (
-    <footer className="border-t border-border/50 py-12 bg-background">
-      <div className="container px-6 lg:px-24 flex flex-col sm:flex-row items-center justify-between gap-6">
-        <Link
-          href="#"
-          className="font-dancing text-2xl font-bold tracking-wider text-foreground hover:opacity-80 transition-opacity"
-        >
-          m.rinshad
-        </Link>
+  const currentYear = new Date().getFullYear()
 
-        <ul className="flex items-center gap-6">
-          {socialLinks.map((item) => {
-            const Icon = item.icon
-            return (
-              <li key={item.name}>
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Icon className="h-4 w-4" />
-                  <span className="hidden sm:inline">{item.name}</span>
-                </a>
-              </li>
-            )
-          })}
-        </ul>
+  return (
+    <footer className="border-t border-border/50 py-16 bg-background mt-20">
+      <div className="container max-w-6xl px-6 space-y-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-border/40">
+          <div className="space-y-3">
+            <Link
+              href="/"
+              className="font-dancing text-4xl font-bold tracking-wider text-foreground hover:opacity-80 transition-opacity inline-block"
+              aria-label="Back to home"
+            >
+              m.rinshad
+            </Link>
+            <div className="text-sm font-mono uppercase tracking-widest text-muted-foreground">
+              Full-Stack Software Engineer & Technical Lead
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-8">
+            {footerLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:underline transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs font-mono text-muted-foreground">
+          <div className="flex items-center gap-6">
+            <a
+              href={profileData.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              LinkedIn <ArrowUpRight className="h-3 w-3" />
+            </a>
+            <a
+              href={profileData.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              GitHub <ArrowUpRight className="h-3 w-3" />
+            </a>
+            <a
+              href={`mailto:${profileData.email}`}
+              className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+            >
+              Email <ArrowUpRight className="h-3 w-3" />
+            </a>
+          </div>
+
+          <div>
+            © {currentYear} {profileData.name}. All rights reserved.
+          </div>
+        </div>
       </div>
     </footer>
   )

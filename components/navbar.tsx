@@ -2,8 +2,10 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
 import {
   Sheet,
   SheetContent,
@@ -13,86 +15,116 @@ import {
 } from "@/components/ui/sheet"
 
 const navLinks = [
-  { name: "Work", href: "#selected-work" },
-  { name: "Experience", href: "#experience" },
-  { name: "Capabilities", href: "#capabilities" },
-  { name: "Contact", href: "#contact" },
+  { name: "Work", href: "/work" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ]
 
 export function Navbar() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md transition-colors">
-      <nav className="container flex h-16 max-w-6xl items-center justify-between px-6">
-        {/* Brand Logo */}
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur-md transition-colors">
+      <nav className="container flex h-20 max-w-6xl items-center justify-between px-6">
+        {/* Brand Mark */}
         <Link
-          href="#"
-          className="font-dancing text-2xl font-bold tracking-wider text-foreground transition-opacity hover:opacity-80"
-          aria-label="Rinshad - Back to top"
+          href="/"
+          className="font-dancing text-3xl font-bold tracking-wider text-foreground transition-opacity hover:opacity-75"
+          aria-label="Rinshad - Home"
         >
           m.rinshad
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <div className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.name}
-              </Link>
-            ))}
+        <div className="hidden md:flex items-center gap-10">
+          <div className="flex items-center gap-8">
+            {navLinks.map((link) => {
+              const isActive = pathname?.startsWith(link.href)
+
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm tracking-tight transition-colors ${
+                    isActive
+                      ? "text-foreground font-bold underline underline-offset-8"
+                      : "text-muted-foreground hover:text-foreground font-medium"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
           </div>
 
-          <Button asChild size="sm" variant="outline" className="rounded-full gap-1.5 text-xs font-medium border-border/80 hover:bg-accent">
-            <Link href="#contact">
+          <div className="flex items-center gap-4 pl-6 border-l border-border/60">
+            <ThemeToggle />
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-foreground hover:underline"
+            >
               Get in Touch
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
-          </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation Drawer */}
-        <div className="md:hidden">
+        <div className="flex md:hidden items-center gap-2">
+          <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-9 w-9 hover:bg-accent"
+                className="h-10 w-10 text-foreground"
                 aria-label="Open navigation menu"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] sm:w-[320px] p-6">
-              <SheetHeader className="text-left mb-6">
-                <SheetTitle className="font-dancing text-2xl font-bold">
+            <SheetContent side="right" className="w-[300px] p-8 bg-background border-l border-border">
+              <SheetHeader className="text-left mb-8">
+                <SheetTitle className="font-dancing text-3xl font-bold">
                   m.rinshad
                 </SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col gap-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-base font-medium text-muted-foreground py-2 border-b border-border/40 transition-colors hover:text-foreground"
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                <div className="pt-4">
-                  <Button asChild size="sm" className="w-full rounded-full gap-1.5 text-xs">
-                    <Link href="#contact" onClick={() => setIsOpen(false)}>
-                      Get in Touch
-                      <ArrowUpRight className="h-3.5 w-3.5" />
+              <div className="flex flex-col gap-6">
+                <Link
+                  href="/"
+                  onClick={() => setIsOpen(false)}
+                  className={`text-lg font-bold tracking-tight ${
+                    pathname === "/" ? "text-foreground underline underline-offset-4" : "text-muted-foreground"
+                  }`}
+                >
+                  Home
+                </Link>
+                {navLinks.map((link) => {
+                  const isActive = pathname?.startsWith(link.href)
+
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`text-lg font-bold tracking-tight ${
+                        isActive ? "text-foreground underline underline-offset-4" : "text-muted-foreground"
+                      }`}
+                    >
+                      {link.name}
                     </Link>
-                  </Button>
+                  )
+                })}
+                <div className="pt-6 border-t border-border">
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsOpen(false)}
+                    className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-foreground font-bold"
+                  >
+                    Contact Rinshad
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </div>
             </SheetContent>

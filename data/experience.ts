@@ -1,6 +1,6 @@
 import { ExperienceItem } from "./types"
 
-export const experienceData: ExperienceItem[] = [
+export const leadershipExperience: ExperienceItem[] = [
   {
     id: "byten",
     company: "ByteN",
@@ -9,9 +9,9 @@ export const experienceData: ExperienceItem[] = [
     location: "Remote",
     isLeadership: true,
     responsibilities: [
-      "Lead technical design and development of custom software solutions across ERP, accounting, education, and simulation platforms while remaining actively involved in hands-on development.",
-      "Architect application structures, relational database schemas, REST APIs, authentication workflows, and role-based access control (RBAC) systems.",
-      "Establish engineering standards, project structures, Git workflows, code review practices, and development guidelines.",
+      "Lead the technical design and development of custom software solutions across ERP, accounting, education, and simulation platforms while remaining actively involved in implementation.",
+      "Architect application structures, relational database schemas, REST APIs, authentication workflows, and role-based access control (RBAC) systems for scalable, maintainable applications.",
+      "Establish engineering standards, project structures, Git workflows, code review practices, and development guidelines to ensure consistency across projects.",
       "Drive technical planning, feature estimation, architectural discussions, and technology selection while collaborating closely with clients and development teams.",
     ],
     technologies: [
@@ -22,6 +22,9 @@ export const experienceData: ExperienceItem[] = [
       "System Architecture",
     ],
   },
+]
+
+export const employmentExperience: ExperienceItem[] = [
   {
     id: "tcs",
     company: "Tata Consultancy Services (TCS)",
@@ -94,4 +97,9 @@ export const experienceData: ExperienceItem[] = [
     ],
     technologies: ["Laravel", "React", "Java", "MySQL", "Android", "REST APIs"],
   },
+]
+
+export const experienceData: ExperienceItem[] = [
+  ...leadershipExperience,
+  ...employmentExperience,
 ]
