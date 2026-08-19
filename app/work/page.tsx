@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react"
+import { TechIcon } from "@/components/tech-icon"
 import { flagshipProjects, clientWebsites } from "@/data"
 
 export const metadata = {
@@ -56,10 +57,17 @@ export default function WorkPage() {
                     {project.summary}
                   </p>
 
-                  <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground pt-2 space-y-1">
+                  <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground pt-2 space-y-2">
                     <div>Role: {project.role}</div>
                     <div>Status: {project.statusText}</div>
-                    <div>Stack: {project.technologies.join(" / ")}</div>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
+                      {project.technologies.map((tech) => (
+                        <span key={tech} className="inline-flex items-center gap-1.5 text-foreground">
+                          <TechIcon name={tech} className="h-3.5 w-3.5 text-muted-foreground" />
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="pt-4 flex items-center gap-6">

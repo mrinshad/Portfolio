@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { TechIcon } from "@/components/tech-icon"
 import { profileData, leadershipExperience, employmentExperience, skillCategories, educationData } from "@/data"
 
 export const metadata = {
@@ -41,24 +42,25 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Continuous Tech Ticker */}
+        {/* Continuous Tech Ticker with Icons */}
         <div className="w-full border-y border-border/40 py-4 overflow-hidden marquee-container">
           <div className="flex w-max items-center gap-10 animate-marquee-fast">
             {[...techTickerItems, ...techTickerItems, ...techTickerItems].map(
               (tech, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-10 font-mono text-xs uppercase tracking-widest text-muted-foreground whitespace-nowrap"
+                  className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground whitespace-nowrap"
                 >
+                  <TechIcon name={tech} className="h-3.5 w-3.5 text-foreground" />
                   <span>{tech}</span>
-                  <span className="h-1 w-1 rounded-full bg-foreground/40" />
+                  <span className="h-1 w-1 rounded-full bg-foreground/40 ml-6" />
                 </div>
               )
             )}
           </div>
         </div>
 
-        {/* Primary Employment Experience (Editorial Rows) */}
+        {/* Primary Employment Experience */}
         <div className="space-y-12">
           <div className="border-b border-foreground pb-4">
             <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-foreground">
@@ -67,7 +69,7 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-16">
-            {employmentExperience.map((item, idx) => (
+            {employmentExperience.map((item) => (
               <div
                 key={item.id}
                 className="grid grid-cols-1 md:grid-cols-12 gap-6 border-b border-border/50 pb-12"
@@ -98,8 +100,13 @@ export default function AboutPage() {
                   </ul>
 
                   {item.technologies && item.technologies.length > 0 && (
-                    <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground pt-3">
-                      Stack: {item.technologies.join(" / ")}
+                    <div className="flex flex-wrap gap-4 pt-3 text-xs font-mono uppercase text-muted-foreground">
+                      {item.technologies.map((tech) => (
+                        <span key={tech} className="inline-flex items-center gap-1.5 text-foreground">
+                          <TechIcon name={tech} className="h-3.5 w-3.5 text-muted-foreground" />
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -148,8 +155,13 @@ export default function AboutPage() {
                   </ul>
 
                   {item.technologies && item.technologies.length > 0 && (
-                    <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground pt-3">
-                      Stack: {item.technologies.join(" / ")}
+                    <div className="flex flex-wrap gap-4 pt-3 text-xs font-mono uppercase text-muted-foreground">
+                      {item.technologies.map((tech) => (
+                        <span key={tech} className="inline-flex items-center gap-1.5 text-foreground">
+                          <TechIcon name={tech} className="h-3.5 w-3.5 text-muted-foreground" />
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -158,7 +170,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Technical Taxonomy (Borderless Typographic Grid) */}
+        {/* Technical Taxonomy with Icons */}
         <div className="space-y-12 pt-8">
           <div className="border-b border-foreground pb-4">
             <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-foreground">
@@ -168,12 +180,20 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {skillCategories.map((cat) => (
-              <div key={cat.category} className="space-y-3 border-t border-border/40 pt-4">
+              <div key={cat.category} className="space-y-4 border-t border-border/40 pt-6">
                 <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                   {cat.category}
                 </div>
-                <div className="text-base font-medium text-foreground tracking-tight leading-relaxed">
-                  {cat.skills.join("  /  ")}
+                <div className="flex flex-wrap gap-x-6 gap-y-3">
+                  {cat.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-foreground"
+                    >
+                      <TechIcon name={skill} className="h-4 w-4 text-muted-foreground" />
+                      {skill}
+                    </span>
+                  ))}
                 </div>
               </div>
             ))}

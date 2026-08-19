@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight, ArrowRight, CheckCircle2 } from "lucide-react"
+import { TechIcon } from "@/components/tech-icon"
 import { flagshipProjects } from "@/data"
 
 interface ProjectPageProps {
@@ -163,13 +164,11 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <h3 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             Technologies & Infrastructure
           </h3>
-          <div className="flex flex-wrap gap-4 text-sm font-mono uppercase tracking-wider text-foreground">
-            {project.technologies.map((tech, idx) => (
-              <span key={tech} className="inline-flex items-center gap-4">
+          <div className="flex flex-wrap gap-6 text-sm font-mono uppercase tracking-wider text-foreground">
+            {project.technologies.map((tech) => (
+              <span key={tech} className="inline-flex items-center gap-2">
+                <TechIcon name={tech} className="h-4 w-4 text-muted-foreground" />
                 <span>{tech}</span>
-                {idx < project.technologies.length - 1 && (
-                  <span className="text-muted-foreground">/</span>
-                )}
               </span>
             ))}
           </div>
