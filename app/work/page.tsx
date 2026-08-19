@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react"
-import { TechIcon } from "@/components/tech-icon"
 import { flagshipProjects, clientWebsites } from "@/data"
 
 export const metadata = {
@@ -8,12 +7,19 @@ export const metadata = {
   description: "Production software systems, ERP platforms, and collaborative applications architected and developed by Mohammed Rinshad P.",
 }
 
+const projectAccents: { [key: string]: { dot: string; label: string } } = {
+  edubyte: { dot: "bg-emerald-500", label: "Production ERP" },
+  byteflow: { dot: "bg-indigo-500", label: "Internal Platform" },
+  "crusher-erp": { dot: "bg-amber-500", label: "In Development" },
+  byteballot: { dot: "bg-sky-500", label: "Public Simulator" },
+}
+
 export default function WorkPage() {
   return (
     <main className="py-16 lg:py-24 space-y-28">
       <div className="container max-w-6xl px-6 space-y-24">
         {/* Page Header */}
-        <div className="max-w-4xl space-y-6 border-b border-border/50 pb-12">
+        <div className="max-w-4xl space-y-4 border-b border-border/50 pb-12">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             Portfolio / 04 Flagships • 03 Websites
           </div>
@@ -22,17 +28,18 @@ export default function WorkPage() {
             <br />
             Systems
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
-            Production ERPs, workflow platforms, and custom business systems engineered for scale, reliability, and usability.
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl font-normal">
+            Production ERPs, workflow platforms, and custom business systems engineered for reliability and scale.
           </p>
         </div>
 
-        {/* Flagship Projects - Editorial Showcase Stages */}
+        {/* Flagship Projects - Curated Editorial Showcase */}
         <div className="space-y-32">
           {flagshipProjects.map((project, idx) => {
             const isEven = idx % 2 === 0
             const isLive = Boolean(project.liveUrl)
             const projectNumber = `0${idx + 1} / 0${flagshipProjects.length}`
+            const accent = projectAccents[project.id] || { dot: "bg-foreground", label: project.category }
 
             return (
               <div
@@ -41,12 +48,15 @@ export default function WorkPage() {
               >
                 {/* Content Column */}
                 <div
-                  className={`lg:col-span-5 space-y-6 ${
+                  className={`lg:col-span-5 space-y-5 ${
                     isEven ? "lg:order-1" : "lg:order-2"
                   }`}
                 >
-                  <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                    {projectNumber} • {project.category}
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                    <span className={`h-2 w-2 rounded-full ${accent.dot}`} />
+                    <span>{projectNumber}</span>
+                    <span>•</span>
+                    <span>{accent.label}</span>
                   </div>
 
                   <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground uppercase">
@@ -57,17 +67,9 @@ export default function WorkPage() {
                     {project.summary}
                   </p>
 
-                  <div className="text-xs font-mono uppercase tracking-wider text-muted-foreground pt-2 space-y-2">
+                  <div className="text-xs font-mono text-muted-foreground pt-1 space-y-1">
                     <div>Role: {project.role}</div>
                     <div>Status: {project.statusText}</div>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
-                      {project.technologies.map((tech) => (
-                        <span key={tech} className="inline-flex items-center gap-1.5 text-foreground">
-                          <TechIcon name={tech} className="h-3.5 w-3.5 text-muted-foreground" />
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
                   <div className="pt-4 flex items-center gap-6">
@@ -75,7 +77,7 @@ export default function WorkPage() {
                       href={`/work/${project.id}`}
                       className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 hover:opacity-75 transition-opacity"
                     >
-                      Case Study
+                      View Case Study
                       <ArrowRight className="h-4 w-4" />
                     </Link>
 
@@ -84,7 +86,7 @@ export default function WorkPage() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
                       >
                         Live System
                         <ArrowUpRight className="h-3.5 w-3.5" />
@@ -117,7 +119,7 @@ export default function WorkPage() {
                     </div>
 
                     {/* Window Visual Body */}
-                    <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-4 min-h-[280px] bg-gradient-to-br from-card to-muted/30">
+                    <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-3 min-h-[280px] bg-gradient-to-br from-card to-muted/30">
                       <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                         {project.typeLabel}
                       </div>
@@ -136,8 +138,8 @@ export default function WorkPage() {
         </div>
 
         {/* Supporting Commercial Client Websites */}
-        <div className="pt-20 border-t border-border/60 space-y-12">
-          <div className="max-w-xl space-y-2">
+        <div className="pt-20 border-t border-border/60 space-y-10">
+          <div className="max-w-xl space-y-1">
             <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
               Commercial Client Web Platforms
             </div>
@@ -153,7 +155,7 @@ export default function WorkPage() {
             {clientWebsites.map((site) => (
               <div
                 key={site.id}
-                className="group border-t-2 border-foreground pt-6 space-y-4 flex flex-col justify-between"
+                className="group border-t-2 border-foreground pt-6 space-y-3 flex flex-col justify-between"
               >
                 <div className="space-y-2">
                   <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
@@ -168,8 +170,8 @@ export default function WorkPage() {
                 </div>
 
                 <div className="pt-4 border-t border-border/40 flex items-center justify-between">
-                  <span className="text-[11px] font-mono uppercase text-muted-foreground">
-                    Role: Planning + Deployment
+                  <span className="text-[11px] font-mono text-muted-foreground">
+                    Planning + Deployment
                   </span>
                   {site.liveUrl && (
                     <a

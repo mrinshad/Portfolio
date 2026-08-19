@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
-import { profileData, flagshipProjects } from "@/data"
+import { flagshipProjects } from "@/data"
 
 const heroMarqueeItems = [
   "SYSTEMS ARCHITECTURE",
@@ -17,14 +17,15 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      {/* 1. Massive Typographic Hero */}
+      {/* 1. Refined Typographic Hero */}
       <section
         aria-label="Introduction"
-        className="relative flex min-h-[calc(85vh-5rem)] flex-col justify-between py-16 lg:py-24"
+        className="relative flex min-h-[calc(80vh-5rem)] flex-col justify-between py-16 lg:py-24"
       >
-        <div className="container max-w-6xl px-6 my-auto space-y-12">
+        <div className="container max-w-6xl px-6 my-auto space-y-10">
           <div className="space-y-6">
-            <div className="inline-block text-xs font-mono tracking-widest uppercase text-muted-foreground">
+            <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               Full-Stack Software Engineer & Technical Lead
             </div>
 
@@ -34,23 +35,23 @@ export default function Home() {
               Rinshad P
             </h1>
 
-            <p className="text-xl sm:text-2xl lg:text-3xl text-foreground/90 font-medium tracking-tight max-w-3xl leading-snug pt-4">
-              Architecting scalable software systems, enterprise ERPs, and cloud-native web applications.
+            <p className="text-xl sm:text-2xl text-muted-foreground font-normal max-w-2xl leading-relaxed pt-2">
+              Full-Stack Developer at <span className="text-foreground font-semibold">Tata Consultancy Services</span> & Technical Lead at <span className="text-foreground font-semibold">ByteN</span>. Architecting scalable ERP platforms and production web systems.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-8 pt-4 border-t border-border/50">
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground hover:underline underline-offset-8"
+              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground hover:underline underline-offset-8"
             >
               Explore Selected Systems
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 text-emerald-500" />
             </Link>
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 text-base font-medium text-muted-foreground hover:text-foreground hover:underline underline-offset-8"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               About & Experience
               <ArrowUpRight className="h-4 w-4" />
@@ -58,7 +59,7 @@ export default function Home() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 text-base font-medium text-muted-foreground hover:text-foreground hover:underline underline-offset-8"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Contact
               <ArrowUpRight className="h-4 w-4" />
@@ -67,7 +68,7 @@ export default function Home() {
         </div>
 
         {/* Continuous Monochrome Ticker */}
-        <div className="w-full border-y border-border/40 py-4 mt-16 overflow-hidden marquee-container">
+        <div className="w-full border-y border-border/40 py-4 mt-12 overflow-hidden marquee-container">
           <div className="flex w-max items-center gap-10 animate-marquee">
             {[...heroMarqueeItems, ...heroMarqueeItems, ...heroMarqueeItems].map(
               (item, index) => (
@@ -76,7 +77,7 @@ export default function Home() {
                   className="flex items-center gap-10 text-xs font-mono tracking-widest text-muted-foreground uppercase whitespace-nowrap"
                 >
                   <span>{item}</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-foreground/40" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/60" />
                 </div>
               )
             )}
@@ -84,11 +85,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Inverted Contrast Showcase Section (Black in Light Mode, White in Dark Mode) */}
-      <section className="py-28 bg-black text-white dark:bg-white dark:text-black border-y border-zinc-800 dark:border-zinc-300 transition-colors duration-300">
+      {/* 2. Inverted Contrast Featured Systems Section */}
+      <section className="py-24 bg-black text-white dark:bg-white dark:text-black border-y border-zinc-800 dark:border-zinc-300 transition-colors duration-300">
         <div className="container max-w-6xl px-6 space-y-20">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-zinc-800 dark:border-zinc-300 pb-8">
-            <div className="space-y-2">
+            <div className="space-y-1">
               <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
                 Featured Work / 01 — 02
               </div>
@@ -105,8 +106,8 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Large Editorial Showcase Rows */}
-          <div className="space-y-28">
+          {/* Curated Editorial Rows */}
+          <div className="space-y-24">
             {featuredTwo.map((project, idx) => {
               const projectNumber = `0${idx + 1} / 0${flagshipProjects.length}`
 
@@ -116,7 +117,7 @@ export default function Home() {
                   className="group grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
                 >
                   {/* Text Column */}
-                  <div className="lg:col-span-5 space-y-6">
+                  <div className="lg:col-span-5 space-y-5">
                     <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
                       {projectNumber} • {project.category}
                     </div>
@@ -129,11 +130,11 @@ export default function Home() {
                       {project.summary}
                     </p>
 
-                    <div className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-600 pt-2">
-                      Stack: {project.technologies.slice(0, 4).join(" / ")}
+                    <div className="text-xs font-mono text-zinc-400 dark:text-zinc-600 pt-1">
+                      Role: {project.role}
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-3">
                       <Link
                         href={`/work/${project.id}`}
                         className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white dark:text-black border-b border-white dark:border-black pb-1 hover:opacity-80 transition-opacity"
@@ -164,7 +165,7 @@ export default function Home() {
                       </div>
 
                       {/* Visual Interface Canvas */}
-                      <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-4 min-h-[260px] bg-gradient-to-br from-zinc-900 to-black dark:from-zinc-100 dark:to-white">
+                      <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-3 min-h-[260px] bg-gradient-to-br from-zinc-900 to-black dark:from-zinc-100 dark:to-white">
                         <div className="text-xs font-mono uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
                           Production Platform
                         </div>
@@ -172,7 +173,7 @@ export default function Home() {
                           {project.name}
                         </div>
                         <div className="text-xs font-mono text-zinc-400 dark:text-zinc-600">
-                          Role: {project.role}
+                          {project.category}
                         </div>
                       </div>
                     </Link>
@@ -184,11 +185,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Editorial Gateway Row */}
+      {/* 3. Streamlined Gateway Section */}
       <section className="py-24 border-b border-border/40">
         <div className="container max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-4 border-l-2 border-foreground pl-6">
+            <div className="space-y-3 border-l-2 border-foreground pl-6">
               <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                 Career Track Record
               </div>
@@ -196,7 +197,7 @@ export default function Home() {
                 Engineering & Leadership
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Full-Stack Developer at Tata Consultancy Services (TCS), with technical leadership and consulting experience at ByteN.
+                Full-Stack Developer at TCS with technical leadership & consulting experience at ByteN.
               </p>
               <div className="pt-2">
                 <Link
@@ -208,7 +209,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="space-y-4 border-l-2 border-foreground pl-6">
+            <div className="space-y-3 border-l-2 border-foreground pl-6">
               <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                 Inquiries & Roles
               </div>
