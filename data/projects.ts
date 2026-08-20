@@ -99,6 +99,7 @@ export const clientWebsites: ProjectItem[] = [
     typeLabel: "Client Website",
     statusText: "Live",
     liveUrl: "https://www.kidscoveozhukur.in/",
+    image: "/assets/projects/kidscove-preview.jpg",
     summary:
       "Institutional web presence and public portal for Kids covE School of Excellence.",
     scopeHighlights: [
@@ -117,6 +118,7 @@ export const clientWebsites: ProjectItem[] = [
     typeLabel: "Client Website",
     statusText: "Live",
     liveUrl: "https://www.skyrallp.com/",
+    image: "/assets/projects/skyra-preview.jpg",
     summary:
       "Corporate web presence for an education and career consulting organization.",
     scopeHighlights: [
@@ -135,6 +137,7 @@ export const clientWebsites: ProjectItem[] = [
     typeLabel: "Client Website",
     statusText: "Live",
     liveUrl: "https://www.salichef.com/",
+    image: "/assets/projects/salichef-preview.jpg",
     summary:
       "Brand presence and portfolio platform for a culinary consulting business.",
     scopeHighlights: [
