@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { HeroAurora } from "@/components/hero-aurora"
 import { Hero3DObject } from "@/components/hero-3d-object"
+import { HeroPointerGlow } from "@/components/hero-pointer-glow"
 import { flagshipProjects } from "@/data"
 
 const heroMarqueeItems = [
@@ -25,6 +26,7 @@ export default function Home() {
         className="relative flex min-h-[calc(80vh-5rem)] flex-col justify-between py-16 lg:py-24 overflow-hidden"
       >
         <HeroAurora />
+        <HeroPointerGlow />
         <Hero3DObject />
         <div className="container max-w-6xl px-6 my-auto space-y-10 relative z-10">
           <div className="space-y-6">
