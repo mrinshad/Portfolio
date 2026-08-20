@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function WorkPage() {
   return (
-    <main className="py-16 lg:py-24 space-y-24">
+    <main className="py-16 lg:py-20 space-y-12">
       {/* Page Header */}
       <div className="container max-w-6xl px-6 space-y-4 border-b border-border/50 pb-12">
         <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
@@ -31,7 +31,7 @@ export default function WorkPage() {
       <HorizontalWorkShowcase />
 
       {/* 2. Supporting Commercial Client Websites */}
-      <div className="container max-w-6xl px-6 pt-16 border-t border-border/50 space-y-10">
+      <div className="container max-w-6xl px-6 pt-10 border-t border-border/50 space-y-10">
         <div className="max-w-xl space-y-1">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             Commercial Client Web Platforms

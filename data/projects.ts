@@ -26,6 +26,7 @@ export const flagshipProjects: ProjectItem[] = [
       "Shadcn/UI",
     ],
     role: "Full-Stack Architecture & Development",
+    image: "/assets/projects/edubyte-preview.jpg",
     isFlagship: true,
   },
   {
@@ -45,6 +46,7 @@ export const flagshipProjects: ProjectItem[] = [
     ],
     technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL"],
     role: "System Design & Full-Stack Development",
+    image: "/assets/projects/byteflow-preview.jpg",
     isFlagship: true,
   },
   {
@@ -63,6 +65,7 @@ export const flagshipProjects: ProjectItem[] = [
     ],
     technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL"],
     role: "System Architecture & Full-Stack Development",
+    image: "/assets/projects/crusher-preview.jpg",
     isFlagship: true,
   },
   {
@@ -82,6 +85,7 @@ export const flagshipProjects: ProjectItem[] = [
     ],
     technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL"],
     role: "Full-Stack Development & Product Design",
+    image: "/assets/projects/byteballot-preview.jpg",
     isFlagship: true,
   },
 ]

@@ -20,6 +20,7 @@ export interface ProjectItem {
   repositoryUrl?: string
   role: string
   client?: string
+  image?: string
   isFlagship: boolean
   isClientWebsite?: boolean
 }

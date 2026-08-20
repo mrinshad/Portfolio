@@ -161,9 +161,9 @@ export default function Home() {
                       {/* Window Header */}
                       <div className="flex items-center justify-between border-b border-border/80 bg-muted/40 px-5 py-3.5">
                         <div className="flex items-center gap-2">
-                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30 group-hover:bg-rose-500 transition-colors duration-300" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30 group-hover:bg-amber-400 transition-colors duration-300" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30 group-hover:bg-emerald-500 transition-colors duration-300" />
                         </div>
                         <span className="text-[11px] font-mono text-muted-foreground">
                           {project.id}.byten.in / production
