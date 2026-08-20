@@ -347,18 +347,18 @@ export default function AboutPage() {
           <div className="flex items-center gap-4">
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-background bg-foreground px-6 py-4 hover:bg-accentBlue hover:text-white transition-colors"
+              className="group/work inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-background bg-foreground px-6 py-4 hover:bg-accentBlue hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
             >
-              Selected Systems
-              <ArrowRight className="h-4 w-4" />
+              <span>Selected Systems</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/work:translate-x-1" />
             </Link>
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground border border-border px-6 py-4 hover:border-foreground transition-colors"
+              className="group/contact inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground border border-border px-6 py-4 hover:border-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
             >
-              Get in Touch
-              <ArrowUpRight className="h-4 w-4" />
+              <span>Get in Touch</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/contact:translate-x-0.5 group-hover/contact:-translate-y-0.5" />
             </Link>
           </div>
         </div>

@@ -50,26 +50,26 @@ export default function Home() {
           <div className="flex flex-wrap items-center gap-8 pt-4 border-t border-border/50">
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline underline-offset-8 decoration-accentBlue transition-colors"
+              className="group/hero-cta inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline underline-offset-8 decoration-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
             >
-              Explore Selected Systems
-              <ArrowRight className="h-4 w-4 text-accentBlue" />
+              <span>Explore Selected Systems</span>
+              <ArrowRight className="h-4 w-4 text-accentBlue transition-transform duration-200 ease-out group-hover/hero-cta:translate-x-1" />
             </Link>
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="group/hero-about inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
             >
-              About & Experience
-              <ArrowUpRight className="h-4 w-4" />
+              <span>About & Experience</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/hero-about:translate-x-0.5 group-hover/hero-about:-translate-y-0.5" />
             </Link>
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="group/hero-contact inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
             >
-              Contact
-              <ArrowUpRight className="h-4 w-4" />
+              <span>Contact</span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/hero-contact:translate-x-0.5 group-hover/hero-contact:-translate-y-0.5" />
             </Link>
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function Home() {
 
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue hover:underline underline-offset-8 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue hover:underline underline-offset-8 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
             >
               View All Systems ({flagshipProjects.length}) →
             </Link>
@@ -145,10 +145,10 @@ export default function Home() {
                     <div className="pt-3">
                       <Link
                         href={`/work/${project.id}`}
-                        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b border-foreground pb-1 hover:text-accentBlue hover:border-accentBlue transition-colors"
+                        className="group/cs inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b border-foreground pb-1 hover:text-accentBlue hover:border-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
                       >
-                        Read Case Study
-                        <ArrowRight className="h-4 w-4 text-accentBlue" />
+                        <span>Read Case Study</span>
+                        <ArrowRight className="h-4 w-4 text-accentBlue transition-transform duration-200 ease-out group-hover/cs:translate-x-1" />
                       </Link>
                     </div>
                   </div>
@@ -168,7 +168,7 @@ export default function Home() {
       <section className="py-24 border-b border-border/40">
         <div className="container max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-3 border-l-2 border-foreground pl-6 hover:border-accentBlue transition-colors">
+            <div className="space-y-3 border-l-2 border-foreground pl-6 hover:border-accentBlue transition-colors duration-200">
               <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                 Career Track Record
               </div>
@@ -181,29 +181,31 @@ export default function Home() {
               <div className="pt-2">
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors"
+                  className="group/gw inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
                 >
-                  Read Background & Experience →
+                  <span>Read Background & Experience</span>
+                  <span className="transition-transform duration-200 ease-out group-hover/gw:translate-x-1">→</span>
                 </Link>
               </div>
             </div>
 
-            <div className="space-y-3 border-l-2 border-foreground pl-6 hover:border-accentBlue transition-colors">
+            <div className="space-y-3 border-l-2 border-foreground pl-6 hover:border-accentBlue transition-colors duration-200">
               <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                Inquiries & Roles
+                Direct Communication
               </div>
               <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground uppercase">
                 Start a Conversation
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Available for software architecture consultation, custom ERP development, and technical leadership roles.
+                Available for software architecture consultation, custom ERP development, and technical engineering roles.
               </p>
               <div className="pt-2">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors"
+                  className="group/gc inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
                 >
-                  Get in Touch Directly →
+                  <span>Get in Touch Directly</span>
+                  <span className="transition-transform duration-200 ease-out group-hover/gc:translate-x-1">→</span>
                 </Link>
               </div>
             </div>

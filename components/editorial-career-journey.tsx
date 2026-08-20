@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { careerProgression, ExperienceItem } from "@/data"
+import { careerProgression } from "@/data"
 import { TechIcon } from "./tech-icon"
 
 const experienceStories: {
@@ -35,12 +35,6 @@ const experienceStories: {
       "Contributing to internal enterprise applications, engineering frontend forms and workflows, integrating REST APIs, refactoring codebases for long-term maintainability, and administering Linux (RHEL) server environments.",
     techHighlight: ["React", "JavaScript", "Linux (RHEL)", "REST APIs"],
   },
-  byten: {
-    lead: "Technical Leadership & System Architecture",
-    summary:
-      "Leading technical architecture and end-to-end development of custom ERP, accounting, and simulation platforms. Designing normalized PostgreSQL schemas, REST APIs, RBAC authorization, and engineering guidelines.",
-    techHighlight: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL", "System Design"],
-  },
 }
 
 export function EditorialCareerJourney() {
@@ -57,36 +51,34 @@ export function EditorialCareerJourney() {
     return () => query.removeEventListener("change", onChange)
   }, [])
 
-  // Scroll Observer: Detects which milestone is currently in the reading focal zone
+  // Robust Scroll-Driven Focus Tracking
   React.useEffect(() => {
     if (isReducedMotion) return
 
-    const observers: IntersectionObserver[] = []
+    const handleScroll = () => {
+      const focalLine = window.innerHeight * 0.45
+      let closestIdx = 0
+      let minDistance = Infinity
 
-    itemRefs.current.forEach((el, index) => {
-      if (!el) return
+      itemRefs.current.forEach((el, index) => {
+        if (!el) return
+        const rect = el.getBoundingClientRect()
+        const elementCenter = rect.top + rect.height * 0.35
+        const distance = Math.abs(elementCenter - focalLine)
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveIndex(index)
-            }
-          })
-        },
-        {
-          rootMargin: "-25% 0px -40% 0px",
-          threshold: 0.2,
+        if (distance < minDistance) {
+          minDistance = distance
+          closestIdx = index
         }
-      )
+      })
 
-      observer.observe(el)
-      observers.push(observer)
-    })
-
-    return () => {
-      observers.forEach((obs) => obs.disconnect())
+      setActiveIndex(closestIdx)
     }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [isReducedMotion])
 
   return (
@@ -112,15 +104,15 @@ export function EditorialCareerJourney() {
             }}
             tabIndex={0}
             onFocus={() => setActiveIndex(idx)}
-            className={`relative py-6 sm:py-8 border-b border-border/40 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start transition-all duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-4 rounded-xl ${
+            className={`relative py-6 sm:py-8 border-b border-border/40 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-4 rounded-xl ${
               isActive || isReducedMotion
                 ? "opacity-100 translate-x-1 sm:translate-x-2"
-                : "opacity-45 hover:opacity-80 translate-x-0"
+                : "opacity-40 hover:opacity-80 translate-x-0"
             }`}
           >
             {/* Progression Node Marker */}
             <div
-              className={`absolute -left-[30px] sm:-left-[46px] top-8 sm:top-10 h-3.5 w-3.5 rounded-full border-2 transition-all duration-500 ${
+              className={`absolute -left-[30px] sm:-left-[46px] top-8 sm:top-10 h-3.5 w-3.5 rounded-full border-2 transition-all duration-300 ${
                 isActive && !isReducedMotion
                   ? "border-accentBlue bg-accentBlue ring-4 ring-accentBlue/25 scale-125"
                   : "border-muted-foreground/50 bg-background"
@@ -131,7 +123,7 @@ export function EditorialCareerJourney() {
             <div className="lg:col-span-4 space-y-2">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest">
                 <span
-                  className={`font-bold transition-colors duration-300 ${
+                  className={`font-bold transition-colors duration-200 ${
                     isActive ? "text-accentBlue" : "text-muted-foreground"
                   }`}
                 >
@@ -139,7 +131,7 @@ export function EditorialCareerJourney() {
                 </span>
                 <span className="text-muted-foreground">/</span>
                 <span
-                  className={`transition-colors duration-300 ${
+                  className={`transition-colors duration-200 ${
                     isActive ? "text-foreground font-semibold" : "text-muted-foreground"
                   }`}
                 >
@@ -151,7 +143,7 @@ export function EditorialCareerJourney() {
               </div>
 
               <h3
-                className={`text-2xl sm:text-3xl font-black uppercase tracking-tight transition-colors duration-300 ${
+                className={`text-2xl sm:text-3xl font-black uppercase tracking-tight transition-colors duration-200 ${
                   isActive ? "text-foreground" : "text-muted-foreground"
                 }`}
               >
@@ -159,7 +151,7 @@ export function EditorialCareerJourney() {
               </h3>
 
               <div
-                className={`text-sm font-medium transition-colors duration-300 ${
+                className={`text-sm font-medium transition-colors duration-200 ${
                   isActive ? "text-foreground/90 font-semibold" : "text-muted-foreground"
                 }`}
               >
@@ -174,7 +166,7 @@ export function EditorialCareerJourney() {
             {/* Right Editorial Story & Technologies (8 cols) */}
             <div className="lg:col-span-8 space-y-4">
               <div
-                className={`text-xs font-mono uppercase tracking-wider font-semibold transition-colors duration-300 ${
+                className={`text-xs font-mono uppercase tracking-wider font-semibold transition-colors duration-200 ${
                   isActive ? "text-accentBlue" : "text-muted-foreground"
                 }`}
               >
@@ -182,7 +174,7 @@ export function EditorialCareerJourney() {
               </div>
 
               <p
-                className={`text-base sm:text-lg leading-relaxed transition-colors duration-300 ${
+                className={`text-base sm:text-lg leading-relaxed transition-colors duration-200 ${
                   isActive ? "text-foreground/90 font-normal" : "text-muted-foreground"
                 }`}
               >
@@ -193,7 +185,7 @@ export function EditorialCareerJourney() {
                 {story.techHighlight.map((tech, tIdx) => (
                   <span
                     key={tIdx}
-                    className={`inline-flex items-center gap-1.5 transition-colors duration-300 ${
+                    className={`inline-flex items-center gap-1.5 transition-colors duration-200 ${
                       isActive ? "text-foreground font-medium" : "text-muted-foreground"
                     }`}
                   >
