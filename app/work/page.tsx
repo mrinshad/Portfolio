@@ -7,20 +7,14 @@ export const metadata = {
   description: "Production software systems, ERP platforms, and collaborative applications architected and developed by Mohammed Rinshad P.",
 }
 
-const projectAccents: { [key: string]: { dot: string; label: string } } = {
-  edubyte: { dot: "bg-emerald-500", label: "Production ERP" },
-  byteflow: { dot: "bg-indigo-500", label: "Internal Platform" },
-  "crusher-erp": { dot: "bg-amber-500", label: "In Development" },
-  byteballot: { dot: "bg-sky-500", label: "Public Simulator" },
-}
-
 export default function WorkPage() {
   return (
     <main className="py-16 lg:py-24 space-y-28">
       <div className="container max-w-6xl px-6 space-y-24">
         {/* Page Header */}
         <div className="max-w-4xl space-y-4 border-b border-border/50 pb-12">
-          <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
             Portfolio / 04 Flagships • 03 Websites
           </div>
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
@@ -39,7 +33,6 @@ export default function WorkPage() {
             const isEven = idx % 2 === 0
             const isLive = Boolean(project.liveUrl)
             const projectNumber = `0${idx + 1} / 0${flagshipProjects.length}`
-            const accent = projectAccents[project.id] || { dot: "bg-foreground", label: project.category }
 
             return (
               <div
@@ -53,13 +46,13 @@ export default function WorkPage() {
                   }`}
                 >
                   <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                    <span className={`h-2 w-2 rounded-full ${accent.dot}`} />
+                    <span className="h-2 w-2 rounded-full bg-accentBlue" />
                     <span>{projectNumber}</span>
                     <span>•</span>
-                    <span>{accent.label}</span>
+                    <span>{project.category}</span>
                   </div>
 
-                  <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground uppercase">
+                  <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground uppercase group-hover:text-foreground/90 transition-colors">
                     {project.name}
                   </h2>
 
@@ -75,10 +68,10 @@ export default function WorkPage() {
                   <div className="pt-4 flex items-center gap-6">
                     <Link
                       href={`/work/${project.id}`}
-                      className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 hover:opacity-75 transition-opacity"
+                      className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 hover:text-accentBlue hover:border-accentBlue transition-colors"
                     >
                       View Case Study
-                      <ArrowRight className="h-4 w-4" />
+                      <ArrowRight className="h-4 w-4 text-accentBlue" />
                     </Link>
 
                     {isLive && (
@@ -86,7 +79,7 @@ export default function WorkPage() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors"
                       >
                         Live System
                         <ArrowUpRight className="h-3.5 w-3.5" />
@@ -103,7 +96,7 @@ export default function WorkPage() {
                 >
                   <Link
                     href={`/work/${project.id}`}
-                    className="block overflow-hidden rounded-xl border border-border bg-card shadow-xl transition-all duration-300 group-hover:scale-[1.02] group-hover:border-foreground/40"
+                    className="block overflow-hidden rounded-xl border border-border bg-card shadow-xl transition-all duration-300 group-hover:scale-[1.02] group-hover:border-accentBlue/60"
                   >
                     {/* Window Title Bar */}
                     <div className="flex items-center justify-between border-b border-border/80 bg-muted/40 px-5 py-3.5">
@@ -155,7 +148,7 @@ export default function WorkPage() {
             {clientWebsites.map((site) => (
               <div
                 key={site.id}
-                className="group border-t-2 border-foreground pt-6 space-y-3 flex flex-col justify-between"
+                className="group border-t-2 border-foreground pt-6 space-y-3 flex flex-col justify-between hover:border-accentBlue transition-colors"
               >
                 <div className="space-y-2">
                   <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
@@ -178,7 +171,7 @@ export default function WorkPage() {
                       href={site.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-bold uppercase tracking-wider text-foreground hover:underline inline-flex items-center gap-1"
+                      className="text-xs font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-1 transition-colors"
                     >
                       Visit
                       <ExternalLink className="h-3.5 w-3.5" />

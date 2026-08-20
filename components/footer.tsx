@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Linkedin, Github, Mail, Phone, ArrowUpRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 import { profileData } from "@/data"
 
 const footerLinks = [
@@ -18,7 +18,7 @@ export function Footer() {
           <div className="space-y-3">
             <Link
               href="/"
-              className="font-dancing text-4xl font-bold tracking-wider text-foreground hover:opacity-80 transition-opacity inline-block"
+              className="font-dancing text-4xl font-bold tracking-wider text-foreground hover:text-accentBlue transition-colors inline-block"
               aria-label="Back to home"
             >
               m.rinshad
@@ -33,7 +33,7 @@ export function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground hover:underline transition-colors"
+                className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue hover:underline transition-colors"
               >
                 {link.name}
               </Link>
@@ -47,7 +47,7 @@ export function Footer() {
               href={profileData.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+              className="hover:text-accentBlue transition-colors inline-flex items-center gap-1"
             >
               LinkedIn <ArrowUpRight className="h-3 w-3" />
             </a>
@@ -55,13 +55,13 @@ export function Footer() {
               href={profileData.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+              className="hover:text-accentBlue transition-colors inline-flex items-center gap-1"
             >
               GitHub <ArrowUpRight className="h-3 w-3" />
             </a>
             <a
               href={`mailto:${profileData.email}`}
-              className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+              className="hover:text-accentBlue transition-colors inline-flex items-center gap-1"
             >
               Email <ArrowUpRight className="h-3 w-3" />
             </a>

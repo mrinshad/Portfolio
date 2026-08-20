@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, ArrowUpRight, ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { flagshipProjects } from "@/data"
 
@@ -34,7 +34,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div>
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to Selected Work
@@ -43,7 +43,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
         {/* Hero Header */}
         <div className="space-y-6 border-b border-border/50 pb-12">
-          <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
             {projectNumber} • {project.category}
           </div>
 
@@ -61,7 +62,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-8 py-4 rounded-none hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-8 py-4 rounded-none hover:bg-accentBlue hover:text-white transition-colors"
               >
                 Launch Live System
                 <ArrowUpRight className="h-4 w-4" />
@@ -146,9 +147,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             {project.scopeHighlights.map((highlight, idx) => (
               <div
                 key={idx}
-                className="border-t border-border/50 pt-6 flex items-start gap-4"
+                className="border-t border-border/50 pt-6 flex items-start gap-4 group"
               >
-                <span className="font-mono text-sm font-bold text-muted-foreground mt-0.5">
+                <span className="font-mono text-sm font-bold text-accentBlue mt-0.5">
                   0{idx + 1}
                 </span>
                 <p className="text-lg text-foreground/90 leading-relaxed">
@@ -166,7 +167,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </h3>
           <div className="flex flex-wrap gap-6 text-sm font-mono uppercase tracking-wider text-foreground">
             {project.technologies.map((tech) => (
-              <span key={tech} className="inline-flex items-center gap-2">
+              <span key={tech} className="inline-flex items-center gap-2 hover:text-accentBlue transition-colors">
                 <TechIcon name={tech} className="h-4 w-4 text-muted-foreground" />
                 <span>{tech}</span>
               </span>
@@ -178,17 +179,17 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="pt-20 border-t-2 border-foreground flex items-center justify-between">
           <Link
             href="/work"
-            className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground"
+            className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors"
           >
             ← All Systems
           </Link>
 
           <Link
             href={`/work/${nextProject.id}`}
-            className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground hover:underline"
+            className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors"
           >
             Next: {nextProject.name}
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 text-accentBlue" />
           </Link>
         </div>
       </div>

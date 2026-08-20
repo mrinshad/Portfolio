@@ -48,7 +48,7 @@ export function Navbar() {
                   href={link.href}
                   className={`text-sm tracking-tight transition-colors ${
                     isActive
-                      ? "text-foreground font-bold underline underline-offset-8"
+                      ? "text-foreground font-bold underline underline-offset-8 decoration-accentBlue decoration-2"
                       : "text-muted-foreground hover:text-foreground font-medium"
                   }`}
                 >
@@ -62,7 +62,7 @@ export function Navbar() {
             <ThemeToggle />
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-foreground hover:underline"
+              className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-foreground hover:text-accentBlue transition-colors"
             >
               Get in Touch
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -95,7 +95,9 @@ export function Navbar() {
                   href="/"
                   onClick={() => setIsOpen(false)}
                   className={`text-lg font-bold tracking-tight ${
-                    pathname === "/" ? "text-foreground underline underline-offset-4" : "text-muted-foreground"
+                    pathname === "/"
+                      ? "text-foreground underline underline-offset-4 decoration-accentBlue decoration-2"
+                      : "text-muted-foreground"
                   }`}
                 >
                   Home
@@ -109,7 +111,9 @@ export function Navbar() {
                       href={link.href}
                       onClick={() => setIsOpen(false)}
                       className={`text-lg font-bold tracking-tight ${
-                        isActive ? "text-foreground underline underline-offset-4" : "text-muted-foreground"
+                        isActive
+                          ? "text-foreground underline underline-offset-4 decoration-accentBlue decoration-2"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {link.name}
@@ -120,7 +124,7 @@ export function Navbar() {
                   <Link
                     href="/contact"
                     onClick={() => setIsOpen(false)}
-                    className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-foreground font-bold"
+                    className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-foreground font-bold hover:text-accentBlue transition-colors"
                   >
                     Contact Rinshad
                     <ArrowUpRight className="h-4 w-4" />

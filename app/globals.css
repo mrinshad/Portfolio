@@ -22,11 +22,12 @@
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 88%;
     --input: 0 0% 85%;
-    --ring: 0 0% 9%;
     --radius: 0.25rem;
 
-    /* Status Accent */
-    --status-emerald: 158 64% 45%;
+    /* Restrained Electric Blue Accent */
+    --accent-blue: 221 83% 53%;
+    --accent-blue-foreground: 0 0% 100%;
+    --ring: 221 83% 53%;
   }
 
   .dark {
@@ -48,10 +49,11 @@
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 16%;
     --input: 0 0% 18%;
-    --ring: 0 0% 80%;
 
-    /* Status Accent */
-    --status-emerald: 158 64% 52%;
+    /* Restrained Electric Blue Accent */
+    --accent-blue: 217 91% 60%;
+    --accent-blue-foreground: 0 0% 100%;
+    --ring: 217 91% 60%;
   }
 
   * {
@@ -101,7 +103,7 @@
 
 .editorial-input:focus {
   outline: none;
-  border-bottom-color: hsl(var(--foreground));
+  border-bottom-color: hsl(var(--accent-blue));
 }
 
 /* Reduced Motion Support */

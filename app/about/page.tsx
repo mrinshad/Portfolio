@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, Calendar, MapPin } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { profileData, leadershipExperience, employmentExperience, skillCategories, educationData } from "@/data"
 
@@ -42,7 +42,7 @@ export default function AboutPage() {
       {/* 1. Header Section */}
       <div className="container max-w-5xl px-6 space-y-6">
         <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
           About Rinshad
         </div>
         <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
@@ -64,7 +64,7 @@ export default function AboutPage() {
               >
                 <TechIcon name={tech} className="h-3.5 w-3.5 text-foreground" />
                 <span>{tech}</span>
-                <span className="h-1 w-1 rounded-full bg-emerald-500/50 ml-6" />
+                <span className="h-1 w-1 rounded-full bg-accentBlue/60 ml-6" />
               </div>
             )
           )}
@@ -94,7 +94,7 @@ export default function AboutPage() {
                   <div
                     className={`absolute -left-[31px] sm:-left-[47px] top-1.5 h-3.5 w-3.5 rounded-full border-2 transition-all duration-300 ${
                       isCurrent
-                        ? "border-emerald-500 bg-emerald-500 ring-4 ring-emerald-500/20 scale-110"
+                        ? "border-accentBlue bg-accentBlue ring-4 ring-accentBlue/20 scale-110"
                         : "border-foreground bg-background group-hover:bg-foreground"
                     }`}
                   />
@@ -107,8 +107,8 @@ export default function AboutPage() {
                       {item.location}
                     </span>
                     {isCurrent && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-500 uppercase">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-accentBlue uppercase">
+                        <span className="h-1.5 w-1.5 rounded-full bg-accentBlue animate-pulse" />
                         Current Position
                       </span>
                     )}
@@ -149,7 +149,7 @@ export default function AboutPage() {
             <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
               Leadership & Consulting
             </h2>
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold">
+            <span className="text-xs font-mono uppercase tracking-wider text-accentBlue font-semibold">
               Technical Lead
             </span>
           </div>
@@ -261,7 +261,7 @@ export default function AboutPage() {
 
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-background bg-foreground px-6 py-3.5 hover:opacity-90 transition-opacity whitespace-nowrap"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-background bg-foreground px-6 py-3.5 hover:bg-accentBlue hover:text-white transition-colors whitespace-nowrap"
           >
             Explore Work
             <ArrowRight className="h-4 w-4" />

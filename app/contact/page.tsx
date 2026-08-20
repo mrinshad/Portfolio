@@ -46,7 +46,8 @@ export default function ContactPage() {
       <div className="container max-w-5xl px-6 space-y-24">
         {/* Header */}
         <div className="space-y-6 border-b border-border/50 pb-12">
-          <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
             Contact / Inquiries & Roles
           </div>
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
@@ -63,33 +64,33 @@ export default function ContactPage() {
           {/* Left: Large Typographic Direct Channels */}
           <div className="lg:col-span-5 space-y-12">
             <div className="space-y-8">
-              <div className="border-b border-border/40 pb-4">
+              <div className="border-b border-border/40 pb-4 group">
                 <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                   Email
                 </div>
                 <a
                   href={`mailto:${profileData.email}`}
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:underline inline-flex items-center gap-2 pt-1"
+                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors"
                 >
                   {profileData.email}
-                  <ArrowUpRight className="h-5 w-5" />
+                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
                 </a>
               </div>
 
-              <div className="border-b border-border/40 pb-4">
+              <div className="border-b border-border/40 pb-4 group">
                 <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                   Phone / WhatsApp
                 </div>
                 <a
                   href={`tel:${profileData.phone}`}
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:underline inline-flex items-center gap-2 pt-1"
+                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors"
                 >
                   {profileData.phone}
-                  <ArrowUpRight className="h-5 w-5" />
+                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
                 </a>
               </div>
 
-              <div className="border-b border-border/40 pb-4">
+              <div className="border-b border-border/40 pb-4 group">
                 <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                   LinkedIn
                 </div>
@@ -97,14 +98,14 @@ export default function ContactPage() {
                   href={profileData.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:underline inline-flex items-center gap-2 pt-1"
+                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors"
                 >
                   linkedin.com/in/mrinshad
-                  <ArrowUpRight className="h-5 w-5" />
+                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
                 </a>
               </div>
 
-              <div className="border-b border-border/40 pb-4">
+              <div className="border-b border-border/40 pb-4 group">
                 <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                   GitHub
                 </div>
@@ -112,10 +113,10 @@ export default function ContactPage() {
                   href={profileData.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:underline inline-flex items-center gap-2 pt-1"
+                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors"
                 >
                   github.com/mrinshad
-                  <ArrowUpRight className="h-5 w-5" />
+                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
                 </a>
               </div>
             </div>
@@ -125,7 +126,7 @@ export default function ContactPage() {
           <div className="lg:col-span-7">
             {submitted ? (
               <div className="py-20 flex flex-col items-center justify-center text-center space-y-4 border border-border p-8">
-                <CheckCircle2 className="h-12 w-12 text-foreground" />
+                <CheckCircle2 className="h-12 w-12 text-accentBlue" />
                 <h3 className="text-2xl font-bold uppercase tracking-tight text-foreground">
                   Message Sent
                 </h3>
@@ -136,7 +137,7 @@ export default function ContactPage() {
                   variant="outline"
                   size="sm"
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 rounded-none text-xs uppercase tracking-wider font-bold"
+                  className="mt-6 rounded-none text-xs uppercase tracking-wider font-bold hover:text-accentBlue hover:border-accentBlue"
                 >
                   Send Another Inquiry
                 </Button>
@@ -209,7 +210,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-10 py-4 hover:opacity-90 transition-opacity"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-10 py-4 hover:bg-accentBlue hover:text-white transition-colors"
                 >
                   Send Inquiry
                   <Send className="h-4 w-4" />
