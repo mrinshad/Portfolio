@@ -1,7 +1,8 @@
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, Terminal, Layers, Database, ShieldCheck } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Layers } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
-import { careerProgression, skillCategories, educationData } from "@/data"
+import { EditorialCareerJourney } from "@/components/editorial-career-journey"
+import { leadershipExperience, skillCategories, educationData } from "@/data"
 
 export const metadata = {
   title: "About & Experience | Mohammed Rinshad P",
@@ -25,45 +26,6 @@ const techTickerItems = [
   "Docker",
   "Tailwind CSS",
 ]
-
-const experienceStories: {
-  [key: string]: {
-    lead: string
-    summary: string
-    techHighlight: string[]
-  }
-} = {
-  byten: {
-    lead: "Technical Leadership & Architecture",
-    summary:
-      "Leading technical architecture and end-to-end development of custom ERP, accounting, and simulation platforms. Designing normalized PostgreSQL schemas, REST APIs, RBAC authorization, and engineering guidelines.",
-    techHighlight: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL", "System Design"],
-  },
-  tcs: {
-    lead: "Enterprise Web Systems & Linux Administration",
-    summary:
-      "Contributing to internal enterprise applications, engineering frontend forms and workflows, integrating REST APIs, refactoring codebases for long-term maintainability, and administering Linux (RHEL) server environments.",
-    techHighlight: ["React", "JavaScript", "Linux (RHEL)", "REST APIs"],
-  },
-  veynad: {
-    lead: "Cloud-Native Auditing Platform",
-    summary:
-      "Engineered an enterprise auditing platform with React and .NET Core, implementing Azure AD B2C enterprise security and automated GitHub Actions CI/CD deployment pipelines.",
-    techHighlight: ["React", ".NET Core", "Azure AD B2C", "Azure Cloud", "CI/CD"],
-  },
-  griantek: {
-    lead: "Full-Stack Web Engineering & Automation",
-    summary:
-      "Developed and deployed full-stack Next.js and Node.js web applications, automated journal and lead processing workflows, and managed GCP/Supabase backend infrastructure.",
-    techHighlight: ["Next.js", "Node.js", "GCP", "Supabase", "NGINX"],
-  },
-  wizzo: {
-    lead: "Application Engineering & Production Support",
-    summary:
-      "Developed web and Android applications for restaurant, warehouse, and business management systems using Laravel, React, Java, and MySQL while providing production support.",
-    techHighlight: ["Laravel", "React", "Java", "MySQL", "Android"],
-  },
-}
 
 export default function AboutPage() {
   return (
@@ -198,7 +160,7 @@ export default function AboutPage() {
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. EDITORIAL CAREER PROGRESSION (Engineering Journey)                     */}
+      {/* 3. EDITORIAL CAREER PROGRESSION (01 Wizzo → 02 Griantek → 03 Veynad → 04 TCS) */}
       {/* ========================================================================= */}
       <section className="container max-w-6xl px-6 space-y-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-foreground pb-6">
@@ -212,91 +174,97 @@ export default function AboutPage() {
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-md font-mono">
-            Chronological progression across full-stack engineering, enterprise platforms, and technical leadership.
+            Chronological employment progression across full-stack engineering and enterprise platforms.
           </p>
         </div>
 
-        {/* Editorial Chapters List */}
-        <div className="divide-y divide-border/60">
-          {[...careerProgression].reverse().map((item, idx) => {
-            const story = experienceStories[item.id] || {
-              lead: item.role,
-              summary: item.responsibilities[0],
-              techHighlight: item.technologies || [],
-            }
-            const isPresent = item.period.includes("Present")
-            const chapterNumber = `0${careerProgression.length - idx}`
+        {/* Scroll-Reactive Editorial Journey (01 to 04) */}
+        <EditorialCareerJourney />
+      </section>
 
-            return (
-              <article
-                key={item.id}
-                className="py-10 first:pt-4 last:pb-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start group"
-              >
-                {/* Left Metadata & Period (4 cols) */}
-                <div className="lg:col-span-4 space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest">
-                    <span className="font-bold text-accentBlue">
-                      {chapterNumber}
-                    </span>
-                    <span className="text-muted-foreground">/</span>
-                    <span className="text-muted-foreground">
-                      {item.period}
-                    </span>
-                    {isPresent && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 ml-1" />
-                    )}
-                  </div>
+      {/* ========================================================================= */}
+      {/* 4. TECHNICAL LEADERSHIP & CONSULTING (Dedicated ByteN Section)            */}
+      {/* ========================================================================= */}
+      <section className="container max-w-6xl px-6 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-foreground pb-6">
+          <div className="space-y-2">
+            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              03 / Leadership & Architecture
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
+              Technical Leadership
+            </h2>
+          </div>
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold bg-emerald-500/10 px-3 py-1 rounded">
+            Active Technical Lead
+          </span>
+        </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground group-hover:text-accentBlue transition-colors">
-                    {item.company}
-                  </h3>
-
-                  <div className="text-sm font-medium text-foreground/80">
-                    {item.role}
-                  </div>
-
-                  <div className="text-xs font-mono text-muted-foreground">
-                    {item.location}
-                  </div>
+        <div className="space-y-8">
+          {leadershipExperience.map((item) => (
+            <article
+              key={item.id}
+              className="py-6 sm:py-8 border-b border-border/40 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start"
+            >
+              {/* Left Metadata & Period (4 cols) */}
+              <div className="lg:col-span-4 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest">
+                  <span className="text-foreground font-semibold">{item.period}</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 ml-1" />
                 </div>
 
-                {/* Right Editorial Story & Technologies (8 cols) */}
-                <div className="lg:col-span-8 space-y-4">
-                  <div className="text-xs font-mono uppercase tracking-wider text-accentBlue font-semibold">
-                    {story.lead}
-                  </div>
+                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
+                  {item.company}
+                </h3>
 
-                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-normal">
-                    {story.summary}
-                  </p>
+                <div className="text-sm font-semibold text-emerald-500">
+                  {item.role}
+                </div>
 
+                <div className="text-xs font-mono text-muted-foreground">
+                  {item.location}
+                </div>
+              </div>
+
+              {/* Right Editorial Story & Technologies (8 cols) */}
+              <div className="lg:col-span-8 space-y-4">
+                <div className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold">
+                  Technical Leadership & System Architecture
+                </div>
+
+                <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal">
+                  Leading technical architecture and end-to-end development of custom ERP, accounting, and simulation platforms. Designing normalized PostgreSQL schemas, REST APIs, RBAC authorization, and engineering guidelines.
+                </p>
+
+                {item.technologies && (
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-xs font-mono text-muted-foreground border-t border-border/40">
-                    {story.techHighlight.map((tech, tIdx) => (
+                    {item.technologies.map((tech, tIdx) => (
                       <span
                         key={tIdx}
-                        className="inline-flex items-center gap-1.5 text-foreground/90 font-medium"
+                        className="inline-flex items-center gap-1.5 text-foreground font-medium"
                       >
                         <TechIcon name={tech} className="h-3 w-3 text-muted-foreground" />
                         {tech}
                       </span>
                     ))}
                   </div>
-                </div>
-              </article>
-            )
-          })}
+                )}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. TECHNICAL DOMAINS & STACK (Editorial Grouping)                          */}
+      {/* 5. TECHNICAL DOMAINS & STACK (Editorial Grouping)                          */}
       {/* ========================================================================= */}
       <section className="container max-w-6xl px-6 space-y-12">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-foreground pb-6">
           <div className="space-y-2">
             <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-              03 / Capabilities
+              04 / Capabilities
             </div>
             <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
               Technical Domains
@@ -332,13 +300,13 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. EDUCATION & ACADEMIC FOUNDATION                                        */}
+      {/* 6. EDUCATION & ACADEMIC FOUNDATION                                        */}
       {/* ========================================================================= */}
       <section className="container max-w-6xl px-6 space-y-8">
         <div className="border-b border-foreground pb-6">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2 mb-2">
             <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            04 / Foundation
+            05 / Foundation
           </div>
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
             Education
@@ -363,7 +331,7 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. BOTTOM GATEWAY LINKS                                                   */}
+      {/* 7. BOTTOM GATEWAY LINKS                                                   */}
       {/* ========================================================================= */}
       <section className="container max-w-6xl px-6 pt-8 border-t-2 border-foreground">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
