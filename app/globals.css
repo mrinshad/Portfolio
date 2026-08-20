@@ -160,7 +160,7 @@
 
 /* Hero Horizontal Clip-Path Wipe Animation (Text remains 100% stationary) */
 .animate-hero-wipe {
-  animation: hero-horizontal-wipe 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  animation: hero-horizontal-wipe 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
   will-change: clip-path;
 }
 
