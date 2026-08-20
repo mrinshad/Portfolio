@@ -10,7 +10,7 @@ export const profileData: ProfileData = {
   github: "https://github.com/mrinshad",
   portfolioUrl: "https://mrinshad.github.io/Portfolio/",
   shortPositioning:
-    "Full-Stack Developer at Tata Consultancy Services (TCS) & Technical Lead at ByteN.",
+    "Full-Stack Software Engineer & Technical Lead specializing in enterprise web systems, custom ERP platforms, and cloud architecture.",
   shortIntro:
     "Specializing in architecting and developing scalable web applications, ERP platforms, enterprise systems, and cloud-native solutions using React, Next.js, Node.js, .NET Core, Azure, and SQL technologies.",
 }

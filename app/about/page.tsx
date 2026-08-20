@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, Layers } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { EditorialCareerJourney } from "@/components/editorial-career-journey"
 import { leadershipExperience, skillCategories, educationData } from "@/data"
@@ -7,14 +7,14 @@ import { leadershipExperience, skillCategories, educationData } from "@/data"
 export const metadata = {
   title: "About & Engineering Experience",
   description:
-    "Engineering profile, full-stack enterprise development at Tata Consultancy Services (TCS), technical leadership at ByteN, and architectural capabilities of Mohammed Rinshad P.",
+    "Engineering profile, full-stack software development experience, technical leadership, and architectural capabilities of Mohammed Rinshad P.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About & Engineering Experience | Mohammed Rinshad P",
     description:
-      "Full-stack development at TCS, technical leadership at ByteN, and architectural capabilities of Mohammed Rinshad P.",
+      "Full-stack software engineering, systems architecture, and technical leadership across production platforms.",
     url: "/about",
   },
 }
@@ -40,106 +40,89 @@ export default function AboutPage() {
   return (
     <main className="py-16 lg:py-24 space-y-24">
       {/* ========================================================================= */}
-      {/* 1. EDITORIAL INTRODUCTION                                                 */}
+      {/* 1. PERSONAL EDITORIAL INTRODUCTION                                        */}
       {/* ========================================================================= */}
       <section className="container max-w-6xl px-6 space-y-12">
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            About Rinshad
+            01 / About Rinshad
           </div>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
-            Engineering Systems
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase leading-[1.08]">
+            Driven by craft,
             <br />
-            <span className="text-muted-foreground font-light">With Precision.</span>
+            <span className="font-light text-muted-foreground italic font-sans lowercase">curiosity,</span> and
+            <br />
+            durable systems.
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pt-4 border-t border-border/50">
-          {/* Left Column: Personal Story & Philosophy (7 cols) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pt-6 border-t border-border/50">
+          {/* Left Column: Personal Story (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             <p className="text-xl sm:text-2xl text-foreground font-normal leading-relaxed">
-              I am a Full-Stack Software Engineer and Technical Lead focused on architecting reliable production platforms, ERP systems, and cloud-native software.
+              I am Mohammed Rinshad P, a software engineer with an instinct for architecture, clarity, and building tools that last.
             </p>
 
             <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
               <p>
-                Currently, I develop internal enterprise web applications and administer Linux (RHEL) server environments at <span className="text-foreground font-semibold">Tata Consultancy Services (TCS)</span> in Chennai, while driving technical architecture and software engineering at <span className="text-foreground font-semibold">ByteN</span>.
+                With an academic foundation in Computer Science from Mar Athanasius College of Engineering, my background spans enterprise web engineering, custom ERP architecture, and technical consulting across high-impact business systems.
               </p>
               <p>
-                My engineering approach prioritizes architectural clarity: robust relational database schemas, clear API contracts, and performant user interfaces that solve complex institutional workflows without unnecessary overhead.
+                I find satisfaction in untangling complex workflows—turning intricate data models, institutional operations, and organizational rules into software that feels clear, fast, and dependable.
               </p>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-border/40 text-xs font-mono">
               <div>
-                <span className="text-muted-foreground block">Current Base</span>
-                <span className="text-foreground font-bold">Chennai / Kerala, IN</span>
+                <span className="text-muted-foreground block">Origin & Base</span>
+                <span className="text-foreground font-bold">Kerala / Chennai, IN</span>
               </div>
               <div>
-                <span className="text-muted-foreground block">Primary Focus</span>
-                <span className="text-foreground font-bold">Full-Stack & Architecture</span>
+                <span className="text-muted-foreground block">Engineering Focus</span>
+                <span className="text-foreground font-bold">Full-Stack & Systems</span>
               </div>
               <div>
-                <span className="text-muted-foreground block">Education</span>
-                <span className="text-foreground font-bold">B.Tech Computer Science</span>
+                <span className="text-muted-foreground block">Background</span>
+                <span className="text-foreground font-bold">B.Tech CSE (MACE)</span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Architectural Blueprint Diagram (5 cols) */}
+          {/* Right Column: Editorial Persona Card (5 cols) */}
           <div className="lg:col-span-5">
-            <div className="border border-border/70 bg-card/50 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-border/50 pb-3 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                <span className="flex items-center gap-1.5 text-foreground font-bold">
-                  <Layers className="h-3.5 w-3.5 text-accentBlue" />
-                  Engineering Stack
-                </span>
-                <span>Layer Breakdown</span>
+            <div className="border border-border/70 bg-card/40 p-8 rounded-2xl space-y-6 shadow-xl relative overflow-hidden backdrop-blur-sm">
+              <div className="space-y-2">
+                <div className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground flex items-center justify-between">
+                  <span>Profile Note</span>
+                  <span className="flex items-center gap-1.5 text-emerald-500 font-mono text-[10px]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Active Engineering
+                  </span>
+                </div>
+                <div className="font-dancing text-4xl sm:text-5xl font-bold text-foreground pt-1">
+                  m.rinshad
+                </div>
               </div>
 
-              <div className="space-y-3 font-mono text-xs">
-                {/* Presentation Layer */}
-                <div className="p-3 rounded-lg border border-border/50 bg-background space-y-1">
-                  <div className="text-[11px] text-muted-foreground uppercase flex items-center justify-between">
-                    <span>01 / Presentation</span>
-                    <span className="text-accentBlue">Client UI</span>
+              <div className="space-y-4 text-sm border-t border-border/50 pt-5">
+                <div className="space-y-1">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
+                    Core Philosophy
                   </div>
-                  <div className="font-bold text-foreground text-sm">
-                    React • Next.js • TypeScript
-                  </div>
+                  <p className="text-foreground font-medium italic leading-relaxed">
+                    &ldquo;The best software is unpretentious—it solves complex problems with quiet precision and durable architecture.&rdquo;
+                  </p>
                 </div>
 
-                {/* API & Business Layer */}
-                <div className="p-3 rounded-lg border border-border/50 bg-background space-y-1">
-                  <div className="text-[11px] text-muted-foreground uppercase flex items-center justify-between">
-                    <span>02 / Application Logic</span>
-                    <span className="text-accentBlue">REST & RBAC</span>
+                <div className="grid grid-cols-2 gap-4 pt-3 border-t border-border/40 text-xs font-mono">
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Specialization</span>
+                    <span className="text-foreground font-semibold">Full-Stack & Systems</span>
                   </div>
-                  <div className="font-bold text-foreground text-sm">
-                    Node.js • .NET Core • Express
-                  </div>
-                </div>
-
-                {/* Persistence Layer */}
-                <div className="p-3 rounded-lg border border-border/50 bg-background space-y-1">
-                  <div className="text-[11px] text-muted-foreground uppercase flex items-center justify-between">
-                    <span>03 / Data Layer</span>
-                    <span className="text-accentBlue">Prisma ORM</span>
-                  </div>
-                  <div className="font-bold text-foreground text-sm">
-                    PostgreSQL • SQL Server • Supabase
-                  </div>
-                </div>
-
-                {/* Infrastructure */}
-                <div className="p-3 rounded-lg border border-border/50 bg-background space-y-1">
-                  <div className="text-[11px] text-muted-foreground uppercase flex items-center justify-between">
-                    <span>04 / Infrastructure</span>
-                    <span className="text-accentBlue">Cloud & OS</span>
-                  </div>
-                  <div className="font-bold text-foreground text-sm">
-                    Linux (RHEL) • Azure • GCP • CI/CD
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Core Principle</span>
+                    <span className="text-foreground font-semibold">Clarity &gt; Complexity</span>
                   </div>
                 </div>
               </div>

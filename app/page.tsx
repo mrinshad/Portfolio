@@ -43,7 +43,7 @@ export default function Home() {
             </h1>
 
             <p className="text-xl sm:text-2xl text-muted-foreground font-normal max-w-2xl leading-relaxed pt-2">
-              Full-Stack Developer at <span className="text-foreground font-semibold">Tata Consultancy Services</span> & Technical Lead at <span className="text-foreground font-semibold">ByteN</span>. Architecting scalable ERP platforms and production web systems.
+              Architecting scalable ERP platforms, enterprise web applications, and durable backend systems. Focused on engineering clarity, clean data models, and production reliability.
             </p>
           </div>
 
@@ -176,7 +176,7 @@ export default function Home() {
                 Engineering & Leadership
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Full-Stack Developer at TCS with technical leadership & consulting experience at ByteN.
+                Track record spanning enterprise web engineering, systems architecture, and technical leadership across production platforms.
               </p>
               <div className="pt-2">
                 <Link

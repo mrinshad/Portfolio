@@ -35,15 +35,13 @@ export const metadata: Metadata = {
     template: "%s | Mohammed Rinshad P",
   },
   description:
-    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer at TCS and Technical Lead at ByteN. Architecting scalable ERP platforms, relational schemas, and production web systems.",
+    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer & Technical Lead. Architecting scalable ERP platforms, relational schemas, and production web systems.",
   keywords: [
     "Mohammed Rinshad P",
     "Rinshad",
     "Full-Stack Developer",
     "Software Engineer",
     "Technical Lead",
-    "Tata Consultancy Services",
-    "ByteN",
     "Next.js",
     "React",
     "Node.js",
@@ -64,7 +62,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
     description:
-      "Full-Stack Developer at TCS & Technical Lead at ByteN. Architecting scalable ERP platforms, enterprise web applications, and cloud-native software.",
+      "Full-Stack Software Engineer & Technical Lead specializing in scalable ERP platforms, enterprise web applications, and cloud-native software.",
     siteName: "Mohammed Rinshad P Portfolio",
     images: [
       {
@@ -79,7 +77,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
     description:
-      "Full-Stack Developer at TCS & Technical Lead at ByteN. Architecting scalable ERP platforms and production systems.",
+      "Full-Stack Software Engineer & Technical Lead specializing in scalable ERP platforms and production systems.",
     images: ["/og-image.jpg"],
   },
   robots: {
