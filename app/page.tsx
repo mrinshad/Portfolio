@@ -35,7 +35,7 @@ export default function Home() {
               Full-Stack Software Engineer & Technical Lead
             </div>
 
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground uppercase leading-none">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground uppercase leading-none animate-hero-wipe">
               Mohammed
               <br />
               Rinshad P

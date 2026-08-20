@@ -158,6 +158,21 @@
   }
 }
 
+/* Hero Horizontal Clip-Path Wipe Animation (Text remains 100% stationary) */
+.animate-hero-wipe {
+  animation: hero-horizontal-wipe 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  will-change: clip-path;
+}
+
+@keyframes hero-horizontal-wipe {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -173,5 +188,10 @@
   .aurora-field-2,
   .aurora-field-3 {
     animation: none !important;
+  }
+
+  .animate-hero-wipe {
+    animation: none !important;
+    clip-path: inset(0 0 0 0) !important;
   }
 }
