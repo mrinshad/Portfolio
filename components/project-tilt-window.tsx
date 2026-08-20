@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ProjectItem } from "@/data"
 
 interface ProjectTiltWindowProps {
@@ -92,11 +93,12 @@ export function ProjectTiltWindow({
         {/* Visual Screenshot Image - Complete 100% Uncropped Display */}
         <div className="w-full overflow-hidden bg-muted/10">
           {project.image ? (
-            <img
+            <Image
               src={project.image}
               alt={`${project.name} interface preview`}
+              width={1200}
+              height={675}
               className="w-full h-auto block"
-              loading="lazy"
             />
           ) : (
             <div className="aspect-[16/9] p-12 flex flex-col items-center justify-center text-center space-y-3 h-full bg-gradient-to-br from-card via-muted/20 to-card">

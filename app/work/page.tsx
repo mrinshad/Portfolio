@@ -2,9 +2,18 @@ import { HorizontalWorkShowcase } from "@/components/horizontal-work-showcase"
 import { ClientWebsitesStack } from "@/components/client-websites-stack"
 
 export const metadata = {
-  title: "Selected Work | Mohammed Rinshad P",
+  title: "Selected Work & Systems",
   description:
-    "Production software systems, ERP platforms, and collaborative applications architected and developed by Mohammed Rinshad P.",
+    "Production ERP platforms, workflow systems, and commercial web applications engineered by Mohammed Rinshad P, including eduByte, byteFlow, Crusher ERP, and byteBallot.",
+  alternates: {
+    canonical: "/work",
+  },
+  openGraph: {
+    title: "Selected Work & Systems | Mohammed Rinshad P",
+    description:
+      "Production ERP platforms, workflow systems, and commercial web applications engineered by Mohammed Rinshad P.",
+    url: "/work",
+  },
 }
 
 export default function WorkPage() {

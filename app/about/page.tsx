@@ -5,9 +5,18 @@ import { EditorialCareerJourney } from "@/components/editorial-career-journey"
 import { leadershipExperience, skillCategories, educationData } from "@/data"
 
 export const metadata = {
-  title: "About & Experience | Mohammed Rinshad P",
+  title: "About & Engineering Experience",
   description:
-    "Engineering profile, full-stack development at TCS, technical leadership at ByteN, and technical capabilities of Mohammed Rinshad P.",
+    "Engineering profile, full-stack enterprise development at Tata Consultancy Services (TCS), technical leadership at ByteN, and architectural capabilities of Mohammed Rinshad P.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About & Engineering Experience | Mohammed Rinshad P",
+    description:
+      "Full-stack development at TCS, technical leadership at ByteN, and architectural capabilities of Mohammed Rinshad P.",
+    url: "/about",
+  },
 }
 
 const techTickerItems = [

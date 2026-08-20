@@ -1,8 +1,9 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { ExternalLink, ArrowUpRight } from "lucide-react"
-import { clientWebsites, ProjectItem } from "@/data"
+import { clientWebsites } from "@/data"
 
 export function ClientWebsitesStack() {
   const [activeIdx, setActiveIdx] = React.useState<number>(1) // Center card default
@@ -149,11 +150,12 @@ export function ClientWebsitesStack() {
                   {/* Screenshot Image Preview */}
                   <div className="w-full aspect-[16/10] overflow-hidden bg-muted/10">
                     {site.image ? (
-                      <img
+                      <Image
                         src={site.image}
                         alt={`${site.name} preview`}
+                        width={600}
+                        height={375}
                         className="w-full h-full object-cover object-top block"
-                        loading="lazy"
                       />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-muted/20">
@@ -218,11 +220,12 @@ export function ClientWebsitesStack() {
                 {/* Screenshot */}
                 <div className="w-full aspect-[16/10] overflow-hidden bg-muted/10">
                   {site.image && (
-                    <img
+                    <Image
                       src={site.image}
                       alt={`${site.name} preview`}
+                      width={600}
+                      height={375}
                       className="w-full h-full object-cover object-top block"
-                      loading="lazy"
                     />
                   )}
                 </div>

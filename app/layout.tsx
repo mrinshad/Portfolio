@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { GrainOverlay } from "@/components/grain-overlay"
+import { profileData } from "@/data"
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -25,12 +26,121 @@ const fontMono = JetBrains_Mono({
   display: "swap",
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mrinshad.github.io/Portfolio"
+
 export const metadata: Metadata = {
-  title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
+    template: "%s | Mohammed Rinshad P",
+  },
   description:
-    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer & Technical Lead specializing in architecting and developing scalable web applications, ERP platforms, and cloud-native solutions.",
+    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer at TCS and Technical Lead at ByteN. Architecting scalable ERP platforms, relational schemas, and production web systems.",
+  keywords: [
+    "Mohammed Rinshad P",
+    "Rinshad",
+    "Full-Stack Developer",
+    "Software Engineer",
+    "Technical Lead",
+    "Tata Consultancy Services",
+    "ByteN",
+    "Next.js",
+    "React",
+    "Node.js",
+    ".NET Core",
+    "PostgreSQL",
+    "Prisma ORM",
+    "ERP Architecture",
+  ],
+  authors: [{ name: "Mohammed Rinshad P", url: siteUrl }],
+  creator: "Mohammed Rinshad P",
+  publisher: "Mohammed Rinshad P",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
+    description:
+      "Full-Stack Developer at TCS & Technical Lead at ByteN. Architecting scalable ERP platforms, enterprise web applications, and cloud-native software.",
+    siteName: "Mohammed Rinshad P Portfolio",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mohammed Rinshad P — Full-Stack Software Engineer & Technical Lead",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
+    description:
+      "Full-Stack Developer at TCS & Technical Lead at ByteN. Architecting scalable ERP platforms and production systems.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/favicon.ico",
+  },
+}
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profileData.name,
+  alternateName: profileData.preferredName,
+  jobTitle: "Full-Stack Software Engineer & Technical Lead",
+  url: siteUrl,
+  sameAs: [profileData.linkedin, profileData.github],
+  worksFor: [
+    {
+      "@type": "Organization",
+      name: "Tata Consultancy Services",
+    },
+    {
+      "@type": "Organization",
+      name: "ByteN",
+    },
+  ],
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "Mar Athanasius College of Engineering",
+  },
+  knowsAbout: [
+    "Software Architecture",
+    "Full-Stack Web Development",
+    "ERP Platforms",
+    "PostgreSQL",
+    "Next.js",
+    "React",
+    "Node.js",
+    ".NET Core",
+    "Linux Server Administration",
+  ],
+}
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Mohammed Rinshad P Portfolio",
+  url: siteUrl,
+  author: {
+    "@type": "Person",
+    name: profileData.name,
   },
 }
 
@@ -45,6 +155,16 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${fontSans.variable} ${fontDancing.variable} ${fontMono.variable}`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-foreground selection:text-background flex flex-col justify-between">
         <ThemeProvider
           attribute="class"

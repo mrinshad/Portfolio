@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import type { Metadata } from "next"
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { ProjectTiltWindow } from "@/components/project-tilt-window"
@@ -16,6 +17,37 @@ export async function generateStaticParams() {
   }))
 }
 
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { id } = await params
+  const project = flagshipProjects.find((p) => p.id === id)
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    }
+  }
+
+  return {
+    title: `${project.name} — ${project.typeLabel} Case Study`,
+    description: project.summary,
+    alternates: {
+      canonical: `/work/${project.id}`,
+    },
+    openGraph: {
+      title: `${project.name} — ${project.typeLabel} | Mohammed Rinshad P`,
+      description: project.summary,
+      url: `/work/${project.id}`,
+      images: project.image ? [{ url: project.image, width: 1200, height: 675, alt: `${project.name} Interface` }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.name} — ${project.typeLabel} | Mohammed Rinshad P`,
+      description: project.summary,
+      images: project.image ? [project.image] : [],
+    },
+  }
+}
+
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { id } = await params
   const project = flagshipProjects.find((p) => p.id === id)
@@ -28,9 +60,28 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const currentIndex = flagshipProjects.findIndex((p) => p.id === id)
   const nextProject = flagshipProjects[(currentIndex + 1) % flagshipProjects.length]
   const projectNumber = `0${currentIndex + 1} / 0${flagshipProjects.length}`
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mrinshad.github.io/Portfolio"
+
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.name,
+    description: project.summary,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    author: {
+      "@type": "Person",
+      name: "Mohammed Rinshad P",
+    },
+    url: `${siteUrl}/work/${project.id}`,
+  }
 
   return (
     <main className="py-16 lg:py-24 space-y-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      />
       <div className="container max-w-5xl px-6 space-y-16">
         {/* Back Link */}
         <div>

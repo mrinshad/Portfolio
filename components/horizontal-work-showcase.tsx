@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { flagshipProjects } from "@/data"
 
@@ -163,11 +164,12 @@ function ProjectPerspectiveWindow({
         {/* Visual Screenshot Image - Complete 100% Uncropped Display */}
         <div className="w-full overflow-hidden bg-muted/10">
           {project.image ? (
-            <img
+            <Image
               src={project.image}
               alt={`${project.name} interface preview`}
+              width={1200}
+              height={675}
               className="w-full h-auto block"
-              loading="lazy"
             />
           ) : (
             <div className="aspect-[16/9] p-12 flex flex-col items-center justify-center text-center space-y-3 h-full bg-gradient-to-br from-card via-muted/20 to-card">
@@ -539,11 +541,12 @@ export function HorizontalWorkShowcase() {
 
                   <div className="w-full overflow-hidden bg-muted/10">
                     {project.image ? (
-                      <img
+                      <Image
                         src={project.image}
                         alt={`${project.name} interface preview`}
+                        width={800}
+                        height={450}
                         className="w-full h-auto block"
-                        loading="lazy"
                       />
                     ) : (
                       <div className="aspect-[16/9] p-8 flex flex-col items-center justify-center text-center space-y-2 h-full bg-gradient-to-br from-card to-muted/20">
