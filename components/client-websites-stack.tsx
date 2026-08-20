@@ -115,7 +115,7 @@ export function ClientWebsitesStack() {
                     transition:
                       "transform 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease, box-shadow 300ms ease, border-color 300ms ease",
                   }}
-                  className={`absolute w-[340px] lg:w-[380px] rounded-xl border bg-card shadow-2xl overflow-hidden cursor-pointer group focus:outline-none focus:ring-2 focus:ring-accentBlue ${
+                  className={`absolute w-[340px] lg:w-[380px] rounded-xl border bg-card shadow-2xl overflow-hidden cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 ${
                     isSelected
                       ? "border-accentBlue/80 shadow-2xl shadow-accentBlue/10"
                       : "border-border/80 hover:border-foreground/40"

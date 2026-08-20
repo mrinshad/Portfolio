@@ -33,7 +33,7 @@ export function BackToTop() {
     <Button
       onClick={scrollToTop}
       size="sm"
-      className="fixed bottom-8 right-8 z-40 rounded-full shadow-lg gap-1.5 px-4 py-2 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105"
+      className="fixed bottom-8 right-8 z-40 rounded-full shadow-lg gap-1.5 px-4 py-2 text-xs font-bold tracking-widest uppercase transition-all duration-200 hover:bg-accentBlue hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
       aria-label="Scroll to top"
     >
       TOP

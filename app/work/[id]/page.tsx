@@ -2,6 +2,8 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
+import { ProjectTiltWindow } from "@/components/project-tilt-window"
+import { EduByteArchitectureVisualization } from "@/components/edubyte-architecture-visualization"
 import { flagshipProjects } from "@/data"
 
 interface ProjectPageProps {
@@ -34,10 +36,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div>
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors"
+            className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Back to Selected Work
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:-translate-x-1" />
+            <span>Back to Selected Work</span>
           </Link>
         </div>
 
@@ -62,40 +64,18 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-8 py-4 rounded-none hover:bg-accentBlue hover:text-white transition-colors"
+                className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-8 py-4 rounded-none hover:bg-accentBlue hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
               >
-                Launch Live System
-                <ArrowUpRight className="h-4 w-4" />
+                <span>Launch Live System</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </div>
           )}
         </div>
 
         {/* Full-Width Visual Hero Stage */}
-        <div className="overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
-          <div className="flex items-center justify-between border-b border-border bg-muted/40 px-6 py-4">
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-border" />
-              <span className="h-2.5 w-2.5 rounded-full bg-border" />
-              <span className="h-2.5 w-2.5 rounded-full bg-border" />
-            </div>
-            <span className="text-xs font-mono text-muted-foreground">
-              {project.id}.byten.in / system-architecture
-            </span>
-            <div className="w-8" />
-          </div>
-
-          <div className="p-12 sm:p-20 flex flex-col items-center justify-center text-center space-y-6 min-h-[360px] bg-gradient-to-br from-card to-muted/20">
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Production Architecture View
-            </div>
-            <div className="text-4xl sm:text-5xl font-black text-foreground tracking-tight uppercase">
-              {project.name}
-            </div>
-            <div className="text-sm font-mono text-muted-foreground">
-              Role: {project.role}
-            </div>
-          </div>
+        <div className="overflow-hidden">
+          <ProjectTiltWindow project={project} />
         </div>
 
         {/* Metadata Matrix */}
@@ -160,6 +140,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
+        {/* Specialized Interactive Architecture Pipeline (eduByte Exclusive) */}
+        {project.id === "edubyte" && <EduByteArchitectureVisualization />}
+
         {/* Technologies Strip */}
         <div className="space-y-4 pt-8 border-t border-border/50">
           <h3 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
@@ -167,7 +150,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </h3>
           <div className="flex flex-wrap gap-6 text-sm font-mono uppercase tracking-wider text-foreground">
             {project.technologies.map((tech) => (
-              <span key={tech} className="inline-flex items-center gap-2 hover:text-accentBlue transition-colors">
+              <span key={tech} className="inline-flex items-center gap-2 hover:text-accentBlue transition-colors duration-200">
                 <TechIcon name={tech} className="h-4 w-4 text-muted-foreground" />
                 <span>{tech}</span>
               </span>
@@ -179,17 +162,18 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="pt-20 border-t-2 border-foreground flex items-center justify-between">
           <Link
             href="/work"
-            className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors"
+            className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
           >
-            ← All Systems
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:-translate-x-1" />
+            <span>All Systems</span>
           </Link>
 
           <Link
             href={`/work/${nextProject.id}`}
-            className="inline-flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors"
+            className="group inline-flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
           >
-            Next: {nextProject.name}
-            <ArrowRight className="h-4 w-4 text-accentBlue" />
+            <span>Next: {nextProject.name}</span>
+            <ArrowRight className="h-4 w-4 text-accentBlue transition-transform duration-200 ease-out group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

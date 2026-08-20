@@ -56,7 +56,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground transition-colors"
+      className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
       aria-label={`Switch to ${isDark ? "light" : "dark"} theme (Press 'D')`}
       title={`Toggle theme (Press 'D')`}
     >

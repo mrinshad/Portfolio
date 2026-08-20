@@ -74,7 +74,7 @@ export function ProjectTiltWindow({
     >
       <Link
         href={`/work/${project.id}`}
-        className="block focus:outline-none focus:ring-2 focus:ring-accentBlue rounded-xl overflow-hidden"
+        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-xl overflow-hidden"
       >
         {/* Window Header */}
         <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-5 py-3 relative z-10">

@@ -112,7 +112,7 @@ export function EditorialCareerJourney() {
             }}
             tabIndex={0}
             onFocus={() => setActiveIndex(idx)}
-            className={`relative py-6 sm:py-8 border-b border-border/40 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start transition-all duration-500 ease-out focus:outline-none ${
+            className={`relative py-6 sm:py-8 border-b border-border/40 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start transition-all duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-4 rounded-xl ${
               isActive || isReducedMotion
                 ? "opacity-100 translate-x-1 sm:translate-x-2"
                 : "opacity-45 hover:opacity-80 translate-x-0"

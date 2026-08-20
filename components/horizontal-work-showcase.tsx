@@ -412,10 +412,10 @@ export function HorizontalWorkShowcase() {
                           href={`/work/${project.id}`}
                           onFocus={() => setHoveredProjectId(project.id)}
                           onBlur={() => setHoveredProjectId(null)}
-                          className={`inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 ${accent.hoverText} ${accent.hoverBorder} transition-colors focus:outline-none focus:ring-1 focus:ring-accentBlue`}
+                          className={`group/link inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 ${accent.hoverText} ${accent.hoverBorder} transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm`}
                         >
-                          Explore Case Study
-                          <ArrowRight className={`h-4 w-4 ${accent.arrowColor}`} />
+                          <span>Explore Case Study</span>
+                          <ArrowRight className={`h-4 w-4 ${accent.arrowColor} transition-transform duration-200 ease-out group-hover/link:translate-x-1`} />
                         </Link>
 
                         {isLive && (
@@ -423,10 +423,10 @@ export function HorizontalWorkShowcase() {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-1 focus:ring-accentBlue"
+                            className="group/live inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
                           >
-                            Live System
-                            <ArrowUpRight className="h-3.5 w-3.5" />
+                            <span>Live System</span>
+                            <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" />
                           </a>
                         )}
                       </div>

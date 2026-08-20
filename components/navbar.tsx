@@ -63,7 +63,7 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm tracking-tight transition-colors ${
+                  className={`text-sm tracking-tight transition-colors duration-200 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 ${
                     isActive
                       ? "text-foreground font-bold underline underline-offset-8 decoration-accentBlue decoration-2"
                       : "text-muted-foreground hover:text-foreground font-medium"
@@ -79,7 +79,7 @@ export function Navbar() {
             <ThemeToggle />
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-foreground hover:text-accentBlue transition-colors"
+              className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-foreground hover:text-accentBlue transition-colors duration-200 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
             >
               Get in Touch
               <ArrowUpRight className="h-3.5 w-3.5" />
