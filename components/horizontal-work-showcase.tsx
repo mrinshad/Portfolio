@@ -8,7 +8,8 @@ import { flagshipProjects } from "@/data"
 const projectAccents = {
   edubyte: {
     badge: "text-emerald-500",
-    hoverBorder: "hover:border-emerald-500",
+    hoverBorder: "group-hover:border-emerald-500/60",
+    activeBorder: "border-emerald-500/60",
     hoverText: "hover:text-emerald-500",
     hoverBg: "hover:bg-emerald-500/10",
     arrowColor: "text-emerald-500",
@@ -16,7 +17,8 @@ const projectAccents = {
   },
   byteflow: {
     badge: "text-accentBlue",
-    hoverBorder: "hover:border-accentBlue",
+    hoverBorder: "group-hover:border-accentBlue/60",
+    activeBorder: "border-accentBlue/60",
     hoverText: "hover:text-accentBlue",
     hoverBg: "hover:bg-accentBlue/10",
     arrowColor: "text-accentBlue",
@@ -24,7 +26,8 @@ const projectAccents = {
   },
   "crusher-erp": {
     badge: "text-amber-500",
-    hoverBorder: "hover:border-amber-500",
+    hoverBorder: "group-hover:border-amber-500/60",
+    activeBorder: "border-amber-500/60",
     hoverText: "hover:text-amber-500",
     hoverBg: "hover:bg-amber-500/10",
     arrowColor: "text-amber-500",
@@ -32,7 +35,8 @@ const projectAccents = {
   },
   byteballot: {
     badge: "text-sky-500",
-    hoverBorder: "hover:border-sky-500",
+    hoverBorder: "group-hover:border-sky-500/60",
+    activeBorder: "border-sky-500/60",
     hoverText: "hover:text-sky-500",
     hoverBg: "hover:bg-sky-500/10",
     arrowColor: "text-sky-500",
@@ -44,6 +48,7 @@ export function HorizontalWorkShowcase() {
   const outerRef = React.useRef<HTMLDivElement | null>(null)
   const trackRef = React.useRef<HTMLDivElement | null>(null)
   const [activeIndex, setActiveIndex] = React.useState(0)
+  const [hoveredProjectId, setHoveredProjectId] = React.useState<string | null>(null)
   const [isReducedMotion, setIsReducedMotion] = React.useState(false)
 
   React.useEffect(() => {
@@ -166,7 +171,7 @@ export function HorizontalWorkShowcase() {
             </div>
           </div>
 
-          {/* Horizontally Progressing Track */}
+          {/* Horizontally Progressing Track with Interactive Hover Previews */}
           <div
             ref={trackRef}
             className="flex gap-14 lg:gap-18 will-change-transform pl-[max(1.5rem,calc((100vw-72rem)/2))] pr-32 my-auto items-center"
@@ -174,6 +179,9 @@ export function HorizontalWorkShowcase() {
             {flagshipProjects.map((project, idx) => {
               const projectNumber = `0${idx + 1}`
               const isLive = Boolean(project.liveUrl)
+              const isHovered = hoveredProjectId === project.id
+              const isOtherHovered =
+                hoveredProjectId !== null && hoveredProjectId !== project.id
               const accent =
                 projectAccents[project.id as keyof typeof projectAccents] ||
                 projectAccents.byteflow
@@ -181,7 +189,11 @@ export function HorizontalWorkShowcase() {
               return (
                 <article
                   key={project.id}
-                  className="w-[75vw] lg:w-[68vw] max-w-5xl flex-shrink-0 space-y-6"
+                  onMouseEnter={() => setHoveredProjectId(project.id)}
+                  onMouseLeave={() => setHoveredProjectId(null)}
+                  className={`w-[75vw] lg:w-[68vw] max-w-5xl flex-shrink-0 space-y-6 transition-all duration-300 ${
+                    isOtherHovered ? "opacity-60 scale-[0.99]" : "opacity-100 scale-100"
+                  }`}
                 >
                   {/* Project Header */}
                   <div className="space-y-2">
@@ -198,7 +210,14 @@ export function HorizontalWorkShowcase() {
                     </div>
 
                     <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground uppercase">
-                      {project.name}
+                      <Link
+                        href={`/work/${project.id}`}
+                        onFocus={() => setHoveredProjectId(project.id)}
+                        onBlur={() => setHoveredProjectId(null)}
+                        className="hover:underline underline-offset-8 transition-colors focus:outline-none focus:ring-2 focus:ring-accentBlue focus:ring-offset-4 rounded-sm"
+                      >
+                        {project.name}
+                      </Link>
                     </h2>
 
                     <p className="text-base sm:text-lg text-muted-foreground font-medium">
@@ -206,9 +225,20 @@ export function HorizontalWorkShowcase() {
                     </p>
                   </div>
 
-                  {/* Large Project Visual Stage */}
-                  <div className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-500 hover:border-foreground/30">
-                    <Link href={`/work/${project.id}`} className="block">
+                  {/* Large Project Visual Stage (Interactive Preview) */}
+                  <div
+                    className={`group block overflow-hidden rounded-2xl border bg-card shadow-2xl transition-all duration-400 ${
+                      isHovered
+                        ? `${accent.activeBorder} shadow-2xl ring-1 ring-border/50`
+                        : "border-border hover:border-foreground/30"
+                    }`}
+                  >
+                    <Link
+                      href={`/work/${project.id}`}
+                      onFocus={() => setHoveredProjectId(project.id)}
+                      onBlur={() => setHoveredProjectId(null)}
+                      className="block focus:outline-none focus:ring-2 focus:ring-accentBlue rounded-2xl"
+                    >
                       {/* Window Header */}
                       <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-6 py-3.5">
                         <div className="flex items-center gap-2">
@@ -223,7 +253,13 @@ export function HorizontalWorkShowcase() {
                       </div>
 
                       {/* Visual Presentation Canvas */}
-                      <div className="p-12 sm:p-20 flex flex-col items-center justify-center text-center space-y-3 min-h-[280px] sm:min-h-[340px] bg-gradient-to-br from-card via-muted/20 to-card transition-transform duration-500 ease-out group-hover:scale-[1.015]">
+                      <div
+                        className={`p-12 sm:p-20 flex flex-col items-center justify-center text-center space-y-3 min-h-[280px] sm:min-h-[340px] bg-gradient-to-br from-card via-muted/20 to-card transition-all duration-500 ease-out ${
+                          isHovered && !isReducedMotion
+                            ? "scale-[1.02] bg-gradient-to-br from-card via-muted/40 to-card"
+                            : "scale-100"
+                        }`}
+                      >
                         <div
                           className={`text-xs font-mono uppercase tracking-widest ${accent.canvasBadge}`}
                         >
@@ -255,7 +291,9 @@ export function HorizontalWorkShowcase() {
                     <div className="md:col-span-4 flex items-center md:justify-end gap-6 pt-1 md:pt-0">
                       <Link
                         href={`/work/${project.id}`}
-                        className={`inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 ${accent.hoverText} ${accent.hoverBorder} transition-colors`}
+                        onFocus={() => setHoveredProjectId(project.id)}
+                        onBlur={() => setHoveredProjectId(null)}
+                        className={`inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 ${accent.hoverText} ${accent.hoverBorder} transition-colors focus:outline-none focus:ring-1 focus:ring-accentBlue`}
                       >
                         Explore Case Study
                         <ArrowRight className={`h-4 w-4 ${accent.arrowColor}`} />
@@ -266,7 +304,7 @@ export function HorizontalWorkShowcase() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                          className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-1 focus:ring-accentBlue"
                         >
                           Live System
                           <ArrowUpRight className="h-3.5 w-3.5" />
