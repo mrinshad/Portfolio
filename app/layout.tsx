@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
+import { GrainOverlay } from "@/components/grain-overlay"
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
+          <GrainOverlay />
           <Navbar />
           <div className="flex-1">{children}</div>
           <Footer />
