@@ -23,9 +23,26 @@ const navLinks = [
 export function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isScrolled, setIsScrolled] = React.useState(false)
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 16)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/90 backdrop-blur-md transition-colors">
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ease-out ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-border/60 shadow-sm dark:bg-[#09090b]/80 dark:border-white/10 dark:shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4)]"
+          : "bg-transparent border-b border-transparent shadow-none"
+      }`}
+    >
       <nav className="container flex h-20 max-w-6xl items-center justify-between px-6">
         {/* Brand Mark */}
         <Link
