@@ -137,15 +137,28 @@ export function Navbar() {
                     </Link>
                   )
                 })}
-                <div className="pt-6 border-t border-border">
-                  <Link
-                    href="/contact"
-                    onClick={() => setIsOpen(false)}
-                    className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-foreground font-bold hover:text-accentBlue transition-colors"
+                <div className="pt-6 mt-2 border-t border-border flex flex-col gap-3">
+                  <span className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground">
+                    Connect
+                  </span>
+                  <a
+                    href="https://linkedin.com/in/mrinshad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-between text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    Contact Rinshad
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
+                    <span>LinkedIn</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                  <a
+                    href="https://github.com/mrinshad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-between text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <span>GitHub</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
                 </div>
               </div>
             </SheetContent>
