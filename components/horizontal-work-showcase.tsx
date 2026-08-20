@@ -47,6 +47,7 @@ const projectAccents = {
 export function HorizontalWorkShowcase() {
   const outerRef = React.useRef<HTMLDivElement | null>(null)
   const trackRef = React.useRef<HTMLDivElement | null>(null)
+  const windowRefs = React.useRef<(HTMLDivElement | null)[]>([])
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [hoveredProjectId, setHoveredProjectId] = React.useState<string | null>(null)
   const [isReducedMotion, setIsReducedMotion] = React.useState(false)
@@ -65,7 +66,7 @@ export function HorizontalWorkShowcase() {
     }
   }, [])
 
-  // Desktop Scroll-Driven Horizontal Translation
+  // Desktop Scroll-Driven Horizontal Translation & Subtle Perspective Easing
   React.useEffect(() => {
     if (isReducedMotion) return
 
@@ -82,13 +83,21 @@ export function HorizontalWorkShowcase() {
       const currentScroll = Math.max(0, Math.min(totalScroll, -rect.top))
       const progress = currentScroll / totalScroll
 
-      // Primary Track Horizontal Travel
+      // 1. Primary Track Horizontal Travel
       const trackWidth = trackRef.current.scrollWidth
       const viewportWidth = window.innerWidth
       const maxTranslate = Math.max(0, trackWidth - viewportWidth + 96)
 
       const translateX = progress * maxTranslate
       trackRef.current.style.transform = `translate3d(-${translateX}px, 0, 0)`
+
+      // 2. Subtle Visual Perspective (Max rotation: ±2.5 degrees)
+      windowRefs.current.forEach((windowEl, idx) => {
+        if (!windowEl) return
+        const projectOffset = progress * (flagshipProjects.length - 1) - idx
+        const rotateY = Math.max(-2.5, Math.min(2.5, -projectOffset * 2.5))
+        windowEl.style.setProperty("--window-rotate-y", `${rotateY.toFixed(2)}deg`)
+      })
 
       // Update active indicator (0 to 3)
       const newIndex = Math.min(
@@ -171,7 +180,7 @@ export function HorizontalWorkShowcase() {
             </div>
           </div>
 
-          {/* Horizontally Progressing Track with Balanced Information + Visual Composition */}
+          {/* Horizontally Progressing Track with Balanced Information + Perspective Easing */}
           <div
             ref={trackRef}
             className="flex gap-14 lg:gap-18 will-change-transform pl-[max(1.5rem,calc((100vw-72rem)/2))] pr-32 my-auto items-center"
@@ -196,7 +205,7 @@ export function HorizontalWorkShowcase() {
                   }`}
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                    {/* Left Column: Project Information & Actions (5 cols) */}
+                    {/* Left Column: Project Information & Actions (5 cols) - Flat, Stable, Crystal Clear */}
                     <div className="lg:col-span-5 space-y-4">
                       <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
                         <span className={`font-bold ${accent.badge}`}>
@@ -282,8 +291,20 @@ export function HorizontalWorkShowcase() {
                       </div>
                     </div>
 
-                    {/* Right Column: Project Visual Window (7 cols) - Unified Container Zoom */}
-                    <div className="lg:col-span-7">
+                    {/* Right Column: Project Visual Window with Subtle Perspective Easing (7 cols) */}
+                    <div
+                      ref={(el) => {
+                        windowRefs.current[idx] = el
+                      }}
+                      style={{
+                        transform:
+                          isReducedMotion
+                            ? "none"
+                            : "perspective(1200px) rotateY(var(--window-rotate-y, 0deg))",
+                        transformStyle: "preserve-3d",
+                      }}
+                      className="lg:col-span-7 transition-transform duration-300 ease-out will-change-transform transform-gpu"
+                    >
                       <Link
                         href={`/work/${project.id}`}
                         onFocus={() => setHoveredProjectId(project.id)}
@@ -325,17 +346,17 @@ export function HorizontalWorkShowcase() {
                           <div className="w-8" />
                         </div>
 
-                        {/* Visual Screenshot Image - Unified Container */}
-                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted/20">
+                        {/* Visual Screenshot Image - Complete 100% Uncropped Display */}
+                        <div className="w-full overflow-hidden bg-muted/10">
                           {project.image ? (
                             <img
                               src={project.image}
                               alt={`${project.name} interface preview`}
-                              className="w-full h-full object-cover object-top"
+                              className="w-full h-auto block"
                               loading="lazy"
                             />
                           ) : (
-                            <div className="p-12 flex flex-col items-center justify-center text-center space-y-3 h-full bg-gradient-to-br from-card via-muted/20 to-card">
+                            <div className="aspect-[16/9] p-12 flex flex-col items-center justify-center text-center space-y-3 h-full bg-gradient-to-br from-card via-muted/20 to-card">
                               <div className="text-3xl font-black text-foreground tracking-tight uppercase">
                                 {project.name}
                               </div>
@@ -418,7 +439,7 @@ export function HorizontalWorkShowcase() {
                   </p>
                 </div>
 
-                {/* Project Visual Stage with Image */}
+                {/* Project Visual Stage with Uncropped Image */}
                 <Link
                   href={`/work/${project.id}`}
                   className="block overflow-hidden rounded-xl border border-border bg-card shadow-lg"
@@ -435,16 +456,16 @@ export function HorizontalWorkShowcase() {
                     <div className="w-4" />
                   </div>
 
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted/20">
+                  <div className="w-full overflow-hidden bg-muted/10">
                     {project.image ? (
                       <img
                         src={project.image}
                         alt={`${project.name} interface preview`}
-                        className="w-full h-full object-cover object-top"
+                        className="w-full h-auto block"
                         loading="lazy"
                       />
                     ) : (
-                      <div className="p-8 flex flex-col items-center justify-center text-center space-y-2 h-full bg-gradient-to-br from-card to-muted/20">
+                      <div className="aspect-[16/9] p-8 flex flex-col items-center justify-center text-center space-y-2 h-full bg-gradient-to-br from-card to-muted/20">
                         <div className="text-xl font-black text-foreground tracking-tight uppercase">
                           {project.name}
                         </div>
