@@ -49,7 +49,7 @@ export const flagshipProjects: ProjectItem[] = [
   },
   {
     id: "crusher-erp",
-    name: "Crusher ERP & Accounting System",
+    name: "Crusher ERP",
     category: "Heavy Industry ERP & Accounting",
     type: "PAID_CLIENT_IN_DEVELOPMENT",
     typeLabel: "Client Project",

@@ -1,0 +1,421 @@
+"use client"
+
+import * as React from "react"
+import Link from "next/link"
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
+import { flagshipProjects } from "@/data"
+
+const projectAccents = {
+  edubyte: {
+    badge: "text-emerald-500",
+    hoverBorder: "hover:border-emerald-500",
+    hoverText: "hover:text-emerald-500",
+    hoverBg: "hover:bg-emerald-500/10",
+    arrowColor: "text-emerald-500",
+    canvasBadge: "text-emerald-500/80",
+  },
+  byteflow: {
+    badge: "text-accentBlue",
+    hoverBorder: "hover:border-accentBlue",
+    hoverText: "hover:text-accentBlue",
+    hoverBg: "hover:bg-accentBlue/10",
+    arrowColor: "text-accentBlue",
+    canvasBadge: "text-accentBlue/80",
+  },
+  "crusher-erp": {
+    badge: "text-amber-500",
+    hoverBorder: "hover:border-amber-500",
+    hoverText: "hover:text-amber-500",
+    hoverBg: "hover:bg-amber-500/10",
+    arrowColor: "text-amber-500",
+    canvasBadge: "text-amber-500/80",
+  },
+  byteballot: {
+    badge: "text-sky-500",
+    hoverBorder: "hover:border-sky-500",
+    hoverText: "hover:text-sky-500",
+    hoverBg: "hover:bg-sky-500/10",
+    arrowColor: "text-sky-500",
+    canvasBadge: "text-sky-500/80",
+  },
+}
+
+export function HorizontalWorkShowcase() {
+  const outerRef = React.useRef<HTMLDivElement | null>(null)
+  const trackRef = React.useRef<HTMLDivElement | null>(null)
+  const [activeIndex, setActiveIndex] = React.useState(0)
+  const [isReducedMotion, setIsReducedMotion] = React.useState(false)
+
+  React.useEffect(() => {
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setIsReducedMotion(reducedMotionQuery.matches)
+
+    const handleReducedMotionChange = (e: MediaQueryListEvent) => {
+      setIsReducedMotion(e.matches)
+    }
+
+    reducedMotionQuery.addEventListener("change", handleReducedMotionChange)
+    return () => {
+      reducedMotionQuery.removeEventListener("change", handleReducedMotionChange)
+    }
+  }, [])
+
+  // Desktop Scroll-Driven Horizontal Translation
+  React.useEffect(() => {
+    if (isReducedMotion) return
+
+    let animationFrameId: number
+
+    const handleScroll = () => {
+      if (!outerRef.current || !trackRef.current) return
+
+      const rect = outerRef.current.getBoundingClientRect()
+      const totalScroll = rect.height - window.innerHeight
+      if (totalScroll <= 0) return
+
+      // Compute normalized progress between 0 and 1
+      const currentScroll = Math.max(0, Math.min(totalScroll, -rect.top))
+      const progress = currentScroll / totalScroll
+
+      // Calculate max horizontal travel
+      const trackWidth = trackRef.current.scrollWidth
+      const viewportWidth = window.innerWidth
+      const maxTranslate = Math.max(0, trackWidth - viewportWidth + 96)
+
+      const translateX = progress * maxTranslate
+      trackRef.current.style.transform = `translate3d(-${translateX}px, 0, 0)`
+
+      // Update active indicator (0 to 3)
+      const newIndex = Math.min(
+        flagshipProjects.length - 1,
+        Math.floor(progress * flagshipProjects.length)
+      )
+      setActiveIndex(newIndex)
+    }
+
+    const onScrollThrottled = () => {
+      cancelAnimationFrame(animationFrameId)
+      animationFrameId = requestAnimationFrame(handleScroll)
+    }
+
+    window.addEventListener("scroll", onScrollThrottled, { passive: true })
+    window.addEventListener("resize", onScrollThrottled)
+    handleScroll()
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+      window.removeEventListener("scroll", onScrollThrottled)
+      window.removeEventListener("resize", onScrollThrottled)
+    }
+  }, [isReducedMotion])
+
+  const scrollToStep = (targetIdx: number) => {
+    if (!outerRef.current) return
+    const rect = outerRef.current.getBoundingClientRect()
+    const scrollTop = window.scrollY + rect.top
+    const totalScroll = outerRef.current.clientHeight - window.innerHeight
+    const targetScroll = scrollTop + (targetIdx / (flagshipProjects.length - 1)) * totalScroll
+    window.scrollTo({ top: targetScroll, behavior: "smooth" })
+  }
+
+  return (
+    <section aria-label="Flagship Systems Showcase" className="w-full">
+      {/* ========================================================================= */}
+      {/* 1. DESKTOP PINNED HORIZONTAL GALLERY (hidden on md & below)               */}
+      {/* ========================================================================= */}
+      <div ref={outerRef} className="hidden md:block relative h-[280vh]">
+        <div className="sticky top-0 h-screen flex flex-col justify-between py-12 overflow-hidden">
+          {/* Top Progress & Navigation Indicator */}
+          <div className="container max-w-6xl px-6 flex items-center justify-between z-20 pb-4 border-b border-border/40">
+            <div className="flex items-center gap-3 text-xs font-mono tracking-widest uppercase text-muted-foreground">
+              <span className="text-foreground font-bold">
+                0{activeIndex + 1}
+              </span>
+              <span>/</span>
+              <span>0{flagshipProjects.length}</span>
+              <span>•</span>
+              <span className="text-foreground font-medium">
+                {flagshipProjects[activeIndex].name}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="text-[11px] font-mono text-muted-foreground uppercase tracking-wider mr-2">
+                Scroll or navigate
+              </span>
+              <button
+                type="button"
+                onClick={() => scrollToStep(Math.max(0, activeIndex - 1))}
+                disabled={activeIndex === 0}
+                aria-label="Previous project"
+                className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-foreground hover:border-foreground disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  scrollToStep(Math.min(flagshipProjects.length - 1, activeIndex + 1))
+                }
+                disabled={activeIndex === flagshipProjects.length - 1}
+                aria-label="Next project"
+                className="h-8 w-8 rounded-full border border-border flex items-center justify-center text-foreground hover:border-foreground disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              >
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Horizontally Progressing Track */}
+          <div
+            ref={trackRef}
+            className="flex gap-14 lg:gap-18 will-change-transform pl-[max(1.5rem,calc((100vw-72rem)/2))] pr-32 my-auto items-center"
+          >
+            {flagshipProjects.map((project, idx) => {
+              const projectNumber = `0${idx + 1}`
+              const isLive = Boolean(project.liveUrl)
+              const accent =
+                projectAccents[project.id as keyof typeof projectAccents] ||
+                projectAccents.byteflow
+
+              return (
+                <article
+                  key={project.id}
+                  className="w-[75vw] lg:w-[68vw] max-w-5xl flex-shrink-0 space-y-6"
+                >
+                  {/* Project Header */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                      <span className={`font-bold ${accent.badge}`}>
+                        {projectNumber}
+                      </span>
+                      <span>/</span>
+                      <span>0{flagshipProjects.length}</span>
+                      <span>•</span>
+                      <span className={`font-medium ${accent.badge}`}>
+                        {project.typeLabel}
+                      </span>
+                    </div>
+
+                    <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground uppercase">
+                      {project.name}
+                    </h2>
+
+                    <p className="text-base sm:text-lg text-muted-foreground font-medium">
+                      {project.category}
+                    </p>
+                  </div>
+
+                  {/* Large Project Visual Stage */}
+                  <div className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-500 hover:border-foreground/30">
+                    <Link href={`/work/${project.id}`} className="block">
+                      {/* Window Header */}
+                      <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-6 py-3.5">
+                        <div className="flex items-center gap-2">
+                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                        </div>
+                        <span className="text-xs font-mono text-muted-foreground">
+                          {project.id}.byten.in / showcase
+                        </span>
+                        <div className="w-8" />
+                      </div>
+
+                      {/* Visual Presentation Canvas */}
+                      <div className="p-12 sm:p-20 flex flex-col items-center justify-center text-center space-y-3 min-h-[280px] sm:min-h-[340px] bg-gradient-to-br from-card via-muted/20 to-card transition-transform duration-500 ease-out group-hover:scale-[1.015]">
+                        <div
+                          className={`text-xs font-mono uppercase tracking-widest ${accent.canvasBadge}`}
+                        >
+                          Production Architecture
+                        </div>
+                        <div className="text-3xl sm:text-4xl font-black text-foreground tracking-tight uppercase">
+                          {project.name}
+                        </div>
+                        <div className="text-xs sm:text-sm font-mono text-muted-foreground max-w-md">
+                          {project.category}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+
+                  {/* Concise Supporting Details & Actions */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-3 border-t border-border/50">
+                    <div className="md:col-span-8 space-y-1.5">
+                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                        {project.summary}
+                      </p>
+                      <div className="text-xs font-mono text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1">
+                        <span>{project.statusText}</span>
+                        <span>•</span>
+                        <span>Role: {project.role}</span>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-4 flex items-center md:justify-end gap-6 pt-1 md:pt-0">
+                      <Link
+                        href={`/work/${project.id}`}
+                        className={`inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 ${accent.hoverText} ${accent.hoverBorder} transition-colors`}
+                      >
+                        Explore Case Study
+                        <ArrowRight className={`h-4 w-4 ${accent.arrowColor}`} />
+                      </Link>
+
+                      {isLive && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          Live System
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+
+          {/* Bottom Visual Scroll Bar */}
+          <div className="container max-w-6xl px-6 flex items-center gap-4 z-20 pt-4">
+            <div className="h-1 flex-1 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-accentBlue transition-all duration-300 rounded-full"
+                style={{
+                  width: `${((activeIndex + 1) / flagshipProjects.length) * 100}%`,
+                }}
+              />
+            </div>
+            <span className="text-[11px] font-mono text-muted-foreground">
+              04 Flagships
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. MOBILE NATIVE HORIZONTAL SWIPE GALLERY (block on md & below)           */}
+      {/* ========================================================================= */}
+      <div className="block md:hidden space-y-8">
+        <div className="px-6 flex items-center justify-between">
+          <div className="text-xs font-mono tracking-widest uppercase text-muted-foreground flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
+            Swipe to explore systems
+          </div>
+          <span className="text-xs font-mono text-muted-foreground">
+            01 — 04
+          </span>
+        </div>
+
+        {/* Native Touch-Snap Track */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-6 pb-6 scrollbar-none">
+          {flagshipProjects.map((project, idx) => {
+            const projectNumber = `0${idx + 1}`
+            const isLive = Boolean(project.liveUrl)
+            const accent =
+              projectAccents[project.id as keyof typeof projectAccents] ||
+              projectAccents.byteflow
+
+            return (
+              <article
+                key={project.id}
+                className="w-[85vw] sm:w-[78vw] flex-shrink-0 snap-start space-y-5"
+              >
+                {/* Project Header */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                    <span className={`font-bold ${accent.badge}`}>
+                      {projectNumber}
+                    </span>
+                    <span>/</span>
+                    <span>0{flagshipProjects.length}</span>
+                    <span>•</span>
+                    <span className={`font-medium ${accent.badge}`}>
+                      {project.typeLabel}
+                    </span>
+                  </div>
+
+                  <h2 className="text-3xl font-black tracking-tight text-foreground uppercase">
+                    {project.name}
+                  </h2>
+
+                  <p className="text-sm text-muted-foreground font-medium">
+                    {project.category}
+                  </p>
+                </div>
+
+                {/* Project Visual Stage */}
+                <Link
+                  href={`/work/${project.id}`}
+                  className="block overflow-hidden rounded-xl border border-border bg-card shadow-lg"
+                >
+                  <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-4 py-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-border" />
+                      <span className="h-2 w-2 rounded-full bg-border" />
+                      <span className="h-2 w-2 rounded-full bg-border" />
+                    </div>
+                    <span className="text-[11px] font-mono text-muted-foreground">
+                      {project.id}.byten.in
+                    </span>
+                    <div className="w-4" />
+                  </div>
+
+                  <div className="p-8 flex flex-col items-center justify-center text-center space-y-2 min-h-[220px] bg-gradient-to-br from-card to-muted/20">
+                    <div
+                      className={`text-[10px] font-mono uppercase tracking-widest ${accent.canvasBadge}`}
+                    >
+                      Production Architecture
+                    </div>
+                    <div className="text-2xl font-black text-foreground tracking-tight uppercase">
+                      {project.name}
+                    </div>
+                    <div className="text-xs font-mono text-muted-foreground">
+                      {project.category}
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Supporting Details & Actions */}
+                <div className="space-y-3 pt-2">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {project.summary}
+                  </p>
+
+                  <div className="text-xs font-mono text-muted-foreground">
+                    Role: {project.role}
+                  </div>
+
+                  <div className="pt-2 flex items-center gap-6">
+                    <Link
+                      href={`/work/${project.id}`}
+                      className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 ${accent.hoverText} transition-colors`}
+                    >
+                      Explore Case Study
+                      <ArrowRight className={`h-3.5 w-3.5 ${accent.arrowColor}`} />
+                    </Link>
+
+                    {isLive && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        Live
+                        <ArrowUpRight className="h-3 w-3" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
