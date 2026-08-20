@@ -87,23 +87,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Inverted Contrast Featured Systems Section */}
-      <section className="py-24 bg-black text-white dark:bg-white dark:text-black border-y border-zinc-800 dark:border-zinc-300 transition-colors duration-300">
+      {/* 2. Featured Systems Section (Strict Theme Tokens in Light and Dark) */}
+      <section className="py-24 bg-muted/20 border-y border-border/50 transition-colors">
         <div className="container max-w-6xl px-6 space-y-20">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-zinc-800 dark:border-zinc-300 pb-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-border/50 pb-8">
             <div className="space-y-1">
-              <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-600 flex items-center gap-2">
+              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
                 Featured Work / 01 — 02
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white dark:text-black uppercase">
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground uppercase">
                 Selected Systems
               </h2>
             </div>
 
             <Link
               href="/work"
-              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-zinc-300 dark:text-zinc-700 hover:text-accentBlue dark:hover:text-accentBlue hover:underline underline-offset-8 transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue hover:underline underline-offset-8 transition-colors"
             >
               View All Systems ({flagshipProjects.length}) →
             </Link>
@@ -121,26 +121,26 @@ export default function Home() {
                 >
                   {/* Text Column */}
                   <div className="lg:col-span-5 space-y-5">
-                    <div className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-600">
+                    <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                       {projectNumber} • {project.category}
                     </div>
 
-                    <h3 className="text-3xl sm:text-5xl font-black tracking-tight text-white dark:text-black uppercase group-hover:text-zinc-100 dark:group-hover:text-zinc-900 transition-colors">
+                    <h3 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground uppercase group-hover:text-foreground/90 transition-colors">
                       {project.name}
                     </h3>
 
-                    <p className="text-base text-zinc-300 dark:text-zinc-700 leading-relaxed font-normal">
+                    <p className="text-base text-muted-foreground leading-relaxed font-normal">
                       {project.summary}
                     </p>
 
-                    <div className="text-xs font-mono text-zinc-400 dark:text-zinc-600 pt-1">
+                    <div className="text-xs font-mono text-muted-foreground pt-1">
                       Role: {project.role}
                     </div>
 
                     <div className="pt-3">
                       <Link
                         href={`/work/${project.id}`}
-                        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-white dark:text-black border-b border-white dark:border-black pb-1 hover:text-accentBlue dark:hover:text-accentBlue hover:border-accentBlue dark:hover:border-accentBlue transition-colors"
+                        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b border-foreground pb-1 hover:text-accentBlue hover:border-accentBlue transition-colors"
                       >
                         Read Case Study
                         <ArrowRight className="h-4 w-4 text-accentBlue" />
@@ -152,30 +152,30 @@ export default function Home() {
                   <div className="lg:col-span-7">
                     <Link
                       href={`/work/${project.id}`}
-                      className="block overflow-hidden rounded-lg border border-zinc-800 dark:border-zinc-300 bg-zinc-900 dark:bg-zinc-100 shadow-2xl transition-all duration-300 group-hover:scale-[1.02] group-hover:border-accentBlue/60 dark:group-hover:border-accentBlue/60"
+                      className="block overflow-hidden rounded-lg border border-border bg-card shadow-xl transition-all duration-300 group-hover:scale-[1.02] group-hover:border-accentBlue/60"
                     >
                       {/* Window Header */}
-                      <div className="flex items-center justify-between border-b border-zinc-800 dark:border-zinc-300 bg-zinc-950 dark:bg-zinc-200 px-5 py-3.5">
+                      <div className="flex items-center justify-between border-b border-border/80 bg-muted/40 px-5 py-3.5">
                         <div className="flex items-center gap-2">
-                          <span className="h-2.5 w-2.5 rounded-full bg-zinc-700 dark:bg-zinc-400" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-zinc-700 dark:bg-zinc-400" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-zinc-700 dark:bg-zinc-400" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                          <span className="h-2.5 w-2.5 rounded-full bg-border" />
                         </div>
-                        <span className="text-[11px] font-mono text-zinc-400 dark:text-zinc-600">
+                        <span className="text-[11px] font-mono text-muted-foreground">
                           {project.id}.byten.in / production
                         </span>
                         <div className="w-8" />
                       </div>
 
                       {/* Visual Interface Canvas */}
-                      <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-3 min-h-[260px] bg-gradient-to-br from-zinc-900 to-black dark:from-zinc-100 dark:to-white">
-                        <div className="text-xs font-mono uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
+                      <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-3 min-h-[260px] bg-gradient-to-br from-card to-muted/20">
+                        <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
                           Production Platform
                         </div>
-                        <div className="text-2xl sm:text-3xl font-extrabold text-white dark:text-black tracking-tight">
+                        <div className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
                           {project.name}
                         </div>
-                        <div className="text-xs font-mono text-zinc-400 dark:text-zinc-600">
+                        <div className="text-xs font-mono text-muted-foreground">
                           {project.category}
                         </div>
                       </div>
