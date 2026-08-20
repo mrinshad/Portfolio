@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { HeroAurora } from "@/components/hero-aurora"
 import { flagshipProjects } from "@/data"
 
 const heroMarqueeItems = [
@@ -20,9 +21,10 @@ export default function Home() {
       {/* 1. Refined Typographic Hero */}
       <section
         aria-label="Introduction"
-        className="relative flex min-h-[calc(80vh-5rem)] flex-col justify-between py-16 lg:py-24"
+        className="relative flex min-h-[calc(80vh-5rem)] flex-col justify-between py-16 lg:py-24 overflow-hidden"
       >
-        <div className="container max-w-6xl px-6 my-auto space-y-10">
+        <HeroAurora />
+        <div className="container max-w-6xl px-6 my-auto space-y-10 relative z-10">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-muted-foreground">
               <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
