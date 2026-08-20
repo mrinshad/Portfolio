@@ -99,6 +99,14 @@ export const employmentExperience: ExperienceItem[] = [
   },
 ]
 
+export const careerProgression: ExperienceItem[] = [
+  employmentExperience[3], // Wizzo Technologies
+  employmentExperience[2], // Griantek
+  employmentExperience[1], // Veynad Pty Ltd
+  employmentExperience[0], // Tata Consultancy Services (TCS)
+  leadershipExperience[0], // ByteN
+]
+
 export const experienceData: ExperienceItem[] = [
   ...leadershipExperience,
   ...employmentExperience,

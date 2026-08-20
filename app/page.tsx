@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { HeroAurora } from "@/components/hero-aurora"
 import { Hero3DObject } from "@/components/hero-3d-object"
 import { HeroPointerGlow } from "@/components/hero-pointer-glow"
+import { ProjectTiltWindow } from "@/components/project-tilt-window"
 import { flagshipProjects } from "@/data"
 
 const heroMarqueeItems = [
@@ -152,38 +153,9 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* Visual Interface Stage */}
+                  {/* Visual Interface Stage with 3D Tilt & Uncropped Preview */}
                   <div className="lg:col-span-7">
-                    <Link
-                      href={`/work/${project.id}`}
-                      className="block overflow-hidden rounded-lg border border-border bg-card shadow-xl transition-all duration-300 group-hover:scale-[1.02] group-hover:border-accentBlue/60"
-                    >
-                      {/* Window Header */}
-                      <div className="flex items-center justify-between border-b border-border/80 bg-muted/40 px-5 py-3.5">
-                        <div className="flex items-center gap-2">
-                          <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30 group-hover:bg-rose-500 transition-colors duration-300" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30 group-hover:bg-amber-400 transition-colors duration-300" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30 group-hover:bg-emerald-500 transition-colors duration-300" />
-                        </div>
-                        <span className="text-[11px] font-mono text-muted-foreground">
-                          {project.id}.byten.in / production
-                        </span>
-                        <div className="w-8" />
-                      </div>
-
-                      {/* Visual Interface Canvas */}
-                      <div className="p-12 sm:p-16 flex flex-col items-center justify-center text-center space-y-3 min-h-[260px] bg-gradient-to-br from-card to-muted/20">
-                        <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                          Production Platform
-                        </div>
-                        <div className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
-                          {project.name}
-                        </div>
-                        <div className="text-xs font-mono text-muted-foreground">
-                          {project.category}
-                        </div>
-                      </div>
-                    </Link>
+                    <ProjectTiltWindow project={project} />
                   </div>
                 </div>
               )

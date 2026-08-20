@@ -44,10 +44,148 @@ const projectAccents = {
   },
 }
 
+interface ProjectPerspectiveWindowProps {
+  project: (typeof flagshipProjects)[0]
+  idx: number
+  isHovered: boolean
+  isActive: boolean
+  accent: (typeof projectAccents)["edubyte"]
+  isReducedMotion: boolean
+  baselineRotateY: number
+  onFocus: () => void
+  onBlur: () => void
+}
+
+function ProjectPerspectiveWindow({
+  project,
+  idx,
+  isHovered,
+  isActive,
+  accent,
+  isReducedMotion,
+  baselineRotateY,
+  onFocus,
+  onBlur,
+}: ProjectPerspectiveWindowProps) {
+  const containerRef = React.useRef<HTMLDivElement | null>(null)
+  const [tilt, setTilt] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 })
+  const [isPointerOver, setIsPointerOver] = React.useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isReducedMotion) return
+    const container = containerRef.current
+    if (!container) return
+    const rect = container.getBoundingClientRect()
+    // Calculate normalized pointer offset (-0.5 to +0.5)
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+    // Max 3.0 degrees rotation on X and Y
+    setTilt({
+      x: -y * 6, // Range: -3.0deg to +3.0deg
+      y: x * 6,  // Range: -3.0deg to +3.0deg
+    })
+  }
+
+  const handleMouseEnter = () => {
+    setIsPointerOver(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsPointerOver(false)
+    setTilt({ x: 0, y: 0 })
+  }
+
+  const currentRotateX = isPointerOver ? tilt.x : 0
+  const currentRotateY = isPointerOver ? tilt.y : baselineRotateY
+
+  const transformStyle = isReducedMotion
+    ? undefined
+    : {
+        transform: `perspective(1000px) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg) ${
+          isPointerOver ? "translateZ(8px)" : "translateZ(0px)"
+        }`,
+        transformStyle: "preserve-3d" as const,
+        transition: isPointerOver
+          ? "transform 80ms ease-out, border-color 300ms ease, box-shadow 300ms ease"
+          : "transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 300ms ease, box-shadow 300ms ease",
+      }
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={transformStyle}
+      className={`group block overflow-hidden rounded-xl border bg-card shadow-xl will-change-transform transform-gpu ${
+        isHovered
+          ? `${accent.activeBorder} shadow-2xl ring-1 ring-border/50`
+          : "border-border hover:border-foreground/30"
+      }`}
+    >
+      <Link
+        href={`/work/${project.id}`}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        className="block focus:outline-none focus:ring-2 focus:ring-accentBlue rounded-xl overflow-hidden"
+      >
+        {/* Window Header */}
+        <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-5 py-3 relative z-10">
+          <div className="flex items-center gap-2">
+            <span
+              className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+                isHovered || isActive
+                  ? "bg-rose-500"
+                  : "bg-muted-foreground/30 group-hover:bg-rose-500"
+              }`}
+            />
+            <span
+              className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+                isHovered || isActive
+                  ? "bg-amber-400"
+                  : "bg-muted-foreground/30 group-hover:bg-amber-400"
+              }`}
+            />
+            <span
+              className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
+                isHovered || isActive
+                  ? "bg-emerald-500"
+                  : "bg-muted-foreground/30 group-hover:bg-emerald-500"
+              }`}
+            />
+          </div>
+          <span className="text-[11px] font-mono text-muted-foreground">
+            {project.id}.byten.in / preview
+          </span>
+          <div className="w-8" />
+        </div>
+
+        {/* Visual Screenshot Image - Complete 100% Uncropped Display */}
+        <div className="w-full overflow-hidden bg-muted/10">
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={`${project.name} interface preview`}
+              className="w-full h-auto block"
+              loading="lazy"
+            />
+          ) : (
+            <div className="aspect-[16/9] p-12 flex flex-col items-center justify-center text-center space-y-3 h-full bg-gradient-to-br from-card via-muted/20 to-card">
+              <div className="text-3xl font-black text-foreground tracking-tight uppercase">
+                {project.name}
+              </div>
+            </div>
+          )}
+        </div>
+      </Link>
+    </div>
+  )
+}
+
 export function HorizontalWorkShowcase() {
   const outerRef = React.useRef<HTMLDivElement | null>(null)
   const trackRef = React.useRef<HTMLDivElement | null>(null)
-  const windowRefs = React.useRef<(HTMLDivElement | null)[]>([])
+  const [scrollProgress, setScrollProgress] = React.useState(0)
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [hoveredProjectId, setHoveredProjectId] = React.useState<string | null>(null)
   const [isReducedMotion, setIsReducedMotion] = React.useState(false)
@@ -66,7 +204,7 @@ export function HorizontalWorkShowcase() {
     }
   }, [])
 
-  // Desktop Scroll-Driven Horizontal Translation & Subtle Perspective Easing
+  // Desktop Scroll-Driven Horizontal Translation
   React.useEffect(() => {
     if (isReducedMotion) return
 
@@ -82,22 +220,15 @@ export function HorizontalWorkShowcase() {
       // Compute normalized progress between 0 and 1
       const currentScroll = Math.max(0, Math.min(totalScroll, -rect.top))
       const progress = currentScroll / totalScroll
+      setScrollProgress(progress)
 
-      // 1. Primary Track Horizontal Travel
+      // Primary Track Horizontal Travel
       const trackWidth = trackRef.current.scrollWidth
       const viewportWidth = window.innerWidth
       const maxTranslate = Math.max(0, trackWidth - viewportWidth + 96)
 
       const translateX = progress * maxTranslate
       trackRef.current.style.transform = `translate3d(-${translateX}px, 0, 0)`
-
-      // 2. Subtle Visual Perspective (Max rotation: ±2.5 degrees)
-      windowRefs.current.forEach((windowEl, idx) => {
-        if (!windowEl) return
-        const projectOffset = progress * (flagshipProjects.length - 1) - idx
-        const rotateY = Math.max(-2.5, Math.min(2.5, -projectOffset * 2.5))
-        windowEl.style.setProperty("--window-rotate-y", `${rotateY.toFixed(2)}deg`)
-      })
 
       // Update active indicator (0 to 3)
       const newIndex = Math.min(
@@ -128,7 +259,8 @@ export function HorizontalWorkShowcase() {
     const rect = outerRef.current.getBoundingClientRect()
     const scrollTop = window.scrollY + rect.top
     const totalScroll = outerRef.current.clientHeight - window.innerHeight
-    const targetScroll = scrollTop + (targetIdx / (flagshipProjects.length - 1)) * totalScroll
+    const targetScroll =
+      scrollTop + (targetIdx / (flagshipProjects.length - 1)) * totalScroll
     window.scrollTo({ top: targetScroll, behavior: "smooth" })
   }
 
@@ -180,7 +312,7 @@ export function HorizontalWorkShowcase() {
             </div>
           </div>
 
-          {/* Horizontally Progressing Track with Balanced Information + Perspective Easing */}
+          {/* Horizontally Progressing Track with 3D Perspective Plane */}
           <div
             ref={trackRef}
             className="flex gap-14 lg:gap-18 will-change-transform pl-[max(1.5rem,calc((100vw-72rem)/2))] pr-32 my-auto items-center"
@@ -189,11 +321,20 @@ export function HorizontalWorkShowcase() {
               const projectNumber = `0${idx + 1}`
               const isLive = Boolean(project.liveUrl)
               const isHovered = hoveredProjectId === project.id
+              const isActive = activeIndex === idx
               const isOtherHovered =
                 hoveredProjectId !== null && hoveredProjectId !== project.id
               const accent =
                 projectAccents[project.id as keyof typeof projectAccents] ||
                 projectAccents.byteflow
+
+              // Baseline scroll-driven perspective angle (Range: -2.5deg to +2.5deg)
+              const projectOffset =
+                scrollProgress * (flagshipProjects.length - 1) - idx
+              const baselineRotateY = Math.max(
+                -2.5,
+                Math.min(2.5, -projectOffset * 2.5)
+              )
 
               return (
                 <article
@@ -291,79 +432,19 @@ export function HorizontalWorkShowcase() {
                       </div>
                     </div>
 
-                    {/* Right Column: Project Visual Window with Subtle Perspective Easing (7 cols) */}
-                    <div
-                      ref={(el) => {
-                        windowRefs.current[idx] = el
-                      }}
-                      style={{
-                        transform:
-                          isReducedMotion
-                            ? "none"
-                            : "perspective(1200px) rotateY(var(--window-rotate-y, 0deg))",
-                        transformStyle: "preserve-3d",
-                      }}
-                      className="lg:col-span-7 transition-transform duration-300 ease-out will-change-transform transform-gpu"
-                    >
-                      <Link
-                        href={`/work/${project.id}`}
+                    {/* Right Column: Physical 3D Perspective Window (7 cols) */}
+                    <div className="lg:col-span-7">
+                      <ProjectPerspectiveWindow
+                        project={project}
+                        idx={idx}
+                        isHovered={isHovered}
+                        isActive={isActive}
+                        accent={accent}
+                        isReducedMotion={isReducedMotion}
+                        baselineRotateY={baselineRotateY}
                         onFocus={() => setHoveredProjectId(project.id)}
                         onBlur={() => setHoveredProjectId(null)}
-                        className={`group block overflow-hidden rounded-xl border bg-card shadow-xl transition-all duration-300 hover:scale-[1.015] hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-accentBlue ${
-                          isHovered
-                            ? `${accent.activeBorder} ring-1 ring-border/50`
-                            : "border-border hover:border-foreground/30"
-                        }`}
-                      >
-                        {/* Window Header */}
-                        <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-5 py-3 relative z-10">
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
-                                isHovered || activeIndex === idx
-                                  ? "bg-rose-500"
-                                  : "bg-muted-foreground/30 group-hover:bg-rose-500"
-                              }`}
-                            />
-                            <span
-                              className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
-                                isHovered || activeIndex === idx
-                                  ? "bg-amber-400"
-                                  : "bg-muted-foreground/30 group-hover:bg-amber-400"
-                              }`}
-                            />
-                            <span
-                              className={`h-2.5 w-2.5 rounded-full transition-colors duration-300 ${
-                                isHovered || activeIndex === idx
-                                  ? "bg-emerald-500"
-                                  : "bg-muted-foreground/30 group-hover:bg-emerald-500"
-                              }`}
-                            />
-                          </div>
-                          <span className="text-[11px] font-mono text-muted-foreground">
-                            {project.id}.byten.in / preview
-                          </span>
-                          <div className="w-8" />
-                        </div>
-
-                        {/* Visual Screenshot Image - Complete 100% Uncropped Display */}
-                        <div className="w-full overflow-hidden bg-muted/10">
-                          {project.image ? (
-                            <img
-                              src={project.image}
-                              alt={`${project.name} interface preview`}
-                              className="w-full h-auto block"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div className="aspect-[16/9] p-12 flex flex-col items-center justify-center text-center space-y-3 h-full bg-gradient-to-br from-card via-muted/20 to-card">
-                              <div className="text-3xl font-black text-foreground tracking-tight uppercase">
-                                {project.name}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </Link>
+                      />
                     </div>
                   </div>
                 </article>
