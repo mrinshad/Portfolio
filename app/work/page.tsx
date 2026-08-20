@@ -8,9 +8,11 @@ export const metadata = {
 }
 
 export default function WorkPage() {
+  const [edubyteProject, ...remainingProjects] = flagshipProjects
+
   return (
     <main className="py-16 lg:py-24 space-y-28">
-      <div className="container max-w-6xl px-6 space-y-24">
+      <div className="container max-w-6xl px-6 space-y-28">
         {/* Page Header */}
         <div className="max-w-4xl space-y-4 border-b border-border/50 pb-12">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
@@ -27,12 +29,100 @@ export default function WorkPage() {
           </p>
         </div>
 
-        {/* Flagship Projects - Curated Editorial Showcase */}
-        <div className="space-y-32">
-          {flagshipProjects.map((project, idx) => {
+        {/* 1. First Flagship Project: eduByte (Large Editorial Visual Showcase) */}
+        <section aria-label="eduByte Showcase" className="space-y-8">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+              <span className="text-emerald-500 font-bold">01</span>
+              <span>/</span>
+              <span>04</span>
+              <span>•</span>
+              <span className="text-emerald-500 font-medium">Production ERP</span>
+            </div>
+
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase">
+              {edubyteProject.name}
+            </h2>
+
+            <p className="text-lg sm:text-xl text-muted-foreground font-medium">
+              School Management ERP
+            </p>
+          </div>
+
+          {/* Large Project Visual Presentation */}
+          <div className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-500 hover:border-foreground/30">
+            <Link href={`/work/${edubyteProject.id}`} className="block">
+              {/* Window Header */}
+              <div className="flex items-center justify-between border-b border-border/70 bg-muted/30 px-6 py-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-border" />
+                </div>
+                <span className="text-xs font-mono text-muted-foreground">
+                  edubyte.byten.in / live-system
+                </span>
+                <div className="w-8" />
+              </div>
+
+              {/* Visual Presentation Canvas */}
+              <div className="p-12 sm:p-24 flex flex-col items-center justify-center text-center space-y-4 min-h-[340px] sm:min-h-[420px] bg-gradient-to-br from-card via-muted/20 to-card transition-transform duration-500 ease-out group-hover:scale-[1.015]">
+                <div className="text-xs font-mono uppercase tracking-widest text-emerald-500/80">
+                  Institutional Architecture
+                </div>
+                <div className="text-4xl sm:text-5xl font-black text-foreground tracking-tight uppercase">
+                  {edubyteProject.name}
+                </div>
+                <div className="text-sm font-mono text-muted-foreground max-w-md">
+                  Modular School Management & Accounting Engine
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Concise Supporting Details & Actions */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-4 border-t border-border/50">
+            <div className="md:col-span-8 space-y-2">
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                {edubyteProject.summary}
+              </p>
+              <div className="text-xs font-mono text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1">
+                <span>Production / Client Project</span>
+                <span>•</span>
+                <span>Role: {edubyteProject.role}</span>
+              </div>
+            </div>
+
+            <div className="md:col-span-4 flex items-center md:justify-end gap-6 pt-2 md:pt-0">
+              <Link
+                href={`/work/${edubyteProject.id}`}
+                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground border-b-2 border-foreground pb-1 hover:text-emerald-500 hover:border-emerald-500 transition-colors"
+              >
+                Explore Case Study
+                <ArrowRight className="h-4 w-4 text-emerald-500" />
+              </Link>
+
+              {edubyteProject.liveUrl && (
+                <a
+                  href={edubyteProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Live System
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Remaining Flagship Projects (Maintained for Continuity) */}
+        <div className="space-y-32 pt-12 border-t border-border/40">
+          {remainingProjects.map((project, idx) => {
             const isEven = idx % 2 === 0
             const isLive = Boolean(project.liveUrl)
-            const projectNumber = `0${idx + 1} / 0${flagshipProjects.length}`
+            const projectNumber = `0${idx + 2} / 0${flagshipProjects.length}`
 
             return (
               <div
