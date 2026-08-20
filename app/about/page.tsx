@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { EditorialCareerJourney } from "@/components/editorial-career-journey"
+import { AboutCinematicPortrait } from "@/components/about-cinematic-portrait"
 import { leadershipExperience, skillCategories, educationData } from "@/data"
 
 export const metadata = {
@@ -57,7 +58,7 @@ export default function AboutPage() {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pt-6 border-t border-border/50">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center pt-6 border-t border-border/50">
           {/* Left Column: Personal Story (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             <p className="text-xl sm:text-2xl text-foreground font-normal leading-relaxed">
@@ -76,7 +77,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-border/40 text-xs font-mono">
               <div>
                 <span className="text-muted-foreground block">Origin & Base</span>
-                <span className="text-foreground font-bold">Kerala / Chennai, IN</span>
+                <span className="text-foreground font-bold">Kerala, India</span>
               </div>
               <div>
                 <span className="text-muted-foreground block">Engineering Focus</span>
@@ -89,44 +90,9 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Right Column: Editorial Persona Card (5 cols) */}
-          <div className="lg:col-span-5">
-            <div className="border border-border/70 bg-card/40 p-8 rounded-2xl space-y-6 shadow-xl relative overflow-hidden backdrop-blur-sm">
-              <div className="space-y-2">
-                <div className="text-[11px] font-mono uppercase tracking-widest text-muted-foreground flex items-center justify-between">
-                  <span>Profile Note</span>
-                  <span className="flex items-center gap-1.5 text-emerald-500 font-mono text-[10px]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Active Engineering
-                  </span>
-                </div>
-                <div className="font-dancing text-4xl sm:text-5xl font-bold text-foreground pt-1">
-                  m.rinshad
-                </div>
-              </div>
-
-              <div className="space-y-4 text-sm border-t border-border/50 pt-5">
-                <div className="space-y-1">
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                    Core Philosophy
-                  </div>
-                  <p className="text-foreground font-medium italic leading-relaxed">
-                    &ldquo;The best software is unpretentious—it solves complex problems with quiet precision and durable architecture.&rdquo;
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 pt-3 border-t border-border/40 text-xs font-mono">
-                  <div>
-                    <span className="text-muted-foreground block text-[10px]">Specialization</span>
-                    <span className="text-foreground font-semibold">Full-Stack & Systems</span>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground block text-[10px]">Core Principle</span>
-                    <span className="text-foreground font-semibold">Clarity &gt; Complexity</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Right Column: Cinematic Subject Photo with Organic Edge Dissolve (5 cols) */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <AboutCinematicPortrait />
           </div>
         </div>
       </section>
