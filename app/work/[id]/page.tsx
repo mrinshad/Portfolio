@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { ProjectImageSlider } from "@/components/project-image-slider"
-import { EduByteArchitectureVisualization } from "@/components/edubyte-architecture-visualization"
 import { flagshipProjects } from "@/data"
 
 interface ProjectPageProps {
@@ -190,9 +189,6 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             ))}
           </div>
         </div>
-
-        {/* Specialized Interactive Architecture Pipeline (eduByte Exclusive) */}
-        {project.id === "edubyte" && <EduByteArchitectureVisualization />}
 
         {/* Technologies Strip */}
         <div className="space-y-4 pt-8 border-t border-border/50">
