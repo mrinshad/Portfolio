@@ -84,10 +84,16 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profileData.name,
-  alternateName: profileData.preferredName,
-  jobTitle: "Full-Stack Software Engineer & Technical Lead",
+  alternateName: ["mrinshad", "Rinshad", "Rinshad Morayur", "Rinshad Malappuram", "m.rinshad", "Mohammed Rinshad"],
+  jobTitle: profileData.title,
   url: siteUrl,
   sameAs: [profileData.linkedin, profileData.github],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Morayur",
+    addressRegion: "Malappuram, Kerala",
+    addressCountry: "India",
+  },
   worksFor: [
     {
       "@type": "Organization",

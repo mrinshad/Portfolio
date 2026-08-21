@@ -2,7 +2,7 @@ import { MetadataRoute } from "next"
 import { flagshipProjects } from "@/data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mrinshad.github.io/Portfolio"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://minshad.space"
   const currentDate = new Date().toISOString()
 
   const staticRoutes: MetadataRoute.Sitemap = [

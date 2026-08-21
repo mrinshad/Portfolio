@@ -21,14 +21,14 @@ import {
 export const profileData: ProfileData = {
   name: "Mohammed Rinshad P",
   preferredName: "Rinshad",
-  title: "Full-Stack Software Engineer & Technical Lead",
+  title: "Full-Stack Software Engineer",
   email: "rinshadmorayur09@gmail.com",
   phone: "+91-9895612423",
   linkedin: "https://linkedin.com/in/mrinshad",
   github: "https://github.com/mrinshad",
   portfolioUrl: "https://minshad.space",
   shortPositioning:
-    "Full-Stack Software Engineer & Technical Lead specializing in enterprise web systems, custom ERP platforms, and cloud architecture.",
+    "Full-Stack Software Engineer specializing in enterprise web systems, custom ERP platforms, and cloud architecture.",
   shortIntro:
     "Specializing in architecting and developing scalable web applications, ERP platforms, enterprise systems, and cloud-native solutions using React, Next.js, Node.js, .NET Core, Azure, and SQL technologies.",
 }
@@ -54,7 +54,7 @@ export const navigationContent = {
 
 export const footerContent = {
   brand: "m.rinshad",
-  title: "Full-Stack Software Engineer & Technical Lead",
+  title: "Full-Stack Software Engineer",
   navLinks: [
     { label: "Selected Work", href: "/work" },
     { label: "About & Experience", href: "/about" },
@@ -74,7 +74,7 @@ export const footerContent = {
 // ----------------------------------------------------------------------------
 export const homePageContent = {
   hero: {
-    eyebrow: "01 / Systems Architect & Full-Stack Engineer",
+    eyebrow: "Full-Stack Software Engineer",
     headlineLine1: "Mohammed",
     headlineLine2: "Rinshad P",
     subtitle:
@@ -130,9 +130,9 @@ export const aboutPageContent = {
     eyebrow: "01 / About Rinshad",
     heading: "Driven by craft, curiosity, and durable systems.",
     storyParagraphs: [
-      "I am Mohammed Rinshad P, a software engineer with an instinct for architecture, clarity, and building tools that last.",
-      "With an academic foundation in Computer Science from Mar Athanasius College of Engineering, my background spans enterprise web engineering, custom ERP architecture, and technical consulting across high-impact business systems.",
-      "I find satisfaction in untangling complex workflows—turning intricate data models, institutional operations, and organizational rules into software that feels clear, fast, and dependable.",
+      "I'm Mohammed Rinshad P, a software engineer who enjoys building practical software and figuring out how complex systems should work.",
+      "My experience spans full-stack development, ERP platforms, database design, and cloud applications.",
+      "I particularly enjoy taking complicated business workflows and turning them into software that is simple, reliable, and maintainable.",
     ],
     metrics: [
       { label: "Origin & Base", value: "Kerala, India" },
@@ -140,6 +140,10 @@ export const aboutPageContent = {
       { label: "Background", value: "B.Tech CSE (MACE)" },
     ],
     portraitImage: "/assets/photo.png",
+  },
+  personalQuote: {
+    text: "And seek help through patience and prayer.",
+    source: "Qur'an 2:45",
   },
   marqueeSkills: [
     "React",
@@ -530,7 +534,7 @@ export const leadershipExperience: ExperienceItem[] = [
   {
     id: "byten",
     company: "ByteN",
-    role: "Technical Lead & Full-Stack Developer",
+    role: "Lead Developer & Full-Stack Engineer",
     period: "Jul 2025 – Present",
     location: "Remote",
     isLeadership: true,
@@ -652,16 +656,24 @@ export const siteSeo = {
   siteUrl: "https://minshad.space",
   siteName: "Mohammed Rinshad P Portfolio",
   defaultTitle:
-    "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
+    "Mohammed Rinshad P | Full-Stack Software Engineer",
   titleTemplate: "%s | Mohammed Rinshad P",
   defaultDescription:
-    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer & Technical Lead. Architecting scalable ERP platforms, relational schemas, and production web systems.",
+    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer. Building scalable ERP platforms, enterprise web applications, and production-grade systems.",
   keywords: [
     "Mohammed Rinshad P",
+    "mrinshad",
+    "m.rinshad",
     "Rinshad",
+    "Rinshad Morayur",
+    "Rinshad Malappuram",
+    "Rinshad Kerala",
+    "Mohammed Rinshad",
+    "minshad.space",
     "Full-Stack Developer",
+    "Full-Stack Software Engineer",
     "Software Engineer",
-    "Technical Lead",
+    "Full-Stack Software Engineer Kerala",
     "Next.js",
     "React",
     "Node.js",
@@ -669,10 +681,12 @@ export const siteSeo = {
     "PostgreSQL",
     "Prisma ORM",
     "ERP Architecture",
+    "ERP Developer India",
+    "Web Developer Kerala",
   ],
   ogImage: "/og-image.jpg",
   ogDescription:
-    "Full-Stack Software Engineer & Technical Lead specializing in scalable ERP platforms, enterprise web applications, and cloud-native software.",
+    "Full-Stack Software Engineer specializing in scalable ERP platforms, enterprise web applications, and cloud-native software.",
   twitterDescription:
-    "Full-Stack Software Engineer & Technical Lead specializing in scalable ERP platforms and production systems.",
+    "Full-Stack Software Engineer specializing in scalable ERP platforms and production systems.",
 }

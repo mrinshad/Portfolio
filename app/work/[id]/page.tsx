@@ -59,7 +59,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const currentIndex = flagshipProjects.findIndex((p) => p.id === id)
   const nextProject = flagshipProjects[(currentIndex + 1) % flagshipProjects.length]
   const projectNumber = `0${currentIndex + 1} / 0${flagshipProjects.length}`
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mrinshad.github.io/Portfolio"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://minshad.space"
 
   const projectJsonLd = {
     "@context": "https://schema.org",

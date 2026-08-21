@@ -92,6 +92,22 @@ export default function AboutPage() {
       </div>
 
       {/* ========================================================================= */}
+      {/* 2.5. PERSONAL QUOTE                                                        */}
+      {/* ========================================================================= */}
+      {aboutPageContent.personalQuote && (
+        <section className="container max-w-6xl px-6">
+          <blockquote className="border-l-2 border-accentBlue pl-6 py-2">
+            <p className="text-xl sm:text-2xl font-light italic text-foreground/80 leading-relaxed">
+              &ldquo;{aboutPageContent.personalQuote.text}&rdquo;
+            </p>
+            <cite className="block mt-3 text-xs font-mono uppercase tracking-widest text-muted-foreground not-italic">
+              — {aboutPageContent.personalQuote.source}
+            </cite>
+          </blockquote>
+        </section>
+      )}
+
+      {/* ========================================================================= */}
       {/* 3. EDITORIAL CAREER PROGRESSION (01 Wizzo → 02 Griantek → 03 Veynad → 04 TCS) */}
       {/* ========================================================================= */}
       <section className="container max-w-6xl px-6 space-y-12">
@@ -125,11 +141,11 @@ export default function AboutPage() {
               03 / Leadership & Architecture
             </div>
             <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
-              Technical Leadership
+              Engineering Leadership
             </h2>
           </div>
           <span className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold bg-emerald-500/10 px-3 py-1 rounded">
-            Active Technical Lead
+            Active Lead Developer
           </span>
         </div>
 
@@ -162,7 +178,7 @@ export default function AboutPage() {
               {/* Right Editorial Story & Technologies (8 cols) */}
               <div className="lg:col-span-8 space-y-4">
                 <div className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold">
-                  Technical Leadership & System Architecture
+                  Engineering Leadership & System Architecture
                 </div>
 
                 <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal">
