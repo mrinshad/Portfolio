@@ -3,7 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
 import { EditorialCareerJourney } from "@/components/editorial-career-journey"
 import { AboutCinematicPortrait } from "@/components/about-cinematic-portrait"
-import { leadershipExperience, skillCategories, educationData } from "@/data"
+import { leadershipExperience, skillCategories, educationData, aboutPageContent } from "@/data"
 
 export const metadata = {
   title: "About & Engineering Experience",
@@ -20,24 +20,9 @@ export const metadata = {
   },
 }
 
-const techTickerItems = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  ".NET Core",
-  "PostgreSQL",
-  "Prisma ORM",
-  "Azure Cloud",
-  "Linux (RHEL)",
-  "SQL Server",
-  "REST APIs & RBAC",
-  "GitHub Actions",
-  "Docker",
-  "Tailwind CSS",
-]
-
 export default function AboutPage() {
+  const { hero, marqueeSkills, careerJourney, technicalLeadership, capabilities, education } = aboutPageContent
+
   return (
     <main className="py-16 lg:py-24 space-y-24">
       {/* ========================================================================= */}
@@ -47,46 +32,35 @@ export default function AboutPage() {
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            01 / About Rinshad
+            {hero.eyebrow}
           </div>
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase leading-[1.08]">
-            Driven by craft,
-            <br />
-            <span className="font-light text-muted-foreground italic font-sans lowercase">curiosity,</span> and
-            <br />
-            durable systems.
+            {hero.heading}
           </h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center pt-6 border-t border-border/50">
           {/* Left Column: Personal Story (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
-            <p className="text-xl sm:text-2xl text-foreground font-normal leading-relaxed">
-              I am Mohammed Rinshad P, a software engineer with an instinct for architecture, clarity, and building tools that last.
-            </p>
+            {hero.storyParagraphs[0] && (
+              <p className="text-xl sm:text-2xl text-foreground font-normal leading-relaxed">
+                {hero.storyParagraphs[0]}
+              </p>
+            )}
 
             <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              <p>
-                With an academic foundation in Computer Science from Mar Athanasius College of Engineering, my background spans enterprise web engineering, custom ERP architecture, and technical consulting across high-impact business systems.
-              </p>
-              <p>
-                I find satisfaction in untangling complex workflows—turning intricate data models, institutional operations, and organizational rules into software that feels clear, fast, and dependable.
-              </p>
+              {hero.storyParagraphs.slice(1).map((paragraph, pIdx) => (
+                <p key={pIdx}>{paragraph}</p>
+              ))}
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-border/40 text-xs font-mono">
-              <div>
-                <span className="text-muted-foreground block">Origin & Base</span>
-                <span className="text-foreground font-bold">Kerala, India</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground block">Engineering Focus</span>
-                <span className="text-foreground font-bold">Full-Stack & Systems</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground block">Background</span>
-                <span className="text-foreground font-bold">B.Tech CSE (MACE)</span>
-              </div>
+              {hero.metrics.map((metric, mIdx) => (
+                <div key={mIdx}>
+                  <span className="text-muted-foreground block">{metric.label}</span>
+                  <span className="text-foreground font-bold">{metric.value}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -102,7 +76,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       <div className="w-full border-y border-border/40 py-4 overflow-hidden marquee-container">
         <div className="flex w-max items-center gap-10 animate-marquee-fast">
-          {[...techTickerItems, ...techTickerItems, ...techTickerItems].map(
+          {[...marqueeSkills, ...marqueeSkills, ...marqueeSkills].map(
             (tech, idx) => (
               <div
                 key={idx}

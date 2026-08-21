@@ -3,7 +3,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
-import { ProjectTiltWindow } from "@/components/project-tilt-window"
+import { ProjectImageSlider } from "@/components/project-image-slider"
 import { EduByteArchitectureVisualization } from "@/components/edubyte-architecture-visualization"
 import { flagshipProjects } from "@/data"
 
@@ -124,9 +124,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           )}
         </div>
 
-        {/* Full-Width Visual Hero Stage */}
+        {/* Full-Width Visual Gallery Slider */}
         <div className="overflow-hidden">
-          <ProjectTiltWindow project={project} />
+          <ProjectImageSlider project={project} />
         </div>
 
         {/* Metadata Matrix */}
