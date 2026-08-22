@@ -3,10 +3,11 @@
 import * as React from "react"
 import Image from "next/image"
 import { ExternalLink, ArrowUpRight } from "lucide-react"
-import { clientWebsites } from "@/data"
+import { clientWebsites, workPageContent } from "@/data"
 
 export function ClientWebsitesStack() {
-  const [activeIdx, setActiveIdx] = React.useState<number>(1) // Center card default
+  const { clientWebsitesHeader } = workPageContent
+  const [activeIdx, setActiveIdx] = React.useState<number>(0) // Kids covE on top by default
   const [isHovering, setIsHovering] = React.useState<boolean>(false)
   const [isReducedMotion, setIsReducedMotion] = React.useState<boolean>(false)
 
@@ -32,15 +33,15 @@ export function ClientWebsitesStack() {
           <div className="space-y-2">
             <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-              02 / Commercial Platforms
+              {clientWebsitesHeader.eyebrow}
             </div>
             <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
-              Client Websites
+              {clientWebsitesHeader.heading}
             </h2>
           </div>
 
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Strategic digital presence, performance optimization, and production cloud deployment engineered for commercial organizations and academic institutions.
+            {clientWebsitesHeader.subtitle}
           </p>
 
           {/* Active Project Highlight Card */}
@@ -93,15 +94,15 @@ export function ClientWebsitesStack() {
             {clientWebsites.map((site, idx) => {
               const isSelected = activeIdx === idx
               const total = clientWebsites.length
-              const offset = idx - 1 // -1 for first, 0 for second, 1 for third
+              const offset = idx - activeIdx
 
-              // Stack offsets
-              const baseTranslateX = offset * 110
-              const baseRotate = isReducedMotion ? 0 : offset * 3
+              // Stack offsets: Front card (kidscove by default) is on top
+              const baseTranslateX = (idx - 1) * 90
+              const baseRotate = isReducedMotion ? 0 : (idx - 1) * 3
               const hoverTranslateY = isSelected ? -16 : 0
-              const zIndex = isSelected ? 30 : idx === 1 ? 20 : 10
+              const zIndex = isSelected ? 40 : 30 - idx
               const scale = isSelected ? 1.03 : 0.96
-              const opacity = isHovering && !isSelected ? 0.75 : 1
+              const opacity = isHovering && !isSelected ? 0.8 : 1
 
               return (
                 <div

@@ -3,8 +3,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
 import { TechIcon } from "@/components/tech-icon"
-import { ProjectTiltWindow } from "@/components/project-tilt-window"
-import { EduByteArchitectureVisualization } from "@/components/edubyte-architecture-visualization"
+import { ProjectImageSlider } from "@/components/project-image-slider"
 import { flagshipProjects } from "@/data"
 
 interface ProjectPageProps {
@@ -60,7 +59,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const currentIndex = flagshipProjects.findIndex((p) => p.id === id)
   const nextProject = flagshipProjects[(currentIndex + 1) % flagshipProjects.length]
   const projectNumber = `0${currentIndex + 1} / 0${flagshipProjects.length}`
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mrinshad.github.io/Portfolio"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://minshad.space"
 
   const projectJsonLd = {
     "@context": "https://schema.org",
@@ -124,9 +123,9 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           )}
         </div>
 
-        {/* Full-Width Visual Hero Stage */}
+        {/* Full-Width Visual Gallery Slider */}
         <div className="overflow-hidden">
-          <ProjectTiltWindow project={project} />
+          <ProjectImageSlider project={project} />
         </div>
 
         {/* Metadata Matrix */}
@@ -190,9 +189,6 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             ))}
           </div>
         </div>
-
-        {/* Specialized Interactive Architecture Pipeline (eduByte Exclusive) */}
-        {project.id === "edubyte" && <EduByteArchitectureVisualization />}
 
         {/* Technologies Strip */}
         <div className="space-y-4 pt-8 border-t border-border/50">

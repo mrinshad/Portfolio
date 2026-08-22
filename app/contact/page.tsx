@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react"
-import { profileData } from "@/data"
+import { profileData, contactPageContent } from "@/data"
 import { ContactForm } from "@/components/contact-form"
 
 export const metadata = {
@@ -18,6 +18,8 @@ export const metadata = {
 }
 
 export default function ContactPage() {
+  const { header, channels } = contactPageContent
+
   return (
     <main className="py-16 lg:py-24 space-y-24">
       <div className="container max-w-5xl px-6 space-y-24">
@@ -25,15 +27,15 @@ export default function ContactPage() {
         <div className="space-y-6 border-b border-border/50 pb-12">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            Contact / Inquiries & Roles
+            {header.eyebrow}
           </div>
           <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
-            Let&apos;s Build
+            {header.headingLine1}
             <br />
-            Together
+            {header.headingLine2}
           </h1>
           <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
-            Available for software architecture consultation, custom ERP development, and technical engineering roles.
+            {header.subtitle}
           </p>
         </div>
 

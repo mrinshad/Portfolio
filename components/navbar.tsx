@@ -13,12 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-
-const navLinks = [
-  { name: "Work", href: "/work" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-]
+import { navigationContent, profileData } from "@/data"
 
 export function Navbar() {
   const pathname = usePathname()
@@ -50,18 +45,18 @@ export function Navbar() {
           className="font-dancing text-3xl font-bold tracking-wider text-foreground transition-opacity hover:opacity-75"
           aria-label="Rinshad - Home"
         >
-          m.rinshad
+          {navigationContent.brand}
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-10">
           <div className="flex items-center gap-8">
-            {navLinks.map((link) => {
+            {navigationContent.links.map((link) => {
               const isActive = pathname?.startsWith(link.href)
 
               return (
                 <Link
-                  key={link.name}
+                  key={link.label}
                   href={link.href}
                   className={`text-sm tracking-tight transition-colors duration-200 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 ${
                     isActive
@@ -69,7 +64,7 @@ export function Navbar() {
                       : "text-muted-foreground hover:text-foreground font-medium"
                   }`}
                 >
-                  {link.name}
+                  {link.label}
                 </Link>
               )
             })}
@@ -78,10 +73,10 @@ export function Navbar() {
           <div className="flex items-center gap-4 pl-6 border-l border-border/60">
             <ThemeToggle />
             <Link
-              href="/contact"
+              href={navigationContent.cta.href}
               className="inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-foreground hover:text-accentBlue transition-colors duration-200 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
             >
-              Get in Touch
+              {navigationContent.cta.label}
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -119,12 +114,12 @@ export function Navbar() {
                 >
                   Home
                 </Link>
-                {navLinks.map((link) => {
+                {navigationContent.links.map((link) => {
                   const isActive = pathname?.startsWith(link.href)
 
                   return (
                     <Link
-                      key={link.name}
+                      key={link.label}
                       href={link.href}
                       onClick={() => setIsOpen(false)}
                       className={`text-lg font-bold tracking-tight ${
@@ -133,7 +128,7 @@ export function Navbar() {
                           : "text-muted-foreground"
                       }`}
                     >
-                      {link.name}
+                      {link.label}
                     </Link>
                   )
                 })}
@@ -142,7 +137,7 @@ export function Navbar() {
                     Connect
                   </span>
                   <a
-                    href="https://linkedin.com/in/mrinshad"
+                    href={profileData.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-between text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
@@ -151,7 +146,7 @@ export function Navbar() {
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                   <a
-                    href="https://github.com/mrinshad"
+                    href={profileData.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-between text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"

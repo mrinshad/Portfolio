@@ -21,6 +21,7 @@ export interface ProjectItem {
   role: string
   client?: string
   image?: string
+  images?: string[]
   isFlagship: boolean
   isClientWebsite?: boolean
 }

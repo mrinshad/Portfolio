@@ -1,12 +1,6 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { profileData } from "@/data"
-
-const footerLinks = [
-  { name: "Selected Work", href: "/work" },
-  { name: "About & Experience", href: "/about" },
-  { name: "Contact", href: "/contact" },
-]
+import { profileData, footerContent } from "@/data"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -21,21 +15,21 @@ export function Footer() {
               className="font-dancing text-4xl font-bold tracking-wider text-foreground hover:text-accentBlue transition-colors inline-block"
               aria-label="Back to home"
             >
-              m.rinshad
+              {footerContent.brand}
             </Link>
             <div className="text-sm font-mono uppercase tracking-widest text-muted-foreground">
-              Full-Stack Software Engineer & Technical Lead
+              {footerContent.title}
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-8">
-            {footerLinks.map((link) => (
+            {footerContent.navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.label}
                 href={link.href}
                 className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue hover:underline transition-colors"
               >
-                {link.name}
+                {link.label}
               </Link>
             ))}
           </div>

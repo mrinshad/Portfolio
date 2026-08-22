@@ -6,7 +6,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BackToTop } from "@/components/back-to-top"
 import { GrainOverlay } from "@/components/grain-overlay"
-import { profileData } from "@/data"
+import { profileData, siteSeo } from "@/data"
 
 const fontSans = Inter({
   subsets: ["latin"],
@@ -26,33 +26,19 @@ const fontMono = JetBrains_Mono({
   display: "swap",
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mrinshad.github.io/Portfolio"
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || siteSeo.siteUrl
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
-    template: "%s | Mohammed Rinshad P",
+    default: siteSeo.defaultTitle,
+    template: siteSeo.titleTemplate,
   },
-  description:
-    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer & Technical Lead. Architecting scalable ERP platforms, relational schemas, and production web systems.",
-  keywords: [
-    "Mohammed Rinshad P",
-    "Rinshad",
-    "Full-Stack Developer",
-    "Software Engineer",
-    "Technical Lead",
-    "Next.js",
-    "React",
-    "Node.js",
-    ".NET Core",
-    "PostgreSQL",
-    "Prisma ORM",
-    "ERP Architecture",
-  ],
-  authors: [{ name: "Mohammed Rinshad P", url: siteUrl }],
-  creator: "Mohammed Rinshad P",
-  publisher: "Mohammed Rinshad P",
+  description: siteSeo.defaultDescription,
+  keywords: siteSeo.keywords,
+  authors: [{ name: profileData.name, url: siteUrl }],
+  creator: profileData.name,
+  publisher: profileData.name,
   alternates: {
     canonical: "/",
   },
@@ -60,25 +46,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
-    description:
-      "Full-Stack Software Engineer & Technical Lead specializing in scalable ERP platforms, enterprise web applications, and cloud-native software.",
-    siteName: "Mohammed Rinshad P Portfolio",
+    title: siteSeo.defaultTitle,
+    description: siteSeo.ogDescription,
+    siteName: siteSeo.siteName,
     images: [
       {
-        url: "/og-image.jpg",
+        url: siteSeo.ogImage,
         width: 1200,
         height: 630,
-        alt: "Mohammed Rinshad P — Full-Stack Software Engineer & Technical Lead",
+        alt: `${profileData.name} — ${profileData.title}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohammed Rinshad P | Full-Stack Software Engineer & Technical Lead",
-    description:
-      "Full-Stack Software Engineer & Technical Lead specializing in scalable ERP platforms and production systems.",
-    images: ["/og-image.jpg"],
+    title: siteSeo.defaultTitle,
+    description: siteSeo.twitterDescription,
+    images: [siteSeo.ogImage],
   },
   robots: {
     index: true,
@@ -100,10 +84,16 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profileData.name,
-  alternateName: profileData.preferredName,
-  jobTitle: "Full-Stack Software Engineer & Technical Lead",
+  alternateName: ["mrinshad", "Rinshad", "Rinshad Morayur", "Rinshad Malappuram", "m.rinshad", "Mohammed Rinshad"],
+  jobTitle: profileData.title,
   url: siteUrl,
   sameAs: [profileData.linkedin, profileData.github],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Morayur",
+    addressRegion: "Malappuram, Kerala",
+    addressCountry: "India",
+  },
   worksFor: [
     {
       "@type": "Organization",
