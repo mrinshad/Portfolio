@@ -82,7 +82,7 @@ export default function AboutPage() {
                 key={idx}
                 className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground whitespace-nowrap"
               >
-                <TechIcon name={tech} className="h-3.5 w-3.5 text-foreground" />
+                <TechIcon name={tech} className="h-4 w-4 shrink-0" />
                 <span>{tech}</span>
                 <span className="h-1 w-1 rounded-full bg-accentBlue/60 ml-6" />
               </div>
@@ -96,7 +96,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {aboutPageContent.personalQuote && (
         <section className="container max-w-6xl px-6">
-          <blockquote className="border-l-2 border-accentBlue pl-6 py-2">
+          <blockquote className="glass-card rounded-xl p-8 sm:p-10 glow-accent">
             <p className="text-xl sm:text-2xl font-light italic text-foreground/80 leading-relaxed">
               &ldquo;{aboutPageContent.personalQuote.text}&rdquo;
             </p>
@@ -192,7 +192,7 @@ export default function AboutPage() {
                         key={tIdx}
                         className="inline-flex items-center gap-1.5 text-foreground font-medium"
                       >
-                        <TechIcon name={tech} className="h-3 w-3 text-muted-foreground" />
+                        <TechIcon name={tech} className="h-3.5 w-3.5 shrink-0" />
                         {tech}
                       </span>
                     ))}
@@ -223,9 +223,9 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((cat, idx) => (
-            <div key={cat.category} className="space-y-4 border-t-2 border-foreground pt-4">
+            <div key={cat.category} className="glass-card rounded-xl p-6 space-y-4">
               <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted-foreground">
                 <span className="text-foreground font-bold">0{idx + 1}</span>
                 <span>{cat.category}</span>
@@ -237,7 +237,7 @@ export default function AboutPage() {
                     key={skill}
                     className="flex items-center gap-2.5 text-sm font-medium text-foreground py-0.5"
                   >
-                    <TechIcon name={skill} className="h-3.5 w-3.5 text-muted-foreground" />
+                    <TechIcon name={skill} className="h-4 w-4 shrink-0" />
                     <span>{skill}</span>
                   </div>
                 ))}
@@ -263,7 +263,7 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {educationData.map((edu, idx) => (
-            <div key={idx} className="space-y-2 border-t border-border/60 pt-4">
+            <div key={idx} className="glass-card rounded-xl p-6 space-y-2">
               <div className="text-xs font-mono uppercase tracking-widest text-accentBlue font-bold">
                 {edu.period}
               </div>

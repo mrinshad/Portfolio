@@ -129,42 +129,22 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </div>
 
         {/* Metadata Matrix */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 py-8 border-y border-border/50">
-          <div>
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Classification
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-8">
+          {[
+            { label: "Classification", value: project.typeLabel },
+            { label: "Status", value: project.statusText.split(" ")[0] },
+            { label: "Lead Role", value: project.role },
+            { label: "Organization", value: "ByteN" },
+          ].map((meta) => (
+            <div key={meta.label} className="glass-card rounded-lg p-4">
+              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                {meta.label}
+              </div>
+              <div className="text-base font-bold text-foreground uppercase pt-1">
+                {meta.value}
+              </div>
             </div>
-            <div className="text-base font-bold text-foreground uppercase pt-1">
-              {project.typeLabel}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Status
-            </div>
-            <div className="text-base font-bold text-foreground uppercase pt-1">
-              {project.statusText.split(" ")[0]}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Lead Role
-            </div>
-            <div className="text-base font-bold text-foreground uppercase pt-1">
-              {project.role}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              Organization
-            </div>
-            <div className="text-base font-bold text-foreground uppercase pt-1">
-              ByteN
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Architecture Highlights */}

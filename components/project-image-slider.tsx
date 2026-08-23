@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { createPortal } from "react-dom"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react"
 import { ProjectItem } from "@/data"
@@ -14,8 +15,10 @@ export function ProjectImageSlider({ project }: ProjectImageSliderProps) {
   const [currentIdx, setCurrentIdx] = React.useState<number>(0)
   const [isFullscreen, setIsFullscreen] = React.useState<boolean>(false)
   const [isReducedMotion, setIsReducedMotion] = React.useState<boolean>(false)
+  const [mounted, setMounted] = React.useState<boolean>(false)
 
   React.useEffect(() => {
+    setMounted(true)
     const query = window.matchMedia("(prefers-reduced-motion: reduce)")
     setIsReducedMotion(query.matches)
     const onChange = (e: MediaQueryListEvent) => setIsReducedMotion(e.matches)
@@ -47,6 +50,20 @@ export function ProjectImageSlider({ project }: ProjectImageSliderProps) {
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [handlePrev, handleNext, isFullscreen])
+
+  // Prevent page scroll when modal is active
+  React.useEffect(() => {
+    if (isFullscreen) {
+      const originalBodyOverflow = document.body.style.overflow
+      const originalHtmlOverflow = document.documentElement.style.overflow
+      document.body.style.overflow = "hidden"
+      document.documentElement.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = originalBodyOverflow
+        document.documentElement.style.overflow = originalHtmlOverflow
+      }
+    }
+  }, [isFullscreen])
 
   if (images.length === 0) {
     return null
@@ -91,7 +108,11 @@ export function ProjectImageSlider({ project }: ProjectImageSliderProps) {
 
         {/* Display Stage */}
         <div className="relative w-full overflow-hidden bg-muted/5 min-h-[260px] sm:min-h-[420px] flex items-center justify-center">
-          <div className="w-full relative">
+          <div
+            className="w-full relative cursor-zoom-in"
+            onClick={() => setIsFullscreen(true)}
+            title="Click to expand full screen"
+          >
             <Image
               key={currentImage}
               src={currentImage}
@@ -177,84 +198,102 @@ export function ProjectImageSlider({ project }: ProjectImageSliderProps) {
         )}
       </div>
 
-      {/* Fullscreen Lightbox Modal */}
-      {isFullscreen && (
+      {/* Fullscreen Lightbox Modal — Rendered via React Portal directly into body */}
+      {isFullscreen && mounted && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md p-4 sm:p-8 flex flex-col justify-between items-center"
+          onClick={() => setIsFullscreen(false)}
+          className="fixed inset-0 z-[99999] h-[100dvh] w-[100dvw] bg-background/95 dark:bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 select-none animate-in fade-in duration-150"
         >
-          {/* Modal Header */}
-          <div className="w-full max-w-7xl flex items-center justify-between py-2">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                {project.name} • 0{currentIdx + 1} of 0{total}
-              </span>
-            </div>
-            <button
-              onClick={() => setIsFullscreen(false)}
-              aria-label="Close fullscreen"
-              className="p-2 rounded-full bg-muted/60 hover:bg-muted text-foreground transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
+          {/* Top Left: Project Info */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="absolute top-4 left-4 sm:top-6 sm:left-6 z-50 text-xs font-mono uppercase tracking-widest text-muted-foreground bg-muted/60 dark:bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-border/50"
+          >
+            {project.name} • 0{currentIdx + 1} of 0{total}
           </div>
 
-          {/* Modal Image */}
-          <div className="relative max-w-7xl max-h-[80vh] w-full h-full flex items-center justify-center my-auto">
+          {/* Top Right: Original Round Close Button (Outside the image) */}
+          <button
+            onClick={() => setIsFullscreen(false)}
+            aria-label="Close fullscreen (Esc)"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-muted/80 hover:bg-muted text-foreground border border-border/60 shadow-lg backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
+          {/* Exact Center Image Container */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex items-center justify-center max-w-[86vw] max-h-[82vh] cursor-default"
+          >
             <Image
               src={currentImage}
               alt={`${project.name} fullscreen screenshot 0${currentIdx + 1}`}
               width={1920}
               height={1080}
-              className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+              priority
+              className="max-w-[86vw] max-h-[82vh] w-auto h-auto object-contain rounded-lg shadow-2xl block select-none"
             />
-
-            {total > 1 && (
-              <>
-                <button
-                  onClick={handlePrev}
-                  aria-label="Previous screenshot"
-                  className="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full bg-background/80 hover:bg-background text-foreground border border-border shadow-xl transition-all"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                <button
-                  onClick={handleNext}
-                  aria-label="Next screenshot"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full bg-background/80 hover:bg-background text-foreground border border-border shadow-xl transition-all"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              </>
-            )}
           </div>
 
-          {/* Modal Thumbnails */}
+          {/* Left / Right Nav Arrows on Viewport */}
           {total > 1 && (
-            <div className="flex items-center gap-2 py-2 overflow-x-auto max-w-full">
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handlePrev()
+                }}
+                aria-label="Previous screenshot"
+                className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-background/85 hover:bg-background text-foreground border border-border shadow-xl backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleNext()
+                }}
+                aria-label="Next screenshot"
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-background/85 hover:bg-background text-foreground border border-border shadow-xl backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </>
+          )}
+
+          {/* Bottom Center: Floating Thumbnails Strip */}
+          {total > 1 && (
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="absolute bottom-5 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-3 py-2 rounded-xl bg-background/70 dark:bg-black/60 backdrop-blur-md border border-border/50 max-w-[90vw] overflow-x-auto"
+            >
               {images.map((imgSrc, idx) => (
                 <button
                   key={imgSrc}
                   onClick={() => setCurrentIdx(idx)}
-                  className={`relative flex-shrink-0 w-14 aspect-[16/10] rounded overflow-hidden border transition-all ${
+                  aria-label={`Jump to screenshot 0${idx + 1}`}
+                  className={`relative flex-shrink-0 w-12 sm:w-14 aspect-[16/10] rounded-md overflow-hidden border transition-all cursor-pointer ${
                     currentIdx === idx
-                      ? "border-accentBlue ring-2 ring-accentBlue"
+                      ? "border-accentBlue ring-2 ring-accentBlue scale-105"
                       : "border-border/40 opacity-50 hover:opacity-100"
                   }`}
                 >
                   <Image
                     src={imgSrc}
                     alt={`Thumb 0${idx + 1}`}
-                    width={80}
-                    height={50}
+                    width={70}
+                    height={45}
                     className="w-full h-full object-cover"
                   />
                 </button>
               ))}
             </div>
           )}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
