@@ -34,7 +34,7 @@ export function Navbar() {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ease-out ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border/60 shadow-sm dark:bg-[#09090b]/80 dark:border-white/10 dark:shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4)]"
+          ? "bg-background/70 backdrop-blur-xl saturate-[180%] border-b border-border/40 shadow-[0_4px_30px_rgba(0,0,0,0.04)] dark:bg-[#09090b]/70 dark:border-white/8 dark:shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
           : "bg-transparent border-b border-transparent shadow-none"
       }`}
     >

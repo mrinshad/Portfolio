@@ -189,7 +189,7 @@ export function EditorialCareerJourney() {
                       isActive ? "text-foreground font-medium" : "text-muted-foreground"
                     }`}
                   >
-                    <TechIcon name={tech} className="h-3 w-3 text-muted-foreground" />
+                    <TechIcon name={tech} className="h-3.5 w-3.5 shrink-0" />
                     {tech}
                   </span>
                 ))}

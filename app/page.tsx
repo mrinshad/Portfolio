@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react"
 import { HeroAurora } from "@/components/hero-aurora"
 import { Hero3DObject } from "@/components/hero-3d-object"
 import { HeroPointerGlow } from "@/components/hero-pointer-glow"
@@ -25,7 +25,7 @@ export default function Home() {
       {/* 1. Refined Typographic Hero */}
       <section
         aria-label="Introduction"
-        className="relative flex min-h-[calc(80vh-5rem)] flex-col justify-between py-16 lg:py-24 overflow-hidden"
+        className="relative flex min-h-[calc(90vh-5rem)] flex-col justify-between py-16 lg:py-24 overflow-hidden gradient-mesh"
       >
         <HeroAurora />
         <HeroPointerGlow />
@@ -40,7 +40,7 @@ export default function Home() {
             <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-foreground uppercase leading-none animate-hero-wipe">
               {hero.headlineLine1}
               <br />
-              {hero.headlineLine2}
+              <span className="gradient-text">{hero.headlineLine2}</span>
             </h1>
 
             <p className="text-xl sm:text-2xl text-muted-foreground font-normal max-w-2xl leading-relaxed pt-2">
@@ -51,23 +51,15 @@ export default function Home() {
           <div className="flex flex-wrap items-center gap-8 pt-4 border-t border-border/50">
             <Link
               href={hero.ctaPrimary.href}
-              className="group/hero-cta inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline underline-offset-8 decoration-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
+              className="group/hero-cta glass-cta inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-foreground px-7 py-4 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
             >
               <span>{hero.ctaPrimary.label}</span>
               <ArrowRight className="h-4 w-4 text-accentBlue transition-transform duration-200 ease-out group-hover/hero-cta:translate-x-1" />
             </Link>
 
             <Link
-              href={hero.ctaSecondary.href}
-              className="group/hero-about inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
-            >
-              <span>{hero.ctaSecondary.label}</span>
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/hero-about:translate-x-0.5 group-hover/hero-about:-translate-y-0.5" />
-            </Link>
-
-            <Link
               href={hero.ctaTertiary.href}
-              className="group/hero-contact inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
+              className="group/hero-contact glass-pill inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground px-7 py-4 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
             >
               <span>{hero.ctaTertiary.label}</span>
               <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/hero-contact:translate-x-0.5 group-hover/hero-contact:-translate-y-0.5" />
@@ -93,8 +85,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Featured Systems Section (Strict Theme Tokens in Light and Dark) */}
-      <section className="py-24 bg-muted/20 border-y border-border/50 transition-colors">
+      {/* 2. Featured Systems Section — Gradient Mesh Background */}
+      <section className="py-24 border-y border-border/50 transition-colors gradient-mesh">
         <div className="container max-w-6xl px-6 space-y-20">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-border/50 pb-8">
             <div className="space-y-1">
@@ -165,7 +157,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Streamlined Gateway Section */}
+      {/* 3. Gateway Section — Glass Cards */}
       <section className="py-24 border-b border-border/40">
         <div className="container max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

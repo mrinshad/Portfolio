@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ArrowRight } from "lucide-react"
 import { profileData, footerContent } from "@/data"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border/50 py-16 bg-background mt-20">
+    <footer className="border-t border-border/50 py-16 mt-20 gradient-mesh">
       <div className="container max-w-6xl px-6 space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-border/40">
           <div className="space-y-3">
@@ -32,6 +32,13 @@ export function Footer() {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href="/contact"
+              className="group glass-cta inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground px-5 py-2.5 rounded-lg"
+            >
+              <span>Let&apos;s Work Together</span>
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
 

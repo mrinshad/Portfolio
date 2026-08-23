@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
+import { TechIcon } from "./tech-icon"
 import { flagshipProjects } from "@/data"
 
 const projectAccents = {
@@ -400,9 +401,10 @@ export function HorizontalWorkShowcase() {
                           {project.technologies.slice(0, 4).map((tech, tIdx) => (
                             <span
                               key={tIdx}
-                              className="bg-muted/50 px-2 py-0.5 rounded border border-border/40 text-muted-foreground"
+                              className="bg-muted/50 px-2 py-0.5 rounded border border-border/40 text-foreground/80 inline-flex items-center gap-1.5"
                             >
-                              {tech}
+                              <TechIcon name={tech} className="h-3 w-3 shrink-0" />
+                              <span>{tech}</span>
                             </span>
                           ))}
                         </div>
@@ -574,9 +576,10 @@ export function HorizontalWorkShowcase() {
                       {project.technologies.slice(0, 3).map((tech, tIdx) => (
                         <span
                           key={tIdx}
-                          className="bg-muted/50 px-1.5 py-0.5 rounded border border-border/30"
+                          className="bg-muted/50 px-1.5 py-0.5 rounded border border-border/30 text-foreground/80 inline-flex items-center gap-1"
                         >
-                          {tech}
+                          <TechIcon name={tech} className="h-2.5 w-2.5 shrink-0" />
+                          <span>{tech}</span>
                         </span>
                       ))}
                     </div>

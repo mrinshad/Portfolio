@@ -71,7 +71,7 @@ export function ProjectTiltWindow({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={transformStyle}
-      className={`group block overflow-hidden rounded-xl border border-border bg-card shadow-xl transition-all duration-300 will-change-transform transform-gpu hover:border-accentBlue/60 hover:shadow-2xl ${className}`}
+      className={`group block overflow-hidden rounded-xl glass-card shadow-xl transition-all duration-300 will-change-transform transform-gpu hover:glow-accent ${className}`}
     >
       <Link
         href={`/work/${project.id}`}
