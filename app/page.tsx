@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react"
 import { HeroAurora } from "@/components/hero-aurora"
-import { Hero3DObject } from "@/components/hero-3d-object"
+import { HeroVideoPortrait } from "@/components/hero-video-portrait"
 import { HeroPointerGlow } from "@/components/hero-pointer-glow"
 import { ProjectTiltWindow } from "@/components/project-tilt-window"
 import { flagshipProjects, homePageContent, profileData } from "@/data"
@@ -29,7 +29,7 @@ export default function Home() {
       >
         <HeroAurora />
         <HeroPointerGlow />
-        <Hero3DObject />
+        <HeroVideoPortrait />
         <div className="container max-w-6xl px-6 my-auto space-y-10 relative z-10">
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-muted-foreground">
