@@ -32,5 +32,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-docs/
 IMPLEMENTATION_PLAN.md
+
+# graphify cache
+graphify-out/cache/
+
+# local native binaries
+.agents/skills/impeccable/scripts/bin/
