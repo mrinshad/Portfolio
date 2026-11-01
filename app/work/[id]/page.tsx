@@ -1,209 +1,177 @@
-import { notFound } from "next/navigation"
-import Link from "next/link"
 import type { Metadata } from "next"
-import { ArrowLeft, ArrowUpRight, ArrowRight } from "lucide-react"
-import { TechIcon } from "@/components/tech-icon"
-import { ProjectImageSlider } from "@/components/project-image-slider"
-import { flagshipProjects } from "@/data"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { flagshipProjects, profile } from "@/data"
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@/components/marks"
+import { PlateGallery } from "@/components/plate-gallery"
 
-interface ProjectPageProps {
-  params: Promise<{ id: string }>
+type Params = { params: Promise<{ id: string }> }
+
+export function generateStaticParams() {
+  return flagshipProjects.map((project) => ({ id: project.id }))
 }
 
-export async function generateStaticParams() {
-  return flagshipProjects.map((project) => ({
-    id: project.id,
-  }))
-}
-
-export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params
-  const project = flagshipProjects.find((p) => p.id === id)
+  const project = flagshipProjects.find((item) => item.id === id)
 
-  if (!project) {
-    return {
-      title: "Project Not Found",
-    }
-  }
+  if (!project) return { title: "Not found" }
 
   return {
-    title: `${project.name} — ${project.typeLabel} Case Study`,
+    title: `${project.name} — ${project.category}`,
     description: project.summary,
-    alternates: {
-      canonical: `/work/${project.id}`,
-    },
+    alternates: { canonical: `/work/${project.id}` },
     openGraph: {
-      title: `${project.name} — ${project.typeLabel} | Mohammed Rinshad P`,
+      title: `${project.name} — ${project.category}`,
       description: project.summary,
       url: `/work/${project.id}`,
-      images: project.image ? [{ url: project.image, width: 1200, height: 675, alt: `${project.name} Interface` }] : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${project.name} — ${project.typeLabel} | Mohammed Rinshad P`,
-      description: project.summary,
-      images: project.image ? [project.image] : [],
+      images: [{ url: project.image, width: 1440, height: 900, alt: project.name }],
     },
   }
 }
 
-export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+export default async function CaseStudyPage({ params }: Params) {
   const { id } = await params
-  const project = flagshipProjects.find((p) => p.id === id)
+  const project = flagshipProjects.find((item) => item.id === id)
 
-  if (!project) {
-    notFound()
-  }
+  if (!project) notFound()
 
-  const isLive = Boolean(project.liveUrl)
-  const currentIndex = flagshipProjects.findIndex((p) => p.id === id)
-  const nextProject = flagshipProjects[(currentIndex + 1) % flagshipProjects.length]
-  const projectNumber = `0${currentIndex + 1} / 0${flagshipProjects.length}`
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://minshad.space"
+  const position = flagshipProjects.findIndex((item) => item.id === id)
+  const next = flagshipProjects[(position + 1) % flagshipProjects.length]
 
-  const projectJsonLd = {
+  const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: project.name,
     description: project.summary,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
-    author: {
-      "@type": "Person",
-      name: "Mohammed Rinshad P",
-    },
-    url: `${siteUrl}/work/${project.id}`,
+    author: { "@type": "Person", name: profile.name },
+    url: `${profile.siteUrl}/work/${project.id}`,
   }
 
   return (
-    <main className="py-16 lg:py-24 space-y-20">
+    <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="container max-w-5xl px-6 space-y-16">
-        {/* Back Link */}
-        <div>
-          <Link
-            href="/work"
-            className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
-          >
-            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:-translate-x-1" />
-            <span>Back to Selected Work</span>
-          </Link>
-        </div>
 
-        {/* Hero Header */}
-        <div className="space-y-6 border-b border-border/50 pb-12">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            {projectNumber} • {project.category}
-          </div>
+      <article>
+        {/* Header */}
+        <header className="border-b border-rule">
+          <div className="shell py-12 md:py-16">
+            <Link
+              href="/work"
+              className="group inline-flex items-center gap-2 text-[0.72rem] font-medium uppercase tracking-label text-muted-foreground transition-colors hover:text-accent"
+            >
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
+              All work
+            </Link>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase">
-            {project.name}
-          </h1>
+            <div className="mt-8 grid gap-8 md:grid-cols-12">
+              <div className="md:col-span-8">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <span className="label !text-[0.7rem]">{project.index}</span>
+                  <span className="label !text-[0.7rem]">
+                    {project.year} · {project.statusText}
+                  </span>
+                </div>
 
-          <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-3xl font-medium">
-            {project.summary}
-          </p>
+                <h1 className="display mt-4 text-[clamp(2.5rem,6.4vw,5rem)]">
+                  {project.name}
+                </h1>
 
-          {isLive && (
-            <div className="pt-4">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-background bg-foreground px-8 py-4 rounded-none hover:bg-accentBlue hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
-              >
-                <span>Launch Live System</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </a>
-            </div>
-          )}
-        </div>
-
-        {/* Full-Width Visual Gallery Slider */}
-        <div className="overflow-hidden">
-          <ProjectImageSlider project={project} />
-        </div>
-
-        {/* Metadata Matrix */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-8">
-          {[
-            { label: "Classification", value: project.typeLabel },
-            { label: "Status", value: project.statusText.split(" ")[0] },
-            { label: "Lead Role", value: project.role },
-            { label: "Organization", value: "ByteN" },
-          ].map((meta) => (
-            <div key={meta.label} className="glass-card rounded-lg p-4">
-              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                {meta.label}
-              </div>
-              <div className="text-base font-bold text-foreground uppercase pt-1">
-                {meta.value}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Architecture Highlights */}
-        <div className="space-y-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-foreground">
-            Architecture & Engineering Scope
-          </h2>
-
-          <div className="space-y-6">
-            {project.scopeHighlights.map((highlight, idx) => (
-              <div
-                key={idx}
-                className="border-t border-border/50 pt-6 flex items-start gap-4 group"
-              >
-                <span className="font-mono text-sm font-bold text-accentBlue mt-0.5">
-                  0{idx + 1}
-                </span>
-                <p className="text-lg text-foreground/90 leading-relaxed">
-                  {highlight}
+                <p className="measure mt-5 text-[1.0625rem] leading-relaxed text-muted-foreground">
+                  {project.lede}
                 </p>
               </div>
-            ))}
+
+              <dl className="md:col-span-4 md:border-l md:border-rule md:pl-8">
+                {[
+                  { term: "Discipline", detail: project.category },
+                  { term: "Role", detail: project.role },
+                  { term: "Client", detail: project.client ?? "Internal / public" },
+                  { term: "Stack", detail: project.technologies.join(", ") },
+                ].map((row) => (
+                  <div key={row.term} className="border-b border-rule py-3 first:pt-0">
+                    <dt className="label !text-[0.7rem]">{row.term}</dt>
+                    <dd className="mt-1 text-sm text-ink">{row.detail}</dd>
+                  </div>
+                ))}
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-4 inline-flex items-center gap-1.5 text-[0.72rem] font-medium uppercase tracking-label text-ink transition-colors hover:text-accent"
+                  >
+                    Visit live site
+                    <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </a>
+                )}
+              </dl>
+            </div>
+          </div>
+        </header>
+
+        {/* Gallery */}
+        <div className="shell pt-10 md:pt-14">
+          <PlateGallery project={project} />
+        </div>
+
+        {/* Body */}
+        <div className="shell grid gap-12 py-16 md:grid-cols-12 md:py-20">
+          <div className="md:col-span-7">
+            <h2 className="label">Scope</h2>
+            <ul className="mt-6 space-y-0 border-t border-rule">
+              {project.scope.map((item, i) => (
+                <li
+                  key={item}
+                  className="flex gap-5 border-b border-rule py-5 text-[0.95rem] leading-relaxed text-ink"
+                >
+                  <span className="label mt-1 shrink-0 !text-[0.7rem]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="md:col-span-5">
+            {project.notes.length > 0 && (
+              <div className="space-y-8 md:pl-8 md:border-l md:border-rule">
+                {project.notes.map((note) => (
+                  <section key={note.label}>
+                    <h2 className="label">{note.label}</h2>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {note.body}
+                    </p>
+                  </section>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Technologies Strip */}
-        <div className="space-y-4 pt-8 border-t border-border/50">
-          <h3 className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            Technologies & Infrastructure
-          </h3>
-          <div className="flex flex-wrap gap-6 text-sm font-mono uppercase tracking-wider text-foreground">
-            {project.technologies.map((tech) => (
-              <span key={tech} className="inline-flex items-center gap-2 hover:text-accentBlue transition-colors duration-200">
-                <TechIcon name={tech} className="h-4 w-4 text-muted-foreground" />
-                <span>{tech}</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Next Project Footer Navigation */}
-        <div className="pt-20 border-t-2 border-foreground flex items-center justify-between">
+        {/* Next */}
+        <div className="border-t border-rule">
           <Link
-            href="/work"
-            className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-accentBlue transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
+            href={`/work/${next.id}`}
+            className="group shell flex items-center justify-between gap-6 py-10"
           >
-            <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-hover:-translate-x-1" />
-            <span>All Systems</span>
-          </Link>
-
-          <Link
-            href={`/work/${nextProject.id}`}
-            className="group inline-flex items-center gap-2 text-base font-bold uppercase tracking-wider text-foreground hover:text-accentBlue hover:underline transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2 rounded-sm"
-          >
-            <span>Next: {nextProject.name}</span>
-            <ArrowRight className="h-4 w-4 text-accentBlue transition-transform duration-200 ease-out group-hover:translate-x-1" />
+            <div>
+              <p className="label">Next project</p>
+              <p className="mt-2 font-serif text-[clamp(1.6rem,3.4vw,2.5rem)] leading-none tracking-tight transition-colors group-hover:text-accent">
+                {next.name}
+              </p>
+              <p className="mt-1.5 text-sm text-muted-foreground">{next.category}</p>
+            </div>
+            <ArrowRight className="h-6 w-6 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-accent" />
           </Link>
         </div>
-      </div>
-    </main>
+      </article>
+    </>
   )
 }

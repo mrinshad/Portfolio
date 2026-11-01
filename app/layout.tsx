@@ -1,171 +1,154 @@
-import type { Metadata } from "next"
-import { Inter, Dancing_Script, JetBrains_Mono } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { BackToTop } from "@/components/back-to-top"
-import { GrainOverlay } from "@/components/grain-overlay"
-import { profileData, siteSeo } from "@/data"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { Reveal } from "@/components/reveal"
+import { profile, seo } from "@/data"
 
-const fontSans = Inter({
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+})
+
+const sans = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 })
 
-const fontDancing = Dancing_Script({
-  subsets: ["latin"],
-  variable: "--font-dancing",
-  display: "swap",
-})
-
-const fontMono = JetBrains_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || siteSeo.siteUrl
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || profile.siteUrl
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: siteSeo.defaultTitle,
-    template: siteSeo.titleTemplate,
+    default: seo.title,
+    template: `%s — ${profile.name}`,
   },
-  description: siteSeo.defaultDescription,
-  keywords: siteSeo.keywords,
-  authors: [{ name: profileData.name, url: siteUrl }],
-  creator: profileData.name,
-  publisher: profileData.name,
-  alternates: {
-    canonical: "/",
-  },
+  description: seo.description,
+  keywords: seo.keywords,
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_GB",
     url: siteUrl,
-    title: siteSeo.defaultTitle,
-    description: siteSeo.ogDescription,
-    siteName: siteSeo.siteName,
+    title: seo.title,
+    description: seo.description,
+    siteName: profile.name,
     images: [
       {
-        url: siteSeo.ogImage,
+        url: "/og.png",
         width: 1200,
         height: 630,
-        alt: `${profileData.name} — ${profileData.title}`,
+        alt: `${profile.name} — ${profile.role}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteSeo.defaultTitle,
-    description: siteSeo.twitterDescription,
-    images: [siteSeo.ogImage],
+    title: seo.title,
+    description: seo.description,
+    images: ["/og.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: "/favicon.svg",
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f3ea" },
+    { media: "(prefers-color-scheme: dark)", color: "#121110" },
+  ],
+  colorScheme: "light dark",
 }
 
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: profileData.name,
-  alternateName: ["mrinshad", "Rinshad", "Rinshad Morayur", "Rinshad Malappuram", "m.rinshad", "Mohammed Rinshad"],
-  jobTitle: profileData.title,
+  name: profile.name,
+  alternateName: ["mrinshad", "m.rinshad", "Rinshad"],
+  jobTitle: profile.roleLong,
   url: siteUrl,
-  sameAs: [profileData.linkedin, profileData.github],
+  email: `mailto:${profile.email}`,
+  sameAs: [profile.linkedin, profile.github],
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Morayur",
-    addressRegion: "Malappuram, Kerala",
-    addressCountry: "India",
+    addressRegion: "Kerala",
+    addressCountry: "IN",
   },
   worksFor: [
-    {
-      "@type": "Organization",
-      name: "Tata Consultancy Services",
-    },
-    {
-      "@type": "Organization",
-      name: "ByteN",
-    },
+    { "@type": "Organization", name: "Tata Consultancy Services" },
+    { "@type": "Organization", name: "ByteN" },
   ],
   alumniOf: {
     "@type": "EducationalOrganization",
     name: "Mar Athanasius College of Engineering",
   },
   knowsAbout: [
-    "Software Architecture",
-    "Full-Stack Web Development",
-    "ERP Platforms",
+    "Software architecture",
+    "ERP platforms",
     "PostgreSQL",
+    "Prisma ORM",
     "Next.js",
     "React",
     "Node.js",
     ".NET Core",
-    "Linux Server Administration",
   ],
-}
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Mohammed Rinshad P Portfolio",
-  url: siteUrl,
-  author: {
-    "@type": "Person",
-    name: profileData.name,
-  },
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontSans.variable} ${fontDancing.variable} ${fontMono.variable}`}
+      className={`${serif.variable} ${sans.variable} ${mono.variable}`}
     >
-      <head>
+      <body className="flex min-h-screen flex-col bg-paper text-ink">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2 focus:text-sm"
+          >
+            Skip to content
+          </a>
+          <div className="paper-grain" aria-hidden="true" />
+          <SiteHeader />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter />
+          <Reveal />
+        </ThemeProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-      </head>
-      <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-foreground selection:text-background flex flex-col justify-between">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange={false}
-        >
-          <GrainOverlay />
-          <Navbar />
-          <div className="flex-1">{children}</div>
-          <Footer />
-          <BackToTop />
-        </ThemeProvider>
       </body>
     </html>
   )

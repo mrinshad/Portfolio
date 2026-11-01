@@ -1,291 +1,117 @@
 import {
-  ProfileData,
-  ProjectItem,
-  ExperienceItem,
-  SkillCategory,
   EducationItem,
-  SocialLink,
+  ExperienceItem,
+  ProjectItem,
+  SkillGroup,
 } from "./types"
 
-/**
- * ============================================================================
- * PORTFOLIO MASTER CONTENT & STATIC CONSTANTS
- * ============================================================================
- * Edit any text, title, project detail, URL, or metadata below.
- * Changes will immediately reflect live on the browser.
- */
+/* ───────────────────────────────────────────────────────────────────────────
+   Identity
+   ─────────────────────────────────────────────────────────────────────────── */
 
-// ----------------------------------------------------------------------------
-// 1. IDENTITY & CONTACT CONSTANTS
-// ----------------------------------------------------------------------------
-export const profileData: ProfileData = {
+export const profile = {
   name: "Mohammed Rinshad P",
-  preferredName: "Rinshad",
-  title: "Full-Stack Software Engineer",
+  short: "Rinshad",
+  mark: "m.rinshad",
+  role: "Full-Stack Software Engineer",
+  roleLong: "Full-Stack Software Engineer & Technical Lead",
+  org: "ByteN",
+  location: "Kerala, India",
   email: "rinshadmorayur09@gmail.com",
-  phone: "+91-9895612423",
+  phone: "+91 98956 12423",
+  phoneHref: "+919895612423",
   linkedin: "https://linkedin.com/in/mrinshad",
   github: "https://github.com/mrinshad",
-  portfolioUrl: "https://minshad.space",
-  shortPositioning:
-    "Full-Stack Software Engineer specializing in enterprise web systems, custom ERP platforms, and cloud architecture.",
-  shortIntro:
-    "Specializing in architecting and developing scalable web applications, ERP platforms, enterprise systems, and cloud-native solutions using React, Next.js, Node.js, .NET Core, Azure, and SQL technologies.",
+  siteUrl: "https://minshad.space",
+  available: "Open to architecture consulting and senior engineering roles",
 }
 
-export const brandMark = "m.rinshad"
-export const publicLocation = "Kerala, India"
+export const navigation = [
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+]
 
-// ----------------------------------------------------------------------------
-// 2. GLOBAL NAVIGATION & FOOTER
-// ----------------------------------------------------------------------------
-export const navigationContent = {
-  brand: "m.rinshad",
-  links: [
-    { label: "Work", href: "/work" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+/* ───────────────────────────────────────────────────────────────────────────
+   Home
+   ─────────────────────────────────────────────────────────────────────────── */
+
+export const home = {
+  masthead: {
+    kicker: "Software Engineer · Kerala, India",
+    lines: ["Systems that hold", "up under real", "business weight."],
+    body: "I design and build ERP platforms, workflow tools and the relational data models underneath them. Currently a full-stack engineer at TCS, and lead developer at ByteN, where I ship school and quarry operations software that people use every working day.",
+    primary: { label: "Read the work", href: "/work" },
+    secondary: { label: "About me", href: "/about" },
+  },
+  facts: [
+    { label: "Currently", value: "Full-Stack Developer, TCS" },
+    { label: "Also", value: "Lead Developer, ByteN" },
+    { label: "Based in", value: "Kerala, India" },
+    { label: "Focus", value: "ERP · Data modelling · Full-stack" },
   ],
-  cta: {
-    label: "Get in Touch",
-    href: "/contact",
-  },
-}
-
-export const footerContent = {
-  brand: "m.rinshad",
-  title: "Full-Stack Software Engineer",
-  navLinks: [
-    { label: "Selected Work", href: "/work" },
-    { label: "About & Experience", href: "/about" },
-    { label: "Contact", href: "/contact" },
+  principles: [
+    {
+      title: "Model the domain first",
+      body: "Most of the difficulty in business software lives in the schema, not the screens. I spend the early effort on entities, invariants and the awkward edge cases — then the interface has something honest to render.",
+    },
+    {
+      title: "Prefer boring infrastructure",
+      body: "A relational database, a typed API boundary and a predictable deploy beat a clever stack nobody can operate at 2am. I reach for the established tool unless there is a concrete reason not to.",
+    },
+    {
+      title: "Ship something people can use",
+      body: "Scope that never lands is worth nothing. I work in slices that reach production, with the accounting and permissions correct from the first release rather than retrofitted later.",
+    },
   ],
-  socialLinks: [
-    { name: "LinkedIn", href: "https://linkedin.com/in/mrinshad" },
-    { name: "GitHub", href: "https://github.com/mrinshad" },
-    { name: "Email", href: "mailto:rinshadmorayur09@gmail.com" },
-  ],
-  copyright: "© 2026 Mohammed Rinshad P. All rights reserved.",
-  backToTopText: "TOP ↑",
 }
 
-// ----------------------------------------------------------------------------
-// 3. HOME PAGE CONTENT
-// ----------------------------------------------------------------------------
-export const homePageContent = {
-  hero: {
-    eyebrow: "Full-Stack Software Engineer",
-    headlineLine1: "Mohammed",
-    headlineLine2: "Rinshad P",
-    subtitle:
-      "Architecting scalable ERP platforms, enterprise web applications, and durable backend systems. Focused on engineering clarity, clean data models, and production reliability.",
-    ctaPrimary: { label: "Explore Selected Systems", href: "/work" },
-    ctaSecondary: { label: "About & Experience", href: "/about" },
-    ctaTertiary: { label: "Contact", href: "/contact" },
-  },
-  featuredSystems: {
-    eyebrow: "02 / Selected Work • 04 Flagship Systems • 03 Commercial Websites",
-    heading: "Featured Systems & Platforms",
-    subtitle:
-      "Production platforms, custom ERP solutions, and internal tools engineered with clean domain boundaries and relational schemas.",
-    viewAllCta: { label: "Explore Selected Work", href: "/work" },
-  },
-  gateway: {
-    eyebrow: "03 / Gateway",
-    careerCard: {
-      eyebrow: "Career Track Record",
-      heading: "Engineering & Leadership",
-      description:
-        "Track record spanning enterprise web engineering, systems architecture, and technical leadership across production platforms.",
-      linkText: "Read Background & Experience →",
-      href: "/about",
-    },
-    contactCard: {
-      eyebrow: "Direct Communication",
-      heading: "Start a Conversation",
-      description:
-        "Available for system architecture consultation, full-stack development, and technical engineering opportunities.",
-      linkText: "Get in Touch →",
-      href: "/contact",
-    },
-  },
-  finalCta: {
-    eyebrow: "Direct Engagement",
-    heading: "Have something worth building? Let's talk.",
-    subtitle:
-      "Available for architectural consultation, custom ERP development, and technical engineering roles.",
-    primaryButton: { label: "Get in Touch", href: "/contact" },
-    emailButton: {
-      label: "rinshadmorayur09@gmail.com",
-      href: "mailto:rinshadmorayur09@gmail.com",
-    },
-  },
+/* ───────────────────────────────────────────────────────────────────────────
+   Work
+   ─────────────────────────────────────────────────────────────────────────── */
+
+export const workPage = {
+  kicker: "Selected work · 2023 — 2026",
+  heading: "Four systems, three sites,\none consistent standard.",
+  body: "Client platforms and internal products I have architected and built end to end. Every entry links to a case study with the actual scope, the data model decisions and where the project stands today.",
 }
 
-// ----------------------------------------------------------------------------
-// 4. ABOUT PAGE CONTENT
-// ----------------------------------------------------------------------------
-export const aboutPageContent = {
-  hero: {
-    eyebrow: "01 / About Rinshad",
-    heading: "Driven by craft, curiosity, and durable systems.",
-    storyParagraphs: [
-      "I'm Mohammed Rinshad P, a software engineer who enjoys building practical software and figuring out how complex systems should work.",
-      "My experience spans full-stack development, ERP platforms, database design, and cloud applications.",
-      "I particularly enjoy taking complicated business workflows and turning them into software that is simple, reliable, and maintainable.",
-    ],
-    metrics: [
-      { label: "Origin & Base", value: "Kerala, India" },
-      { label: "Engineering Focus", value: "Full-Stack & Systems" },
-      { label: "Background", value: "B.Tech CSE (MACE)" },
-    ],
-    portraitImage: "/assets/photo.png",
-  },
-  personalQuote: {
-    text: "And seek help through patience and prayer.",
-    source: "Qur'an 2:45",
-  },
-  marqueeSkills: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    ".NET Core",
-    "PostgreSQL",
-    "Prisma ORM",
-    "Azure Cloud",
-    "Linux (RHEL)",
-    "SQL Server",
-    "REST APIs & RBAC",
-    "GitHub Actions",
-    "Docker",
-    "Tailwind CSS",
-  ],
-  careerJourney: {
-    eyebrow: "03 / Career Journey",
-    heading: "Engineering Milestones",
-    subtitle:
-      "Chronological progression across enterprise systems, consultancy, automation, and full-stack development.",
-  },
-  technicalLeadership: {
-    eyebrow: "04 / Leadership",
-    heading: "Technical Leadership & Consulting",
-  },
-  capabilities: {
-    eyebrow: "05 / Capabilities",
-    heading: "Technical Domains & Core Stack",
-    subtitle:
-      "Categorized proficiencies across frontend engineering, backend architecture, databases, cloud, and engineering practices.",
-  },
-  education: {
-    eyebrow: "06 / Academic Foundation",
-    heading: "Education & Engineering Degrees",
-  },
-  finalCta: {
-    eyebrow: "Direct Engagement",
-    heading: "Have something worth building? Let's talk.",
-    subtitle:
-      "Available for architectural consultation, custom ERP development, and technical engineering roles.",
-    primaryButton: { label: "Get in Touch", href: "/contact" },
-    emailButton: {
-      label: "rinshadmorayur09@gmail.com",
-      href: "mailto:rinshadmorayur09@gmail.com",
-    },
-  },
-}
-
-// ----------------------------------------------------------------------------
-// 5. WORK & PROJECT PAGES CONTENT
-// ----------------------------------------------------------------------------
-export const workPageContent = {
-  header: {
-    eyebrow: "Portfolio / 04 Flagships • 03 Websites",
-    heading: "Selected Systems",
-    subtitle:
-      "Production ERPs, workflow platforms, and custom business systems engineered for reliability and scale.",
-  },
-  flagshipsHeader: {
-    eyebrow: "Featured Engineering • 04 Flagships",
-  },
-  clientWebsitesHeader: {
-    eyebrow: "02 / Commercial Platforms",
-    heading: "Client Websites",
-    subtitle:
-      "Strategic digital presence, performance optimization, and production cloud deployment engineered for commercial organizations and academic institutions.",
-  },
-}
-
-// ----------------------------------------------------------------------------
-// 6. CONTACT PAGE CONTENT
-// ----------------------------------------------------------------------------
-export const contactPageContent = {
-  header: {
-    eyebrow: "Contact / Inquiries & Roles",
-    headingLine1: "Let's Build",
-    headingLine2: "Together",
-    subtitle:
-      "Available for software architecture consultation, custom ERP development, and technical engineering roles.",
-  },
-  channels: {
-    emailLabel: "Email",
-    phoneLabel: "Phone / WhatsApp",
-    linkedinLabel: "LinkedIn",
-    githubLabel: "GitHub",
-  },
-  form: {
-    nameField: {
-      label: "01 / Your Name",
-      placeholder: "Enter your name",
-      error: "Please enter your name.",
-    },
-    emailField: {
-      label: "02 / Work Email",
-      placeholder: "name@company.com",
-      error: "Please enter a valid email address.",
-    },
-    messageField: {
-      label: "03 / Project Scope & Inquiries",
-      placeholder: "Describe your system requirements or engineering role...",
-      error: "Please enter your message details.",
-    },
-    submitButton: "Send Inquiry",
-    sendingButton: "Sending...",
-    successHeading: "Message Sent",
-    successMessage:
-      "Thank you for reaching out. I will review your message and respond promptly.",
-    resetButton: "Send Another Inquiry",
-  },
-}
-
-// ----------------------------------------------------------------------------
-// 7. FLAGSHIP PROJECTS DATA
-// ----------------------------------------------------------------------------
 export const flagshipProjects: ProjectItem[] = [
   {
     id: "edubyte",
+    index: "01",
     name: "eduByte",
-    category: "School Management ERP",
-    type: "PAID_CLIENT_PRODUCTION",
-    typeLabel: "Production ERP",
-    statusText: "Production / In Active Use",
+    category: "School management ERP",
+    status: "in-production",
+    statusText: "In production",
+    year: "2024 — present",
     client: "Kids covE School of Excellence",
-    liveUrl: "https://edubyte.kidscoveozhukur.in/",
     summary:
-      "A modular production school management ERP developed for institutional operational workflows.",
-    scopeHighlights: [
-      "Architected modular school ERP covering student lifecycle, fee structures, and accounting.",
-      "Implemented complex backend logic for recurring fee generation, fine calculation, and payment allocation.",
-      "Designed normalized relational schemas, REST APIs, RBAC authorization, and automated WhatsApp reminders.",
+      "A modular school ERP covering admissions, academics, fees and accounting, built for a school that was running those workflows on paper and spreadsheets.",
+    lede: "eduByte replaces the disconnected spreadsheets a school office runs on with a single relational system: one student record, one fee ledger, one place where a payment is reconciled.",
+    role: "Architecture & full-stack development",
+    scope: [
+      "Designed the relational schema for students, guardians, classes, fee structures and payments, with the fee ledger as the source of truth.",
+      "Built recurring fee generation, fine calculation and payment allocation as explicit server-side steps rather than UI-side arithmetic.",
+      "Implemented role-based access control so office staff, accountants and teachers each see only the records their role covers.",
+      "Added scheduled WhatsApp reminders for fee due dates, driven by the same ledger that produces the receipts.",
     ],
-    technologies: [
-      "Next.js",
-      "Node.js",
-      "Prisma ORM",
-      "PostgreSQL",
-      "Supabase",
-      "Shadcn/UI",
+    notes: [
+      {
+        label: "The hard part",
+        body: "Fees in a real school are not one number. They are a structure, a schedule, a set of concessions and a running balance. Modelling those separately — and letting the balance be derived rather than stored — is what keeps receipts correct when a payment is partly allocated or a fine is waived.",
+      },
+      {
+        label: "Data model",
+        body: "A normalised PostgreSQL schema accessed through Prisma. Fee schedules generate ledger entries; payments allocate against those entries; reports read the ledger. No module writes a balance directly.",
+      },
+      {
+        label: "Status",
+        body: "Live and in daily use by the school office. The deployment runs on Supabase with the Next.js application server-rendering the operational views.",
+      },
     ],
-    role: "Full-Stack Architecture & Development",
+    technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL", "Supabase", "Shadcn/UI"],
+    liveUrl: "https://edubyte.kidscoveozhukur.in/",
     image: "/assets/edubyte/1.png",
     images: [
       "/assets/edubyte/1.png",
@@ -298,21 +124,38 @@ export const flagshipProjects: ProjectItem[] = [
   },
   {
     id: "byteflow",
+    index: "02",
     name: "byteFlow",
-    category: "Project Management & Workflow Platform",
-    type: "INTERNAL_PRODUCT",
-    typeLabel: "Internal Product",
-    statusText: "Completed / Used Internally",
-    liveUrl: "https://byteflow.byten.in/",
+    category: "Project & workflow platform",
+    status: "internal",
+    statusText: "Used internally",
+    year: "2025",
     summary:
-      "A Kanban-based collaborative project management platform with dynamic workflows and task tracking.",
-    scopeHighlights: [
-      "Architected normalized PostgreSQL schema supporting dynamic workflows, comments, labels, and audit logging.",
-      "Engineered drag-and-drop task ordering, activity history, soft deletion, and JSON-based change tracking.",
-      "Optimized database indexing and state management for real-time team collaboration.",
+      "A Kanban project platform with drag-and-drop ordering, custom workflows and a full audit trail, built for teams that need to know who changed what.",
+    lede: "byteFlow is the internal tool ByteN runs its own delivery on. Boards, tasks, comments and labels, with every mutation written to an activity history instead of overwriting state.",
+    role: "System design & full-stack development",
+    scope: [
+      "Designed a normalised schema for projects, boards, columns, tasks, labels, comments and activity records.",
+      "Implemented drag-and-drop task ordering with persisted positions, so ordering survives a reload and a concurrent edit.",
+      "Built soft deletion and JSON change tracking, giving each task a readable history rather than a lost previous state.",
+      "Added indexing and query shaping around the board view, which is the read path that runs on every page load.",
+    ],
+    notes: [
+      {
+        label: "The hard part",
+        body: "Ordering is deceptively hard. Storing a position as an integer means every reorder rewrites its neighbours; storing it sparsely means the numbers run out. The board keeps ordering explicit and server-authoritative so two people dragging at once cannot silently corrupt the sequence.",
+      },
+      {
+        label: "Audit trail",
+        body: "Rather than a generic log line, each mutation records the fields that changed and their before and after values. That makes the history useful to a person reading it, not just to a database.",
+      },
+      {
+        label: "Status",
+        body: "Complete and in internal use. The public landing page is live; the workspace itself is behind authentication.",
+      },
     ],
     technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL"],
-    role: "System Design & Full-Stack Development",
+    liveUrl: "https://byteflow.byten.in/",
     image: "/assets/byteflow/1.png",
     images: [
       "/assets/byteflow/1.png",
@@ -325,20 +168,37 @@ export const flagshipProjects: ProjectItem[] = [
   },
   {
     id: "crusher-erp",
-    name: "Crusher ERP",
-    category: "Heavy Industry ERP & Accounting",
-    type: "PAID_CLIENT_IN_DEVELOPMENT",
-    typeLabel: "Client Project",
-    statusText: "In Active Development (~50%)",
+    index: "03",
+    name: "byteStrata",
+    category: "Quarry operations & commercial ledger",
+    status: "in-development",
+    statusText: "In development",
+    year: "2025 — present",
     summary:
-      "A custom business management and accounting platform tailored for heavy materials and crusher operations.",
-    scopeHighlights: [
-      "Designing custom ERP modules to streamline procurement, inventory movement, sales, and logistics.",
-      "Engineering relational database structures and transaction tracking for operational reporting.",
-      "Developing specialized accounting and ledger architecture connecting operational workflows.",
+      "An ERP for stone crushers and aggregate suppliers, covering weighbridge dispatch, inventory movement, sales and a commercial ledger that ties them together.",
+    lede: "Heavy materials businesses are reconciled by weight and by truck. byteStrata follows a load from the weighbridge through dispatch and billing into the ledger, so the tonnage on the invoice matches the tonnage on the bridge.",
+    role: "System architecture & full-stack development",
+    scope: [
+      "Designing modules for procurement, inventory movement, sales, dispatch and logistics around a single transaction record.",
+      "Building weighbridge-oriented data structures so each dispatch carries its vehicle, net weight and commercial value.",
+      "Developing a double-entry ledger that connects operational events to accounts rather than bolting accounting on afterwards.",
+      "Engineering reporting views over operational and financial data for day-to-day decision making.",
+    ],
+    notes: [
+      {
+        label: "The hard part",
+        body: "Accounting for a quarry is not a separate module, it is a consequence of operations. A dispatch changes stock, creates a receivable and moves a ledger balance. The design keeps those effects in one transaction so the books cannot drift from the yard.",
+      },
+      {
+        label: "Where it stands",
+        body: "Roughly half complete, in active development with the client. Operational modules are being built first; the accounting layer is being developed alongside them rather than deferred.",
+      },
+      {
+        label: "Status",
+        body: "Not publicly deployed. Screens shown here are from the working build.",
+      },
     ],
     technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL"],
-    role: "System Architecture & Full-Stack Development",
     image: "/assets/byteStrata/1.png",
     images: [
       "/assets/byteStrata/1.png",
@@ -351,21 +211,38 @@ export const flagshipProjects: ProjectItem[] = [
   },
   {
     id: "byteballot",
+    index: "04",
     name: "byteBallot",
-    category: "EVM Voting Simulator",
-    type: "PUBLIC_PRODUCT",
-    typeLabel: "Public Educational Project",
-    statusText: "Publicly Available",
-    liveUrl: "https://byteballot.byten.in/",
+    category: "EVM voting simulator",
+    status: "public",
+    statusText: "Publicly available",
+    year: "2025",
     summary:
-      "A public educational voting simulator designed to help users understand and experience electronic voting workflows.",
-    scopeHighlights: [
-      "Engineered configurable electronic voting simulation workflows and scenario administration.",
-      "Implemented secure vote recording, dynamic result aggregation, and outcome reporting.",
-      "Designed an accessible, intuitive user interface for public educational exploration.",
+      "A public simulator that walks a voter through an electronic voting machine — ballot unit, symbols, LED confirmation and the count afterwards.",
+    lede: "Most people have never touched an EVM before the day it matters. byteBallot is an educational replica: configurable elections, a faithful ballot unit interaction and a result view that explains what the machine recorded.",
+    role: "Full-stack development & product design",
+    scope: [
+      "Built configurable election scenarios with constituencies, candidates and party symbols.",
+      "Implemented the ballot unit interaction — candidate selection, vote confirmation and the VVPAT-style acknowledgement.",
+      "Engineered vote recording and result aggregation with an outcome view suitable for classroom and public demonstration.",
+      "Designed the interface for first-time users with no assumed knowledge of the process.",
+    ],
+    notes: [
+      {
+        label: "The hard part",
+        body: "The value of a simulator is fidelity, not features. The interaction had to feel like the real unit — the sequence, the confirmation light, the printed slip — because the point is familiarity on the day, not a game.",
+      },
+      {
+        label: "Audience",
+        body: "Built for voter education: schools, first-time voters and anyone who wants to understand the process before standing in a booth.",
+      },
+      {
+        label: "Status",
+        body: "Publicly available and free to use.",
+      },
     ],
     technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL"],
-    role: "Full-Stack Development & Product Design",
+    liveUrl: "https://byteballot.byten.in/",
     image: "/assets/byteballot/1.png",
     images: [
       "/assets/byteballot/1.png",
@@ -377,316 +254,298 @@ export const flagshipProjects: ProjectItem[] = [
   },
 ]
 
-// ----------------------------------------------------------------------------
-// 8. COMMERCIAL CLIENT WEBSITES DATA
-// ----------------------------------------------------------------------------
 export const clientWebsites: ProjectItem[] = [
   {
     id: "kidscove",
-    name: "Kids covE School of Excellence",
-    category: "Institutional Website",
-    type: "CLIENT_WEBSITE",
-    typeLabel: "Client Website",
+    index: "05",
+    name: "Kids covE",
+    category: "School website",
+    status: "in-production",
     statusText: "Live",
+    year: "2024",
+    client: "Kids covE School of Excellence",
+    summary:
+      "The public site for the school that runs eduByte — admissions information, facilities and contact, deployed on Vercel.",
+    lede: "A calm institutional site for parents evaluating the school, kept deliberately separate from the ERP behind it.",
+    role: "Planning & deployment",
+    scope: [
+      "Planned the information structure around what parents actually look for: admissions, facilities and how to visit.",
+      "Built and deployed the site on Vercel with the school's own domain.",
+    ],
+    notes: [],
+    technologies: ["Next.js", "Tailwind CSS", "Vercel"],
     liveUrl: "https://www.kidscoveozhukur.in/",
     image: "/assets/kidscove.png",
-    summary:
-      "Institutional web presence and public portal for Kids covE School of Excellence.",
-    scopeHighlights: [
-      "Strategic planning and deployment of modern institutional web platform.",
-    ],
-    technologies: ["Next.js", "Tailwind CSS", "Vercel"],
-    role: "Planning + Deployment",
+    images: ["/assets/kidscove.png"],
     isFlagship: false,
     isClientWebsite: true,
   },
   {
     id: "skyra",
+    index: "06",
     name: "Skyra",
-    category: "Education & Career Consultancy",
-    type: "CLIENT_WEBSITE",
-    typeLabel: "Client Website",
+    category: "Education consultancy",
+    status: "in-production",
     statusText: "Live",
+    year: "2024",
+    client: "Skyra",
+    summary:
+      "A consultancy site for international education and career guidance, with service pages and an enquiry path.",
+    lede: "Corporate presence for an education consultancy working with students heading abroad.",
+    role: "Planning & deployment",
+    scope: [
+      "Structured the content around the consultancy's services and destinations.",
+      "Handled deployment and hosting on the client's domain.",
+    ],
+    notes: [],
+    technologies: ["Next.js", "Tailwind CSS", "Cloud hosting"],
     liveUrl: "https://www.skyrallp.com/",
     image: "/assets/skyra.png",
-    summary:
-      "Corporate web presence for an education and career consulting organization.",
-    scopeHighlights: [
-      "Planning, content delivery structure, and cloud deployment.",
-    ],
-    technologies: ["Web Technologies", "Cloud Hosting"],
-    role: "Planning + Deployment",
+    images: ["/assets/skyra.png"],
     isFlagship: false,
     isClientWebsite: true,
   },
   {
     id: "salichef",
+    index: "07",
     name: "SaliChef",
-    category: "Culinary & Restaurant Consulting",
-    type: "CLIENT_WEBSITE",
-    typeLabel: "Client Website",
+    category: "Culinary consulting",
+    status: "in-production",
     statusText: "Live",
+    year: "2024",
+    client: "SaliChef",
+    summary:
+      "A brand site for a culinary consulting business, built to present the work and make the first contact easy.",
+    lede: "A portfolio-shaped site for a chef-consultant, where the food photography carries the page.",
+    role: "Planning & deployment",
+    scope: [
+      "Planned the page structure around the consulting offer and past work.",
+      "Deployed and maintained the site on its production domain.",
+    ],
+    notes: [],
+    technologies: ["Next.js", "Tailwind CSS", "Cloud hosting"],
     liveUrl: "https://www.salichef.com/",
     image: "/assets/salichef.png",
-    summary:
-      "Brand presence and portfolio platform for a culinary consulting business.",
-    scopeHighlights: [
-      "Planning, responsive user experience, and cloud deployment.",
-    ],
-    technologies: ["Web Technologies", "Cloud Hosting"],
-    role: "Planning + Deployment",
+    images: ["/assets/salichef.png"],
     isFlagship: false,
     isClientWebsite: true,
   },
 ]
 
-// ----------------------------------------------------------------------------
-// 9. CAREER PROGRESSION & LEADERSHIP DATA
-// ----------------------------------------------------------------------------
-export const careerProgression: (ExperienceItem & { headline: string; summary: string })[] = [
+/* ───────────────────────────────────────────────────────────────────────────
+   About
+   ─────────────────────────────────────────────────────────────────────────── */
+
+export const aboutPage = {
+  kicker: "About",
+  heading: "I like the part of the job\nwhere the domain finally\nmakes sense.",
+  story: [
+    "I am Mohammed Rinshad P, a software engineer from Kerala. I started with a diploma in computer engineering, then a B.Tech in computer science and engineering with a data science specialisation at Mar Athanasius College of Engineering.",
+    "Since 2021 I have worked across restaurant and warehouse systems, cloud-hosted web platforms, an enterprise auditing product on Azure, and internal applications at TCS. Alongside that I lead development at ByteN, where I design and build the ERP platforms in this portfolio.",
+    "The work I care most about is unglamorous and load-bearing: fee ledgers, weighbridge dispatch, permissions, audit trails. Software a business depends on every day has to be correct before it is impressive.",
+  ],
+  quote: {
+    text: "And seek help through patience and prayer.",
+    source: "Qur'an 2:45",
+  },
+  facts: [
+    { label: "Name", value: "Mohammed Rinshad P" },
+    { label: "Base", value: "Kerala, India" },
+    { label: "Role", value: "Full-Stack Engineer & Technical Lead" },
+    { label: "Education", value: "B.Tech CSE (Data Science), MACE" },
+    { label: "Focus", value: "Enterprise systems, data modelling" },
+    { label: "Availability", value: "Open to consulting and senior roles" },
+  ],
+}
+
+export const experience: ExperienceItem[] = [
   {
-    id: "wizzo",
-    company: "Wizzo Technologies",
+    id: "tcs",
+    company: "Tata Consultancy Services",
     role: "Full-Stack Developer",
-    period: "Aug 2021 – Jun 2022",
-    location: "Chemmad, Kerala",
-    headline: "Application Engineering & Production Support",
+    period: "Jun 2025 — Present",
+    location: "Chennai, Tamil Nadu",
     summary:
-      "Developed web and Android applications for restaurant, warehouse, and business management systems using Laravel, React, Java, and MySQL while providing production support.",
-    responsibilities: [
-      "Developed web and Android applications for restaurant and warehouse systems.",
-      "Implemented responsive UI components using React and styled-components.",
-      "Built backend REST APIs using Laravel and integrated MySQL databases.",
-      "Provided application maintenance, bug fixing, and client production support.",
+      "Internal enterprise applications, plus administration of the Linux servers they run on.",
+    points: [
+      "Develop and extend internal enterprise web applications in React.",
+      "Build reusable UI components, multi-step forms and data grid workflows.",
+      "Integrate REST APIs and refactor legacy modules for maintainability.",
+      "Administer and troubleshoot Linux (RHEL) server environments.",
     ],
-    technologies: ["Laravel", "React", "Java", "MySQL", "Android", "REST APIs"],
+    technologies: ["React", "JavaScript", "REST APIs", "Linux (RHEL)"],
+  },
+  {
+    id: "byten",
+    company: "ByteN",
+    role: "Lead Developer",
+    period: "Jul 2025 — Present",
+    location: "Remote",
+    summary:
+      "Technical lead across a portfolio of ERP, accounting, education and simulation platforms — architecture, delivery and engineering standards.",
+    points: [
+      "Architect full-stack platforms and the relational schemas behind them.",
+      "Design REST APIs, server actions and role-based authorisation.",
+      "Set project structure, Git workflow, code review practice and engineering guidelines.",
+      "Run technical planning and estimation directly with clients.",
+    ],
+    technologies: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL", "System architecture"],
+    isLeadership: true,
+  },
+  {
+    id: "veynad",
+    company: "Veynad Pty Ltd",
+    role: "Full-Stack Developer (Contract)",
+    period: "Apr 2025 — Jun 2025",
+    location: "Melbourne, Australia · Remote",
+    summary:
+      "An enterprise auditing platform on Azure, with enterprise identity and automated deployment.",
+    points: [
+      "Built the React and Material UI front end for an enterprise audit product.",
+      "Designed and integrated .NET Core REST APIs over Azure SQL Server.",
+      "Implemented Azure AD B2C authentication, RBAC and token flows.",
+      "Set up GitHub Actions pipelines deploying to Azure App Service.",
+    ],
+    technologies: ["React", ".NET Core", "Azure AD B2C", "Azure", "GitHub Actions"],
   },
   {
     id: "griantek",
     company: "Griantek",
     role: "Full-Stack Developer",
-    period: "Dec 2024 – Apr 2025",
-    location: "Kochi, Kerala (Hybrid)",
-    headline: "Full-Stack Web Engineering & Automation",
+    period: "Dec 2024 — Apr 2025",
+    location: "Kochi, Kerala · Hybrid",
     summary:
-      "Developed and deployed full-stack Next.js and Node.js web applications, automated journal and lead processing workflows, and managed GCP/Supabase backend infrastructure.",
-    responsibilities: [
-      "Developed and deployed full-stack Next.js web applications with modern styling.",
-      "Built custom web automation scripts for journal publishing and lead management.",
-      "Automated WhatsApp communications via cloud webhooks and message queues.",
-      "Configured GCP virtual instances, NGINX reverse proxies, and Supabase / SQLite databases.",
+      "Full-stack web delivery plus the automation and infrastructure behind it.",
+    points: [
+      "Developed and deployed Next.js and Node.js applications.",
+      "Wrote automation for journal publishing, email workflows and lead management.",
+      "Automated WhatsApp messaging through cloud webhooks and message queues.",
+      "Configured GCP instances, NGINX reverse proxies and Supabase / SQLite databases.",
     ],
-    technologies: [
-      "Next.js",
-      "Node.js",
-      "Google Cloud Platform (GCP)",
-      "Supabase",
-      "NGINX",
-      "SQLite",
-    ],
+    technologies: ["Next.js", "Node.js", "GCP", "Supabase", "NGINX", "SQLite"],
   },
   {
-    id: "veynad",
-    company: "Veynad Pty Ltd",
-    role: "Full-Stack Developer (Remote Contract)",
-    period: "Apr 2025 – Jun 2025",
-    location: "Melbourne, Australia",
-    headline: "Enterprise Auditing Platform & Cloud Security",
-    summary:
-      "Engineered an enterprise auditing platform with React and .NET Core, implementing Azure AD B2C enterprise security and automated GitHub Actions CI/CD deployment pipelines.",
-    responsibilities: [
-      "Developed enterprise audit web application frontends using React and Material UI.",
-      "Designed and integrated .NET Core REST APIs with Azure SQL Server backends.",
-      "Implemented Azure AD B2C authentication, RBAC authorization, and token flows.",
-      "Configured CI/CD deployment pipelines using GitHub Actions to Azure App Service.",
-    ],
-    technologies: [
-      "React",
-      ".NET Core",
-      "Azure AD B2C",
-      "Azure Cloud",
-      "CI/CD",
-      "GitHub Actions",
-    ],
-  },
-  {
-    id: "tcs",
-    company: "Tata Consultancy Services (TCS)",
+    id: "wizzo",
+    company: "Wizzo Technologies",
     role: "Full-Stack Developer",
-    period: "Jun 2025 – Present",
-    location: "Chennai, Tamil Nadu",
-    headline: "Enterprise Web Systems & Linux Administration",
+    period: "Aug 2021 — Jun 2022",
+    location: "Chemmad, Kerala",
     summary:
-      "Contributing to internal enterprise applications, engineering frontend forms and workflows, integrating REST APIs, refactoring codebases for long-term maintainability, and administering Linux (RHEL) server environments.",
-    responsibilities: [
-      "Developing and optimizing internal enterprise web applications using React.",
-      "Administering and maintaining enterprise Linux (RHEL) server environments.",
-      "Engineering reusable UI components, multi-step forms, and data grid workflows.",
-      "Integrating REST APIs and refactoring legacy modules for maintainability.",
+      "First professional role: web and Android applications for restaurant and warehouse operations.",
+    points: [
+      "Developed web and Android applications for restaurant and warehouse systems.",
+      "Built responsive interfaces in React and styled-components.",
+      "Wrote Laravel REST APIs against MySQL databases.",
+      "Handled deployment, bug fixing and client production support.",
     ],
-    technologies: ["React", "JavaScript", "Linux (RHEL)", "REST APIs"],
+    technologies: ["Laravel", "React", "Java", "MySQL", "Android"],
   },
 ]
 
-export const experienceData = careerProgression
-
-export const leadershipExperience: ExperienceItem[] = [
+export const skillGroups: SkillGroup[] = [
   {
-    id: "byten",
-    company: "ByteN",
-    role: "Lead Developer & Full-Stack Engineer",
-    period: "Jul 2025 – Present",
-    location: "Remote",
-    isLeadership: true,
-    responsibilities: [
-      "Architecting full-stack web platforms and custom ERP solutions.",
-      "Designing normalized PostgreSQL schemas and Prisma ORM data models.",
-      "Engineering RESTful API endpoints, server actions, and RBAC authorization.",
-      "Developing production-ready school management and voting simulation platforms.",
-      "Overseeing software development lifecycle from requirements to deployment.",
-    ],
-    technologies: [
-      "Next.js",
-      "Node.js",
-      "Prisma ORM",
-      "PostgreSQL",
-      "System Architecture",
-    ],
-  },
-]
-
-// ----------------------------------------------------------------------------
-// 10. CAPABILITIES, SKILLS & EDUCATION DATA
-// ----------------------------------------------------------------------------
-export const skillCategories: SkillCategory[] = [
-  {
-    category: "Frontend Development",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "JavaScript",
-      "Material UI",
-      "Shadcn/UI",
-      "Tailwind CSS",
-    ],
+    index: "01",
+    title: "Frontend",
+    note: "Interfaces that hold their shape on a slow connection and a small screen.",
+    skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Material UI", "Shadcn/UI"],
   },
   {
-    category: "Backend & APIs",
+    index: "02",
+    title: "Backend",
+    note: "Typed API boundaries, explicit server actions, authorisation enforced server-side.",
     skills: ["Node.js", "Express.js", ".NET Core", "Java", "REST APIs"],
   },
   {
-    category: "Databases & ORM",
-    skills: [
-      "PostgreSQL",
-      "SQL Server",
-      "MySQL",
-      "SQLite",
-      "Supabase",
-      "Prisma ORM",
-    ],
+    index: "03",
+    title: "Data",
+    note: "Normalised schemas, transactional safety, and indexes that match the read path.",
+    skills: ["PostgreSQL", "SQL Server", "MySQL", "SQLite", "Prisma ORM", "Supabase"],
   },
   {
-    category: "Cloud, Infra & DevOps",
-    skills: [
-      "Linux (RHEL)",
-      "Azure",
-      "Google Cloud Platform (GCP)",
-      "GitHub Actions",
-      "NGINX",
-      "Vercel",
-    ],
+    index: "04",
+    title: "Infrastructure",
+    note: "Deployments that a small team can operate without a platform engineer.",
+    skills: ["Linux (RHEL)", "Azure", "Google Cloud", "GitHub Actions", "NGINX", "Vercel"],
   },
   {
-    category: "Tools & Collaboration",
-    skills: ["Git", "GitHub", "Postman", "Firebase"],
+    index: "05",
+    title: "Practice",
+    note: "How the work stays maintainable once the first version ships.",
+    skills: ["System design", "Database design", "RBAC & authentication", "CI/CD", "Code review"],
   },
   {
-    category: "Software Engineering",
-    skills: [
-      "System Design",
-      "Database Design",
-      "Authentication & Authorization (RBAC)",
-      "CI/CD Pipelines",
-      "Agile Development",
-    ],
+    index: "06",
+    title: "Tools",
+    note: "The everyday kit around the code.",
+    skills: ["Git", "GitHub", "Postman", "Firebase", "Docker"],
   },
 ]
 
-export const educationData: EducationItem[] = [
+export const education: EducationItem[] = [
   {
-    institution: "Mar Athanasius College of Engineering, Kothamangalam, Kerala",
-    degree: "B.Tech in Computer Science and Engineering (Data Science)",
-    period: "2021 – 2024",
+    institution: "Mar Athanasius College of Engineering",
+    degree: "B.Tech, Computer Science & Engineering (Data Science)",
+    period: "2021 — 2024",
+    location: "Kothamangalam, Kerala",
   },
   {
-    institution: "AKNM GPTC Thirurangadi, Thirurangadi, Kerala",
-    degree: "Diploma in Computer Engineering",
-    period: "2018 – 2021",
-  },
-]
-
-export const socialLinks: SocialLink[] = [
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/in/mrinshad",
-    icon: "linkedin",
-  },
-  {
-    name: "GitHub",
-    url: "https://github.com/mrinshad",
-    icon: "github",
-  },
-  {
-    name: "Email",
-    url: "mailto:rinshadmorayur09@gmail.com",
-    icon: "mail",
-  },
-  {
-    name: "Phone / WhatsApp",
-    url: "https://wa.me/919895612423",
-    icon: "phone",
+    institution: "AKNM GPTC Thirurangadi",
+    degree: "Diploma, Computer Engineering",
+    period: "2018 — 2021",
+    location: "Thirurangadi, Kerala",
   },
 ]
 
-// ----------------------------------------------------------------------------
-// 11. SEO & METADATA CONFIG
-// ----------------------------------------------------------------------------
-export const siteSeo = {
-  siteUrl: "https://minshad.space",
-  siteName: "Mohammed Rinshad P Portfolio",
-  defaultTitle:
-    "Mohammed Rinshad P | Full-Stack Software Engineer",
-  titleTemplate: "%s | Mohammed Rinshad P",
-  defaultDescription:
-    "Portfolio of Mohammed Rinshad P — Full-Stack Software Engineer. Building scalable ERP platforms, enterprise web applications, and production-grade systems.",
+/* ───────────────────────────────────────────────────────────────────────────
+   Contact
+   ─────────────────────────────────────────────────────────────────────────── */
+
+export const contactPage = {
+  kicker: "Contact",
+  heading: "Tell me what\nyou are building.",
+  body: "I read everything that arrives. Useful first messages say what the system is, who uses it, and where it currently hurts — a short paragraph beats a template.",
+  channels: [
+    { label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+    { label: "Phone / WhatsApp", value: profile.phone, href: `https://wa.me/${profile.phoneHref.replace("+", "")}` },
+    { label: "LinkedIn", value: "linkedin.com/in/mrinshad", href: profile.linkedin },
+    { label: "GitHub", value: "github.com/mrinshad", href: profile.github },
+  ],
+  availability: [
+    { label: "Consulting", value: "Architecture review, data modelling, ERP scoping" },
+    { label: "Roles", value: "Senior full-stack engineering" },
+    { label: "Location", value: "Remote, or on-site in India" },
+    { label: "Response", value: "Usually within two working days" },
+  ],
+  form: {
+    name: "Your name",
+    email: "Email address",
+    subject: "What is this about?",
+    message: "The short version",
+    submit: "Send message",
+    sending: "Opening your mail client…",
+    hint: "This form composes an email in your own client. Nothing is stored on this site.",
+  },
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   SEO
+   ─────────────────────────────────────────────────────────────────────────── */
+
+export const seo = {
+  title: "Mohammed Rinshad P — Full-Stack Software Engineer",
+  description:
+    "Full-stack software engineer in Kerala, India. ERP platforms, workflow systems and relational data models built for production — eduByte, byteFlow, byteStrata and byteBallot.",
   keywords: [
     "Mohammed Rinshad P",
     "mrinshad",
     "m.rinshad",
-    "Rinshad",
-    "Rinshad Morayur",
-    "Rinshad Malappuram",
     "Rinshad Kerala",
-    "Mohammed Rinshad",
-    "minshad.space",
-    "Full-Stack Developer",
-    "Full-Stack Software Engineer",
-    "Software Engineer",
-    "Full-Stack Software Engineer Kerala",
-    "Next.js",
-    "React",
-    "Node.js",
-    ".NET Core",
+    "full-stack software engineer",
+    "ERP developer",
+    "Next.js developer",
     "PostgreSQL",
     "Prisma ORM",
-    "ERP Architecture",
-    "ERP Developer India",
-    "Web Developer Kerala",
+    "Kerala software engineer",
+    "ByteN",
   ],
-  ogImage: "/og-image.jpg",
-  ogDescription:
-    "Full-Stack Software Engineer specializing in scalable ERP platforms, enterprise web applications, and cloud-native software.",
-  twitterDescription:
-    "Full-Stack Software Engineer specializing in scalable ERP platforms and production systems.",
 }

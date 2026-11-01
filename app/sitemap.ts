@@ -1,43 +1,20 @@
 import { MetadataRoute } from "next"
-import { flagshipProjects } from "@/data"
+import { flagshipProjects, profile } from "@/data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://minshad.space"
-  const currentDate = new Date().toISOString()
+  const base = process.env.NEXT_PUBLIC_SITE_URL || profile.siteUrl
+  const now = new Date()
 
-  const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: `${siteUrl}`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${siteUrl}/work`,
-      lastModified: currentDate,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
+  return [
+    { url: base, lastModified: now, changeFrequency: "monthly", priority: 1 },
+    { url: `${base}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.7 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    ...flagshipProjects.map((project) => ({
+      url: `${base}/work/${project.id}`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
       priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
+    })),
   ]
-
-  const projectRoutes: MetadataRoute.Sitemap = flagshipProjects.map((project) => ({
-    url: `${siteUrl}/work/${project.id}`,
-    lastModified: currentDate,
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }))
-
-  return [...staticRoutes, ...projectRoutes]
 }

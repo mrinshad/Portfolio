@@ -1,316 +1,219 @@
+import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight } from "lucide-react"
-import { TechIcon } from "@/components/tech-icon"
-import { EditorialCareerJourney } from "@/components/editorial-career-journey"
-import { AboutCinematicPortrait } from "@/components/about-cinematic-portrait"
-import { leadershipExperience, skillCategories, educationData, aboutPageContent } from "@/data"
+import {
+  aboutPage,
+  education,
+  experience,
+  profile,
+  skillGroups,
+} from "@/data"
+import { ArrowRight } from "@/components/marks"
 
-export const metadata = {
-  title: "About & Engineering Experience",
+export const metadata: Metadata = {
+  title: "About",
   description:
-    "Engineering profile, full-stack software development experience, technical leadership, and architectural capabilities of Mohammed Rinshad P.",
-  alternates: {
-    canonical: "/about",
-  },
-  openGraph: {
-    title: "About & Engineering Experience | Mohammed Rinshad P",
-    description:
-      "Full-stack software engineering, systems architecture, and technical leadership across production platforms.",
-    url: "/about",
-  },
+    "Mohammed Rinshad P — full-stack software engineer and technical lead in Kerala, India. Background, experience and the systems behind the portfolio.",
+  alternates: { canonical: "/about" },
 }
 
 export default function AboutPage() {
-  const { hero, marqueeSkills, careerJourney, technicalLeadership, capabilities, education } = aboutPageContent
+  const leadership = experience.filter((item) => item.isLeadership)
+  const roles = experience.filter((item) => !item.isLeadership)
 
   return (
-    <main className="py-16 lg:py-24 space-y-24">
-      {/* ========================================================================= */}
-      {/* 1. PERSONAL EDITORIAL INTRODUCTION                                        */}
-      {/* ========================================================================= */}
-      <section className="container max-w-6xl px-6 space-y-12">
-        <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            {hero.eyebrow}
-          </div>
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase leading-[1.08]">
-            {hero.heading}
-          </h1>
-        </div>
+    <>
+      {/* Intro */}
+      <section className="border-b border-rule">
+        <div className="shell py-16 md:py-24">
+          <div className="grid gap-12 md:grid-cols-12 md:gap-10">
+            <div className="md:col-span-7">
+              <h1 className="display whitespace-pre-line text-[clamp(2.25rem,5.4vw,4.25rem)]">
+                {aboutPage.heading}
+              </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center pt-6 border-t border-border/50">
-          {/* Left Column: Personal Story (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            {hero.storyParagraphs[0] && (
-              <p className="text-xl sm:text-2xl text-foreground font-normal leading-relaxed">
-                {hero.storyParagraphs[0]}
-              </p>
-            )}
-
-            <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              {hero.storyParagraphs.slice(1).map((paragraph, pIdx) => (
-                <p key={pIdx}>{paragraph}</p>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-4 border-t border-border/40 text-xs font-mono">
-              {hero.metrics.map((metric, mIdx) => (
-                <div key={mIdx}>
-                  <span className="text-muted-foreground block">{metric.label}</span>
-                  <span className="text-foreground font-bold">{metric.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column: Cinematic Subject Photo with Organic Edge Dissolve (5 cols) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <AboutCinematicPortrait />
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 2. FULL-WIDTH CONTINUOUS TECH TICKER                                      */}
-      {/* ========================================================================= */}
-      <div className="w-full border-y border-border/40 py-4 overflow-hidden marquee-container">
-        <div className="flex w-max items-center gap-10 animate-marquee-fast">
-          {[...marqueeSkills, ...marqueeSkills, ...marqueeSkills].map(
-            (tech, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-muted-foreground whitespace-nowrap"
-              >
-                <TechIcon name={tech} className="h-4 w-4 shrink-0" />
-                <span>{tech}</span>
-                <span className="h-1 w-1 rounded-full bg-accentBlue/60 ml-6" />
-              </div>
-            )
-          )}
-        </div>
-      </div>
-
-      {/* ========================================================================= */}
-      {/* 2.5. PERSONAL QUOTE                                                        */}
-      {/* ========================================================================= */}
-      {aboutPageContent.personalQuote && (
-        <section className="container max-w-6xl px-6">
-          <blockquote className="glass-card rounded-xl p-8 sm:p-10 glow-accent">
-            <p className="text-xl sm:text-2xl font-light italic text-foreground/80 leading-relaxed">
-              &ldquo;{aboutPageContent.personalQuote.text}&rdquo;
-            </p>
-            <cite className="block mt-3 text-xs font-mono uppercase tracking-widest text-muted-foreground not-italic">
-              — {aboutPageContent.personalQuote.source}
-            </cite>
-          </blockquote>
-        </section>
-      )}
-
-      {/* ========================================================================= */}
-      {/* 3. EDITORIAL CAREER PROGRESSION (01 Wizzo → 02 Griantek → 03 Veynad → 04 TCS) */}
-      {/* ========================================================================= */}
-      <section className="container max-w-6xl px-6 space-y-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-foreground pb-6">
-          <div className="space-y-2">
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-              02 / Evolution
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
-              Career Journey
-            </h2>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-md font-mono">
-            Chronological employment progression across full-stack engineering and enterprise platforms.
-          </p>
-        </div>
-
-        {/* Scroll-Reactive Editorial Journey (01 to 04) */}
-        <EditorialCareerJourney />
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 4. TECHNICAL LEADERSHIP & CONSULTING (Dedicated ByteN Section)            */}
-      {/* ========================================================================= */}
-      <section className="container max-w-6xl px-6 space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-foreground pb-6">
-          <div className="space-y-2">
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              03 / Leadership & Architecture
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
-              Engineering Leadership
-            </h2>
-          </div>
-          <span className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold bg-emerald-500/10 px-3 py-1 rounded">
-            Active Lead Developer
-          </span>
-        </div>
-
-        <div className="space-y-8">
-          {leadershipExperience.map((item) => (
-            <article
-              key={item.id}
-              className="py-6 sm:py-8 border-b border-border/40 last:border-b-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start"
-            >
-              {/* Left Metadata & Period (4 cols) */}
-              <div className="lg:col-span-4 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest">
-                  <span className="text-foreground font-semibold">{item.period}</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 ml-1" />
-                </div>
-
-                <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
-                  {item.company}
-                </h3>
-
-                <div className="text-sm font-semibold text-emerald-500">
-                  {item.role}
-                </div>
-
-                <div className="text-xs font-mono text-muted-foreground">
-                  {item.location}
-                </div>
-              </div>
-
-              {/* Right Editorial Story & Technologies (8 cols) */}
-              <div className="lg:col-span-8 space-y-4">
-                <div className="text-xs font-mono uppercase tracking-wider text-emerald-500 font-semibold">
-                  Engineering Leadership & System Architecture
-                </div>
-
-                <p className="text-base sm:text-lg text-foreground/90 leading-relaxed font-normal">
-                  Leading technical architecture and end-to-end development of custom ERP, accounting, and simulation platforms. Designing normalized PostgreSQL schemas, REST APIs, RBAC authorization, and engineering guidelines.
-                </p>
-
-                {item.technologies && (
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-xs font-mono text-muted-foreground border-t border-border/40">
-                    {item.technologies.map((tech, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="inline-flex items-center gap-1.5 text-foreground font-medium"
-                      >
-                        <TechIcon name={tech} className="h-3.5 w-3.5 shrink-0" />
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 5. TECHNICAL DOMAINS & STACK (Editorial Grouping)                          */}
-      {/* ========================================================================= */}
-      <section className="container max-w-6xl px-6 space-y-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-foreground pb-6">
-          <div className="space-y-2">
-            <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-              04 / Capabilities
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
-              Technical Domains
-            </h2>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-md font-mono">
-            Hands-on technologies, paradigms, and infrastructure utilized across production environments.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((cat, idx) => (
-            <div key={cat.category} className="glass-card rounded-xl p-6 space-y-4">
-              <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                <span className="text-foreground font-bold">0{idx + 1}</span>
-                <span>{cat.category}</span>
-              </div>
-
-              <div className="space-y-2.5">
-                {cat.skills.map((skill) => (
-                  <div
-                    key={skill}
-                    className="flex items-center gap-2.5 text-sm font-medium text-foreground py-0.5"
-                  >
-                    <TechIcon name={skill} className="h-4 w-4 shrink-0" />
-                    <span>{skill}</span>
-                  </div>
+              <div className="measure mt-9 space-y-5 text-[0.975rem] leading-relaxed text-muted-foreground">
+                {aboutPage.story.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
               </div>
+
+              <blockquote className="mt-10 border-l border-accent pl-5">
+                <p className="font-serif text-xl italic leading-snug text-ink">
+                  “{aboutPage.quote.text}”
+                </p>
+                <footer className="label mt-2 !text-[0.7rem]">
+                  {aboutPage.quote.source}
+                </footer>
+              </blockquote>
             </div>
-          ))}
+
+            <div className="md:col-span-5">
+              <figure>
+                <div className="relative aspect-[4/5] overflow-hidden border border-rule bg-surface">
+                  <Image
+                    src="/assets/photo.png"
+                    alt="Mohammed Rinshad P"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="object-cover object-[62%_28%] grayscale contrast-[1.06] transition-[filter] duration-700 hover:grayscale-0"
+                  />
+                </div>
+              </figure>
+
+              <dl className="mt-8 border-t border-rule">
+                {aboutPage.facts.map((fact) => (
+                  <div
+                    key={fact.label}
+                    className="flex items-baseline justify-between gap-4 border-b border-rule py-2.5"
+                  >
+                    <dt className="label !text-[0.7rem]">{fact.label}</dt>
+                    <dd className="text-right text-sm text-ink">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* 6. EDUCATION & ACADEMIC FOUNDATION                                        */}
-      {/* ========================================================================= */}
-      <section className="container max-w-6xl px-6 space-y-8">
-        <div className="border-b border-foreground pb-6">
-          <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground flex items-center gap-2 mb-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            05 / Foundation
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground">
-            Education
-          </h2>
+      {/* Leadership */}
+      <section className="shell py-16 md:py-20">
+        <div className="flex items-baseline justify-between border-b border-rule pb-4">
+          <h2 className="font-serif text-[1.6rem] leading-none tracking-tight">Leadership</h2>
+          <p className="label">Current</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {educationData.map((edu, idx) => (
-            <div key={idx} className="glass-card rounded-xl p-6 space-y-2">
-              <div className="text-xs font-mono uppercase tracking-widest text-accentBlue font-bold">
-                {edu.period}
+        {leadership.map((item) => (
+          <div key={item.id} className="grid gap-6 py-8 md:grid-cols-12">
+            <div className="md:col-span-4">
+              <h2 className="font-serif text-[1.75rem] leading-none tracking-tight">
+                {item.company}
+              </h2>
+              <p className="mt-2 text-sm text-ink">{item.role}</p>
+              <p className="label mt-2 !text-[0.7rem]">{item.period}</p>
+              <p className="label mt-1 !text-[0.7rem]">{item.location}</p>
+            </div>
+            <div className="md:col-span-8">
+              <p className="measure text-[0.95rem] leading-relaxed text-muted-foreground">
+                {item.summary}
+              </p>
+              <ul className="mt-5 space-y-2">
+                {item.points.map((point) => (
+                  <li
+                    key={point}
+                    className="flex gap-3 text-sm leading-relaxed text-muted-foreground"
+                  >
+                    <span className="mt-2 h-px w-3 shrink-0 bg-accent" aria-hidden="true" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* Experience */}
+      <section className="border-t border-rule bg-surface/40">
+        <div className="shell py-16 md:py-20">
+          <div className="flex items-baseline justify-between border-b border-rule pb-4">
+            <h2 className="font-serif text-[1.6rem] leading-none tracking-tight">Experience</h2>
+            <p className="label">2021 — present</p>
+          </div>
+
+          <div className="divide-y divide-rule">
+            {roles.map((item, i) => (
+              <div
+                key={item.id}
+                data-reveal
+                style={{ ["--reveal-delay" as string]: `${i * 60}ms` }}
+                className="grid gap-6 py-8 md:grid-cols-12"
+              >
+                <div className="md:col-span-4">
+                  <h3 className="text-[1.05rem] font-medium text-ink">
+                    {item.company}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.role}</p>
+                  <p className="label mt-2 !text-[0.7rem]">{item.period}</p>
+                  <p className="label mt-1 !text-[0.7rem]">{item.location}</p>
+                </div>
+                <div className="md:col-span-8">
+                  <p className="measure text-sm leading-relaxed text-muted-foreground">
+                    {item.summary}
+                  </p>
+                  <p className="mt-3 text-[0.8rem] text-muted-foreground">
+                    {item.technologies.join(" · ")}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                {edu.degree}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {edu.institution}
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities */}
+      <section className="shell py-16 md:py-20">
+        <div className="flex items-baseline justify-between border-b border-rule pb-4">
+          <h2 className="font-serif text-[1.6rem] leading-none tracking-tight">Capabilities</h2>
+          <p className="label">Six domains</p>
+        </div>
+
+        <div className="mt-8 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map((group) => (
+            <div key={group.index} className="border-t border-rule pt-4">
+              <h3 className="text-sm font-medium text-ink">{group.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {group.note}
+              </p>
+              <p className="mt-3 text-[0.8rem] leading-relaxed text-ink/70">
+                {group.skills.join(" · ")}
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* 7. BOTTOM GATEWAY LINKS                                                   */}
-      {/* ========================================================================= */}
-      <section className="container max-w-6xl px-6 pt-8 border-t-2 border-foreground">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div className="space-y-1">
-            <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">
-              Ready to explore production software?
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Review case studies for eduByte, byteFlow, Crusher ERP, and byteBallot.
-            </p>
+      {/* Education */}
+      <section className="border-t border-rule">
+        <div className="shell py-16 md:py-20">
+          <div className="flex items-baseline justify-between border-b border-rule pb-4">
+            <h2 className="font-serif text-[1.6rem] leading-none tracking-tight">Education</h2>
+            <p className="label">2018 — 2024</p>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="grid gap-8 pt-8 md:grid-cols-2">
+            {education.map((item) => (
+              <div key={item.institution}>
+                <p className="label !text-[0.7rem]">{item.period}</p>
+                <h3 className="mt-2 font-serif text-xl leading-snug tracking-tight">
+                  {item.degree}
+                </h3>
+                <p className="mt-1.5 text-sm text-muted-foreground">
+                  {item.institution}
+                </p>
+                <p className="label mt-1 !text-[0.7rem]">{item.location}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-rule pt-8">
             <Link
               href="/work"
-              className="group/work inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-background bg-foreground px-6 py-4 hover:bg-accentBlue hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
+              className="group inline-flex items-center gap-2.5 border border-ink bg-ink px-6 py-3.5 text-[0.72rem] font-medium uppercase tracking-label text-paper transition-colors hover:border-accent hover:bg-accent hover:text-accent-foreground"
             >
-              <span>Selected Systems</span>
-              <ArrowRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/work:translate-x-1" />
+              See the work
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-
-            <Link
-              href="/contact"
-              className="group/contact inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-foreground border border-border px-6 py-4 hover:border-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
+            <a
+              href={`mailto:${profile.email}`}
+              className="link-static text-sm text-muted-foreground"
             >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 ease-out group-hover/contact:translate-x-0.5 group-hover/contact:-translate-y-0.5" />
-            </Link>
+              {profile.email}
+            </a>
           </div>
         </div>
       </section>
-    </main>
+    </>
   )
 }
