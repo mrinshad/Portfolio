@@ -1,103 +1,112 @@
-# Visual Design System & Tokens Specification — `docs/DESIGN.md`
+# Visual Design System — `docs/DESIGN.md`
 
-This document defines the authoritative design tokens, typographic hierarchy, component standards, and UX craft requirements for the **Rinshad Portfolio & ByteN Engineering Systems**.
-
----
-
-## 1. Design Philosophy & Aesthetic Foundation
-
-- **Core Tenet**: Engineering clarity, understated confidence, and high signal-to-noise ratio.
-- **Philosophy**: *"Content → Hierarchy → Visuals → Interaction → Decoration"*. Never reverse this hierarchy.
-- **Anti-Patterns & Forbidden Clichés**:
-  - **No Unjustified Gradients**: Never wrap cards, headers, or hero sections in multi-stop purple/blue/pink radial or linear gradients.
-  - **No Card Clutter**: Do not default to wrapping every single item in heavy borders and drop shadows. Use whitespace and typography for grouping.
-  - **No Gimmick Animations**: Avoid particle effects, 3D canvases, glowing neon borders, and scroll-hijacking.
-  - **No Meaningless Microcopy**: Use precise, professional engineering descriptions instead of generic marketing buzzwords.
+Authoritative tokens, typography and craft rules for the **Rinshad Portfolio**.
+This document describes the "Engineering Ledger" world introduced on branch
+`feat/rebuild-editorial`; it supersedes the earlier dark-glass specification.
 
 ---
 
-## 2. Color System & Semantic Tokens
+## 1. Philosophy
 
-The color architecture is built on restrained neutral surface layers with a single selective, purposeful electric blue accent (`accent-blue`).
+- **Core tenet**: a portfolio is evidence, not a performance. The interface recedes; the work leads.
+- **Order of decisions**: Content → Hierarchy → Type → Interaction → Decoration. Decoration never leads.
+- **Metaphor**: an engineering ledger. Ruled paper, ink, measured columns, one signal colour marking what matters.
+- **Forbidden**: multi-stop gradients, glassmorphism, aurora blobs, 3D hero objects, particle fields, infinite marquees, tracked-caps "eyebrow" chips above headlines, repeated kicker labels above every heading, decorative two-axis grid overlays, card clutter, scroll-jacking.
 
-### CSS Variables (`app/globals.css`)
+---
 
-#### Light Theme
-| Token | HSL Value | Hex Equivalent | Semantic Role |
+## 2. Colour Tokens
+
+Defined once in `app/globals.css`; consumed through Tailwind semantic names.
+
+| Token | Light | Dark | Role |
 | :--- | :--- | :--- | :--- |
-| `--background` | `0 0% 100%` | `#FFFFFF` | Default canvas background |
-| `--foreground` | `0 0% 5%` | `#0D0D0D` | Primary text and headings |
-| `--card` | `0 0% 98%` | `#FAFAFA` | Elevated surfaces and containers |
-| `--card-foreground` | `0 0% 5%` | `#0D0D0D` | Text on card surfaces |
-| `--primary` | `0 0% 9%` | `#171717` | High-emphasis interactive elements |
-| `--primary-foreground` | `0 0% 98%` | `#FAFAFA` | Contrast text on primary buttons |
-| `--secondary` | `0 0% 95%` | `#F2F2F2` | Secondary button backgrounds, subtle tags |
-| `--secondary-foreground` | `0 0% 9%` | `#171717` | Text on secondary elements |
-| `--muted` | `0 0% 94%` | `#F0F0F0` | Subtle fills, dividers, disabled states |
-| `--muted-foreground` | `0 0% 40%` | `#666666` | Supporting text, captions, metadata |
-| `--accent` | `0 0% 92%` | `#EBEBEB` | Hover states and subtle highlights |
-| `--accent-foreground` | `0 0% 9%` | `#171717` | Foreground for hover states |
-| `--border` | `0 0% 88%` | `#E0E0E0` | Hairline borders and structural separators |
-| `--input` | `0 0% 85%` | `#D9D9D9` | Form input borders |
-| `--accent-blue` | `221 83% 53%` | `#2563EB` | Selective accent, active indicators, focus rings |
-| `--accent-blue-foreground`| `0 0% 100%` | `#FFFFFF` | Contrast text over accent-blue |
-| `--ring` | `221 83% 53%` | `#2563EB` | Keyboard accessibility focus rings |
+| `--paper` / `--background` | `80 7% 95%` | `80 6% 7%` | Page ground — cool drawing paper, deliberately not cream |
+| `--surface` | `80 6% 90%` | `80 5% 11%` | Plates, alternating bands |
+| `--ink` / `--foreground` | `28 16% 10%` | `80 10% 92%` | Body and heading text |
+| `--muted-foreground` | `80 6% 30%` | `80 6% 68%` | Secondary text — tuned to clear 4.5:1 on both grounds |
+| `--rule` | `80 5% 79%` | `80 5% 20%` | Hairline borders and dividers |
+| `--accent` | `11 74% 41%` | `14 84% 58%` | The single signal colour: links, focus, live status |
+| `--accent-foreground` | `80 20% 97%` | `80 10% 8%` | Text on accent |
 
-#### Dark Theme (`.dark`)
-| Token | HSL Value | Hex Equivalent | Semantic Role |
-| :--- | :--- | :--- | :--- |
-| `--background` | `0 0% 4%` | `#0A0A0A` | Dark canvas background |
-| `--foreground` | `0 0% 98%` | `#FAFAFA` | High-contrast body text & titles |
-| `--card` | `0 0% 7%` | `#121212` | Elevated cards and surfaces |
-| `--card-foreground` | `0 0% 98%` | `#FAFAFA` | Text on card surfaces |
-| `--primary` | `0 0% 98%` | `#FAFAFA` | Prominent buttons & highlights |
-| `--primary-foreground` | `0 0% 9%` | `#171717` | Inverted text on dark primary |
-| `--secondary` | `0 0% 12%` | `#1F1F1F` | Subtle dark surfaces and chips |
-| `--secondary-foreground`| `0 0% 98%` | `#FAFAFA` | Secondary label text |
-| `--muted` | `0 0% 12%` | `#1F1F1F` | Dark dividers and inactive fills |
-| `--muted-foreground` | `0 0% 65%` | `#A6A6A6` | Low-emphasis secondary typography |
-| `--accent` | `0 0% 14%` | `#242424` | Interactive hover highlights |
-| `--accent-foreground` | `0 0% 98%` | `#FAFAFA` | Hover text |
-| `--border` | `0 0% 16%` | `#292929` | Restrained card & section separators |
-| `--input` | `0 0% 18%` | `#2E2E2E` | Input field borders |
-| `--accent-blue` | `217 91% 60%` | `#3B82F6` | Vibrant accent blue for dark mode |
-| `--accent-blue-foreground`| `0 0% 100%` | `#FFFFFF` | Contrast text over accent-blue |
-| `--ring` | `217 91% 60%` | `#3B82F6` | Keyboard focus ring |
+Rules:
+- The accent is a **signal**, never a surface. No accent-filled panels or gradient text.
+- Borders are hairlines at `--rule`. Depth comes from rules and spacing, not shadows.
+- Contrast is verified, not assumed: every text token clears WCAG AA on every ground it appears over.
 
 ---
 
-## 3. Typography & Scale
+## 3. Typography
 
-### Font Families
-- **Sans-Serif (`font-sans`)**: `var(--font-sans), system-ui, -apple-system, sans-serif` (Clean, geometric, modern readability).
-- **Cursive Signature (`font-dancing`)**: `var(--font-dancing), cursive` (Reserved specifically for personal signature mark: `m.rinshad`).
-- **Monospace (`font-mono`)**: `var(--font-mono), monospace` (Used for version tags, code snippets, timestamps, architecture status).
+| Role | Family | Usage |
+| :--- | :--- | :--- |
+| Display | **Instrument Serif** (`--font-serif`) | Masthead, section headings, project names. Weight 400 only. |
+| Body | **Inter Tight** (`--font-sans`) | Paragraphs, UI labels, navigation |
+| Meta | **JetBrains Mono** (`--font-mono`) | `.label` — tracked uppercase metadata, dates, status |
 
-### Typographic Hierarchy
-- **Display Headlines**: `text-4xl sm:text-6xl font-bold tracking-tight`
-- **Section Headers (H2)**: `text-2xl sm:text-3xl font-semibold tracking-tight`
-- **Subheadings (H3)**: `text-lg sm:text-xl font-medium text-foreground`
-- **Eyebrow / Section Metadata**: `text-xs uppercase tracking-widest font-mono text-muted-foreground`
-- **Body Regular**: `text-base leading-relaxed text-muted-foreground`
-- **Microcopy & Captions**: `text-sm text-muted-foreground`
+Scale:
+- Masthead: `clamp(2.5rem, 5.6vw, 4.5rem)`, line-height `0.94`, tracking `-0.02em`.
+- Section heading: `clamp(1.9rem, 3.6vw, 2.9rem)`.
+- Project name in index: `1.75rem` mobile → `2.5rem` desktop.
+- Body: `0.975–1.0625rem`, `leading-relaxed`.
+- `.label`: `0.75rem`, `0.14em` tracking, uppercase. Never below `0.7rem`.
 
----
-
-## 4. Spacing, Radii & Grid System
-
-- **Base Radius (`--radius`)**: `0.25rem` (4px).
-  - `rounded-sm`: `calc(var(--radius) - 4px)` (0px - sharp utility)
-  - `rounded-md`: `calc(var(--radius) - 2px)` (2px)
-  - `rounded-lg`: `var(--radius)` (4px)
-- **Container**: Max width `1152px` (`2xl`), centered with `px-6` (1.5rem) horizontal padding.
-- **Section Rhythm**: Vertical spacing `py-16 sm:py-24` between major content stages.
+Measure: `.measure` is `56ch`, which lands near a true 72–75 character line in Inter Tight. Do not exceed it for prose.
 
 ---
 
-## 5. Accessibility & Interaction Standards
+## 4. Space, Structure, Radius
 
-- **Contrast Guarantee**: Minimum 4.5:1 for standard body text, 3:1 for large headers (WCAG AA).
-- **Keyboard Navigation**: Always include focus visible styles: `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`.
-- **Motion Restraint**: Use Framer Motion for subtle fade-in and translation transitions (duration 200–300ms, easing `cubic-bezier(0.16, 1, 0.3, 1)`).
-- **Reduced Motion Support**: Honor `@media (prefers-reduced-motion: reduce)` by disabling non-essential positional motion.
-- **Automated Validation**: Run `npx impeccable detect` before verifying any UI change.
+- Shell: `max-w-[1240px]`, gutters `px-6` / `md:px-10`.
+- Section rhythm: `py-20` / `md:py-28`; dividers are single hairlines.
+- Radius: `2px`. Buttons are rectangles. Pills and rounded cards are not part of this world.
+- Rules carry structure: a section is introduced by a hairline and a heading, not a badge.
+
+---
+
+## 5. Motion
+
+- **Reveals**: `data-reveal` elements translate 16px and fade over 720ms on a `cubic-bezier(0.22, 1, 0.36, 1)` curve. Content is fully visible with JS disabled; `Reveal` only hides elements after confirming it can animate them.
+- **Masthead**: lines rise through an overflow mask, staggered 110ms.
+- **Links**: an accent underline grows from the left over 320ms.
+- **Work index**: rows shift the title 14px and rotate the arrow; a cursor-following preview tracks the pointer on fine-pointer devices only.
+- **Reduced motion**: every transform, animation and smooth scroll is disabled; reveals render immediately.
+- **Print**: chrome is hidden, reveals are forced visible, and external link URLs are printed.
+
+---
+
+## 6. Component Contracts
+
+| Component | Contract |
+| :--- | :--- |
+| `SiteHeader` | Sticky, hairline bottom rule, scroll-progress rule, native `<dialog>` menu under `md` |
+| `WorkIndex` | Semantic `<ul>`; previews are `aria-hidden` decoration and never the only affordance |
+| `PlateGallery` | Keyboard-operable paging, `aria-current` on the active index |
+| `ContactForm` | Validates on submit, moves focus to the first invalid field, composes a `mailto:` and stores nothing |
+| `SystemSchematic` | A single labelled SVG figure with a text alternative; not decoration |
+| `marks.tsx` | Purpose-built SVG icons on a shared 24px grid; no icon library |
+
+---
+
+## 7. Accessibility Baseline
+
+- Semantic landmarks, one `h1` per page, logical heading order.
+- Visible focus ring: `2px solid accent`, `3px` offset, applied globally via `:focus-visible`.
+- Skip link to `#main` as the first tab stop.
+- All interactive targets have accessible names; icon-only buttons carry `aria-label`.
+- Verified: 0 contrast failures, 0 horizontal overflow, 0 unlabeled controls across all routes in both themes.
+
+---
+
+## 8. Verification
+
+Before shipping any UI change:
+
+```bash
+npx tsc --noEmit
+next lint
+next build && next start -p 4400
+./.agents/skills/impeccable/scripts/impeccable detect http://127.0.0.1:4400/<route>
+```
+
+Target: **0 anti-patterns** on every route.

@@ -1,27 +1,32 @@
-export type ProjectClassification =
-  | "PAID_CLIENT_PRODUCTION"
-  | "PAID_CLIENT_IN_DEVELOPMENT"
-  | "INTERNAL_PRODUCT"
-  | "PUBLIC_PRODUCT"
-  | "CLIENT_WEBSITE"
-  | "OTHER_PROJECT"
+export type ProjectStatus =
+  | "in-production"
+  | "internal"
+  | "in-development"
+  | "public"
+
+export interface CaseStudyNote {
+  label: string
+  body: string
+}
 
 export interface ProjectItem {
   id: string
+  index: string
   name: string
   category: string
-  type: ProjectClassification
-  typeLabel: string
+  status: ProjectStatus
   statusText: string
+  year: string
+  client?: string
   summary: string
-  scopeHighlights: string[]
+  lede: string
+  role: string
+  scope: string[]
+  notes: CaseStudyNote[]
   technologies: string[]
   liveUrl?: string
-  repositoryUrl?: string
-  role: string
-  client?: string
-  image?: string
-  images?: string[]
+  image: string
+  images: string[]
   isFlagship: boolean
   isClientWebsite?: boolean
 }
@@ -32,13 +37,16 @@ export interface ExperienceItem {
   role: string
   period: string
   location: string
+  summary: string
+  points: string[]
+  technologies: string[]
   isLeadership?: boolean
-  responsibilities: string[]
-  technologies?: string[]
 }
 
-export interface SkillCategory {
-  category: string
+export interface SkillGroup {
+  index: string
+  title: string
+  note: string
   skills: string[]
 }
 
@@ -46,23 +54,5 @@ export interface EducationItem {
   institution: string
   degree: string
   period: string
-}
-
-export interface ProfileData {
-  name: string
-  preferredName: string
-  title: string
-  email: string
-  phone: string
-  linkedin: string
-  github: string
-  portfolioUrl: string
-  shortPositioning: string
-  shortIntro: string
-}
-
-export interface SocialLink {
-  name: string
-  url: string
-  icon: string
+  location: string
 }

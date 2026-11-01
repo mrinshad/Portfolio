@@ -1,22 +1,19 @@
 "use client"
 
-import * as React from "react"
-import { Moon, Sun } from "lucide-react"
+import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
+import { Moon, Sun } from "@/components/marks"
 
-export function ThemeToggle() {
-  const { setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+export function ThemeToggle({ className = "" }: { className?: string }) {
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
+  useEffect(() => setMounted(true), [])
 
-  // Keyboard shortcut: Press 'd' to toggle theme (unless typing in an input/textarea)
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null
+  // Press "t" to toggle, unless the focus is in a text field.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null
       if (
         target &&
         (target.tagName === "INPUT" ||
@@ -25,46 +22,35 @@ export function ThemeToggle() {
       ) {
         return
       }
-
-      if ((e.key === "d" || e.key === "D") && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        e.preventDefault()
+      if (
+        (event.key === "t" || event.key === "T") &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        !event.altKey
+      ) {
+        event.preventDefault()
         setTheme(resolvedTheme === "dark" ? "light" : "dark")
       }
     }
-
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
   }, [resolvedTheme, setTheme])
 
-  if (!mounted) {
-    return (
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-9 w-9 rounded-full text-muted-foreground"
-        aria-label="Toggle theme"
-      >
-        <Sun className="h-4 w-4" />
-      </Button>
-    )
-  }
-
-  const isDark = resolvedTheme === "dark"
+  const isDark = mounted && resolvedTheme === "dark"
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
+      type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="h-9 w-9 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accentBlue focus-visible:ring-offset-2"
-      aria-label={`Switch to ${isDark ? "light" : "dark"} theme (Press 'D')`}
-      title={`Toggle theme (Press 'D')`}
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      title="Toggle theme (T)"
+      className={`inline-flex h-9 w-9 items-center justify-center border border-rule text-ink transition-colors duration-200 hover:border-ink hover:text-accent ${className}`}
     >
       {isDark ? (
-        <Sun className="h-4 w-4 transition-transform duration-200 rotate-0 scale-100" />
+        <Sun className="h-[15px] w-[15px]" />
       ) : (
-        <Moon className="h-4 w-4 transition-transform duration-200 rotate-0 scale-100" />
+        <Moon className="h-[15px] w-[15px]" />
       )}
-    </Button>
+    </button>
   )
 }

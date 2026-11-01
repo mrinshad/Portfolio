@@ -1,112 +1,73 @@
-import { ArrowUpRight } from "lucide-react"
-import { profileData, contactPageContent } from "@/data"
+import type { Metadata } from "next"
+import { contactPage } from "@/data"
 import { ContactForm } from "@/components/contact-form"
+import { ArrowUpRight } from "@/components/marks"
 
-export const metadata = {
-  title: "Contact & Collaboration",
+export const metadata: Metadata = {
+  title: "Contact",
   description:
-    "Get in touch with Mohammed Rinshad P for software architecture consultation, custom ERP development, and technical engineering opportunities.",
-  alternates: {
-    canonical: "/contact",
-  },
-  openGraph: {
-    title: "Contact & Collaboration | Mohammed Rinshad P",
-    description:
-      "Available for software architecture consultation, custom ERP development, and technical engineering opportunities.",
-    url: "/contact",
-  },
+    "Get in touch with Mohammed Rinshad P about ERP scoping, architecture review, or senior full-stack engineering roles.",
+  alternates: { canonical: "/contact" },
 }
 
 export default function ContactPage() {
-  const { header, channels } = contactPageContent
-
   return (
-    <main className="py-16 lg:py-24 space-y-24">
-      <div className="container max-w-5xl px-6 space-y-24">
-        {/* Header */}
-        <div className="space-y-6 border-b border-border/50 pb-12">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-accentBlue" />
-            {header.eyebrow}
-          </div>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-foreground uppercase leading-none">
-            {header.headingLine1}
-            <br />
-            {header.headingLine2}
-          </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-medium">
-            {header.subtitle}
-          </p>
-        </div>
+    <section>
+      <div className="shell py-16 md:py-24">
+        <h1 className="display whitespace-pre-line text-[clamp(2.5rem,6vw,4.75rem)]">
+          {contactPage.heading}
+        </h1>
+        <p className="measure mt-8 text-[1.0625rem] leading-relaxed text-muted-foreground">
+          {contactPage.body}
+        </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          {/* Left: Large Typographic Direct Channels */}
-          <div className="lg:col-span-5 space-y-12">
-            <div className="space-y-8">
-              <div className="border-b border-border/40 pb-4 group">
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                  Email
-                </div>
+        <div className="mt-14 grid gap-14 md:grid-cols-12 md:gap-12">
+          {/* Channels */}
+          <div className="md:col-span-5">
+            <div className="border-t border-rule">
+              {contactPage.channels.map((channel) => (
                 <a
-                  href={`mailto:${profileData.email}`}
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors duration-200"
+                  key={channel.label}
+                  href={channel.href}
+                  target={channel.href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    channel.href.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="group flex items-baseline justify-between gap-4 border-b border-rule py-4"
                 >
-                  {profileData.email}
-                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
+                  <span className="label !text-[0.7rem]">{channel.label}</span>
+                  <span className="flex items-center gap-2 text-right text-sm text-ink transition-colors group-hover:text-accent">
+                    {channel.value}
+                    <ArrowUpRight className="h-3 w-3 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </span>
                 </a>
-              </div>
+              ))}
+            </div>
 
-              <div className="border-b border-border/40 pb-4 group">
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                  Phone / WhatsApp
-                </div>
-                <a
-                  href={`tel:${profileData.phone}`}
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors duration-200"
-                >
-                  {profileData.phone}
-                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
-                </a>
-              </div>
-
-              <div className="border-b border-border/40 pb-4 group">
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                  LinkedIn
-                </div>
-                <a
-                  href={profileData.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors duration-200"
-                >
-                  linkedin.com/in/mrinshad
-                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
-                </a>
-              </div>
-
-              <div className="border-b border-border/40 pb-4 group">
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                  GitHub
-                </div>
-                <a
-                  href={profileData.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl sm:text-2xl font-bold text-foreground hover:text-accentBlue hover:underline inline-flex items-center gap-2 pt-1 transition-colors duration-200"
-                >
-                  github.com/mrinshad
-                  <ArrowUpRight className="h-5 w-5 text-accentBlue" />
-                </a>
-              </div>
+            <div className="mt-10">
+              <p className="label">Availability</p>
+              <dl className="mt-4 space-y-3">
+                {contactPage.availability.map((row) => (
+                  <div key={row.label} className="flex gap-4">
+                    <dt className="w-24 shrink-0 text-xs uppercase tracking-label text-muted-foreground">
+                      {row.label}
+                    </dt>
+                    <dd className="text-sm text-ink">{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
 
-          {/* Right: Minimalist Open-Line Form */}
-          <div className="lg:col-span-7">
+          {/* Form */}
+          <div className="md:col-span-7 md:border-l md:border-rule md:pl-12">
+            <p className="label mb-6">Or write here</p>
             <ContactForm />
           </div>
         </div>
       </div>
-    </main>
+    </section>
   )
 }

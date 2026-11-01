@@ -2,378 +2,467 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   ENGINEERING LEDGER — design tokens
+   Warm paper, ink, one vermilion signal. No gradients, no glass.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 5%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 0 0% 92%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 88%;
-    --input: 0 0% 85%;
-    --radius: 0.25rem;
-
-    /* Restrained Electric Blue Accent */
-    --accent-blue: 221 83% 53%;
-    --accent-blue-foreground: 0 0% 100%;
-    --ring: 221 83% 53%;
+    /* Cool drawing-paper ground with warm ink on top. Deliberately not cream. */
+    --paper: 80 7% 95%;
+    --background: 80 7% 95%;
+    --surface: 80 6% 90%;
+    --ink: 28 16% 10%;
+    --foreground: 28 16% 10%;
+    --muted-foreground: 80 6% 30%;
+    --rule: 80 5% 79%;
+    --accent: 11 74% 41%;
+    --accent-foreground: 80 20% 97%;
+    --radius: 2px;
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 4%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 0 0% 14%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 16%;
-    --input: 0 0% 18%;
-
-    /* Restrained Electric Blue Accent */
-    --accent-blue: 217 91% 60%;
-    --accent-blue-foreground: 0 0% 100%;
-    --ring: 217 91% 60%;
+    --paper: 80 6% 7%;
+    --background: 80 6% 7%;
+    --surface: 80 5% 11%;
+    --ink: 80 10% 92%;
+    --foreground: 80 10% 92%;
+    --muted-foreground: 80 6% 68%;
+    --rule: 80 5% 20%;
+    --accent: 14 84% 58%;
+    --accent-foreground: 80 10% 8%;
   }
 
   * {
-    @apply border-border;
-    box-sizing: border-box;
+    @apply border-rule;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
-    @apply bg-background text-foreground antialiased font-sans;
-    min-height: 100vh;
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: "ss01" 1, "cv05" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--accent));
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
-/* Typography Utilities */
-.font-dancing {
-  font-family: var(--font-dancing), cursive;
+/* ═══════════════════════════════════════════════════════════════════════════
+   STRUCTURE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.shell {
+  @apply mx-auto w-full max-w-shell px-6 md:px-10;
 }
 
-.font-mono {
-  font-family: var(--font-mono), monospace;
+.display {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.94;
 }
 
-.font-sans {
-  font-family: var(--font-sans), system-ui, sans-serif;
+.label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
 }
 
-/* Marquee pause on hover */
-.marquee-container:hover .animate-marquee,
-.marquee-container:hover .animate-marquee-reverse {
-  animation-play-state: paused;
+/* Reading measure. Inter Tight's digit width makes `ch` run wide,
+   so 56ch lands near a true 72–75 character line. */
+.measure {
+  max-width: 56ch;
 }
 
-/* Minimalist Editorial Input Underlines */
-.editorial-input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid hsl(var(--border));
-  border-radius: 0;
-  padding: 0.75rem 0;
-  transition: border-color 0.2s ease;
-  width: 100%;
+.measure-tight {
+  max-width: 46ch;
 }
 
-.editorial-input:focus {
-  outline: none;
-  border-bottom-color: hsl(var(--accent-blue));
+.rule-t {
+  border-top: 1px solid hsl(var(--rule));
 }
 
-/* Aurora Light Field Animations */
-.aurora-field-1 {
-  animation: aurora-drift-1 28s ease-in-out infinite alternate;
+.rule-b {
+  border-bottom: 1px solid hsl(var(--rule));
 }
 
-.aurora-field-2 {
-  animation: aurora-drift-2 34s ease-in-out infinite alternate;
+/* Ledger ruling: horizontal hairlines only, like an accounts book.
+   One axis, fading out — not a two-axis grid overlay. */
+.ledger-rule {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    hsl(var(--rule) / 0.55) 0 1px,
+    transparent 1px 34px
+  );
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 78%);
+}/* Paper grain — barely there, keeps large flat areas from looking plastic */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
 }
 
-.aurora-field-3 {
-  animation: aurora-drift-3 24s ease-in-out infinite alternate;
+.dark .paper-grain {
+  mix-blend-mode: screen;
+  opacity: 0.2;
 }
 
-@keyframes aurora-drift-1 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
+/* ═══════════════════════════════════════════════════════════════════════════
+   LINKS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.link {
+  background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 200ms ease;
+  padding-bottom: 1px;
+}
+
+.link:hover,
+.link:focus-visible {
+  background-size: 100% 1px;
+  color: hsl(var(--accent));
+}
+
+.link-static {
+  background-image: linear-gradient(hsl(var(--rule)), hsl(var(--rule)));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 200ms ease, background-image 200ms ease;
+}
+
+.link-static:hover,
+.link-static:focus-visible {
+  background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
+  color: hsl(var(--accent));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLL REVEAL
+   Visible by default; only hidden once JS has confirmed it can animate.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MASTHEAD LINE MASK
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.line-mask > span {
+  display: block;
+  animation: line-rise 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--line-delay, 0ms);
+}
+
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 105%, 0);
   }
-  50% {
-    transform: translate3d(-35px, 25px, 0) scale(1.08);
-  }
-  100% {
-    transform: translate3d(25px, -20px, 0) scale(0.94);
-  }
-}
-
-@keyframes aurora-drift-2 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(30px, -35px, 0) scale(1.06);
-  }
-  100% {
-    transform: translate3d(-20px, 25px, 0) scale(0.92);
-  }
-}
-
-@keyframes aurora-drift-3 {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate3d(-20px, -20px, 0) scale(1.1);
-    opacity: 0.9;
-  }
-  100% {
-    transform: translate3d(20px, 15px, 0) scale(0.95);
-    opacity: 0.7;
-  }
-}
-
-/* Hero Horizontal Clip-Path Wipe Animation (Text remains 100% stationary) */
-.animate-hero-wipe {
-  animation: hero-horizontal-wipe 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
-  will-change: clip-path;
-}
-
-@keyframes hero-horizontal-wipe {
-  0% {
-    clip-path: inset(0 100% 0 0);
-  }
-  100% {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-/* Subtle Fine Grain Overlay Texture */
-.bg-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 160px 160px;
-  opacity: 0.022;
-}
-
-.dark .bg-grain {
-  opacity: 0.035;
-}
-
-/* Global Subtle Page Enter Transition */
-@keyframes page-enter {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 6px, 0);
-  }
-  100% {
-    opacity: 1;
+  to {
     transform: translate3d(0, 0, 0);
   }
 }
 
-.animate-page-enter {
-  animation: page-enter 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: opacity, transform;
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   WORK INDEX — cursor preview
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .aurora-field-1,
-  .aurora-field-2,
-  .aurora-field-3 {
-    animation: none !important;
-  }
-
-  .animate-hero-wipe {
-    animation: none !important;
-    clip-path: inset(0 0 0 0) !important;
-  }
-
-  .animate-page-enter {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════ */
-/* GLASSMORPHISM DESIGN SYSTEM                                               */
-/* ═══════════════════════════════════════════════════════════════════════════ */
-
-/* Frosted Glass Card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  transition: all 0.3s ease;
-}
-
-.dark .glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card:hover {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-
-.dark .glass-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Glass Card — Subtle (for smaller elements like pills/tags) */
-.glass-pill {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.25s ease;
-}
-
-.dark .glass-pill {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.glass-pill:hover {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: hsl(var(--accent-blue) / 0.3);
-}
-
-.dark .glass-pill:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: hsl(var(--accent-blue) / 0.4);
-}
-
-/* Glass CTA Button */
-.glass-cta {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease;
-}
-
-.dark .glass-cta {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.glass-cta:hover {
-  background: hsl(var(--accent-blue));
-  border-color: hsl(var(--accent-blue));
-  color: white;
-  box-shadow: 0 0 30px hsl(var(--accent-blue) / 0.3);
-}
-
-.dark .glass-cta:hover {
-  box-shadow: 0 0 40px hsl(var(--accent-blue) / 0.4);
-}
-
-/* Accent Glow Effect */
-.glow-accent {
-  box-shadow: 0 0 30px hsl(var(--accent-blue) / 0.1), 0 0 60px hsl(var(--accent-blue) / 0.05);
-}
-
-.dark .glow-accent {
-  box-shadow: 0 0 40px hsl(var(--accent-blue) / 0.15), 0 0 80px hsl(var(--accent-blue) / 0.08);
-}
-
-/* Gradient Text */
-.gradient-text {
-  background: linear-gradient(135deg, hsl(var(--accent-blue)), hsl(250 80% 60%), hsl(200 90% 55%));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.dark .gradient-text {
-  background: linear-gradient(135deg, hsl(var(--accent-blue)), hsl(250 85% 72%), hsl(200 95% 65%));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Gradient Mesh Background */
-.gradient-mesh {
+.work-row {
   position: relative;
+  transition: color 240ms ease;
 }
 
-.gradient-mesh::before {
+.work-row::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 10% 20%, hsl(var(--accent-blue) / 0.06), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 90% 80%, hsl(250 80% 60% / 0.04), transparent 50%),
-    radial-gradient(ellipse 40% 60% at 50% 50%, hsl(200 90% 55% / 0.03), transparent 55%);
-  pointer-events: none;
-  z-index: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: hsl(var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.dark .gradient-mesh::before {
-  background:
-    radial-gradient(ellipse 60% 50% at 10% 20%, hsl(var(--accent-blue) / 0.1), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 90% 80%, hsl(250 80% 60% / 0.07), transparent 50%),
-    radial-gradient(ellipse 40% 60% at 50% 50%, hsl(200 90% 55% / 0.05), transparent 55%);
+.work-row:hover::after,
+.work-row:focus-within::after {
+  transform: scaleX(1);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════ */
-/* CUSTOM SCROLLBAR                                                          */
-/* ═══════════════════════════════════════════════════════════════════════════ */
+.work-row .row-title {
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 240ms ease;
+}
+
+.work-row:hover .row-title,
+.work-row:focus-within .row-title {
+  transform: translateX(14px);
+  color: hsl(var(--accent));
+}
+
+.work-row .row-arrow {
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease, color 240ms ease;
+}
+
+.work-row .row-arrow svg {
+  opacity: 0.3;
+  transition: opacity 240ms ease, transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-row:hover .row-arrow svg,
+.work-row:focus-within .row-arrow svg {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLATES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.plate {
+  position: relative;
+  overflow: hidden;
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--rule));
+}
+
+.plate img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.plate:hover img {
+  transform: scale(1.015);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: hsl(var(--paper));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
-  border-radius: 3px;
+  background: hsl(var(--rule));
+  border: 3px solid hsl(var(--paper));
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground));
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NATIVE DIALOG (mobile menu)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+dialog.menu {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--paper));
+  color: hsl(var(--ink));
+  border: 0;
+}
+
+dialog.menu::backdrop {
+  background: hsl(var(--paper));
+}
+
+dialog.menu[open] {
+  animation: menu-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORM
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.field {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid hsl(var(--rule));
+  border-radius: 0;
+  padding: 0.85rem 0;
+  font-size: 1rem;
+  color: hsl(var(--ink));
+  transition: border-color 220ms ease;
+}
+
+.field::placeholder {
+  color: hsl(var(--muted-foreground));
+  opacity: 0.78;
+}
+
+.field:focus {
+  outline: none;
+  border-bottom-color: hsl(var(--accent));
+}
+
+.field[aria-invalid="true"] {
+  border-bottom-color: hsl(var(--accent));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAGE ENTER
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.page-enter {
+  animation: page-in 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRINT — the portfolio should read as a document when printed
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+  .paper-grain,
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  .reveal-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
+    color: #555;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .line-mask > span {
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .work-row:hover .row-title,
+  .work-row:focus-within .row-title {
+    transform: none;
+  }
 }

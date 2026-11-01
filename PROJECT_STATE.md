@@ -9,8 +9,10 @@ This document maintains the real-time operational status, active milestones, arc
 - **Project Name**: `rinshad-portfolio`
 - **Identity**: Mohammed Rinshad P (`m.rinshad`) — Full-Stack Software Engineer & Technical Lead
 - **Organization**: ByteN
-- **Framework**: Next.js 15.1.0 (App Router), React 19, TypeScript 5.7, Tailwind CSS 3.4
-- **Repository Health**: Active, clean git tree, Agentic Design System installed
+- **Framework**: Next.js 15.5 (App Router), React 19, TypeScript 5.7, Tailwind CSS 3.4
+- **Design World**: "Engineering Ledger" — drawing-paper ground, warm ink, single vermilion signal, hairline rules
+- **Repository Health**: Active branch `feat/rebuild-editorial`, clean build, lint and typecheck
+- **Runtime**: Bun 1.4.4 available at `~/.bun/bin/bun` (symlinked to `/opt/homebrew/bin/bun`)
 
 ---
 
@@ -18,13 +20,14 @@ This document maintains the real-time operational status, active milestones, arc
 
 | Milestone | Scope / Deliverables | Status | Notes |
 | :--- | :--- | :--- | :--- |
-| **M1: Core Multi-Page Architecture** | Routes: `/`, `/work`, `/work/[id]`, `/about`, `/contact` | **Done** | App router with dynamic routing |
-| **M2: Design System & Theming** | Next-themes light/dark switcher, Tailwind tokens | **Done** | Monochrome base + restrained accent |
-| **M3: Case Study & Gallery Engine** | 4 Flagship systems + 3 Client web showcases | **Done** | Data-driven from `data/content.ts` |
-| **M4: Career Track & Skills Taxonomy** | Interactive background, education, categorized skills | **Done** | Verified resume data |
-| **M5: Contact Channels & Inquiries** | Direct social cards, client-validated inquiry form | **Done** | Accessible form controls |
-| **M6: Agentic System Integration** | Impeccable, Intent, Ponytail, Graphify, OpenDesigner, Track Changes | **Done** | Codified rules, ADRs, IDE hooks, design engine |
-| **M7: Performance & Visual QA Audit** | Contrast audit, mobile ergonomics, Lighthouse pass | **In Progress** | Automated via `npx impeccable detect` & `opendesigner-review` |
+| **M1: Multi-Page Architecture** | Routes `/`, `/work`, `/work/[id]`, `/about`, `/contact`, `not-found` | **Done** | App Router, 13 static routes |
+| **M2: Editorial Design System** | Ledger tokens, Instrument Serif / Inter Tight / JetBrains Mono, light + dark | **Done** | Zero detector anti-patterns |
+| **M3: Work Index & Case Studies** | Cursor-following index, 4 flagships + 3 client sites, scope and engineering notes | **Done** | Content grounded in verified project facts |
+| **M4: About & Career Track** | Narrative, leadership, experience, 6 capability groups, education | **Done** | Verified résumé data |
+| **M5: Contact** | Direct channels, availability, mailto-composing form with validation | **Done** | No data leaves the browser |
+| **M6: Custom Assets** | SVG marks, schematic figure, generated OG image, SVG favicon | **Done** | No icon library dependency |
+| **M7: Motion & A11y** | Scroll reveals, line-mask masthead, reduced-motion, print styles | **Done** | WCAG AA verified both themes |
+| **M8: Verification** | Build, typecheck, lint, detector sweep, contrast/overflow audit, interaction tests | **Done** | See section 5 |
 
 ---
 
@@ -32,33 +35,44 @@ This document maintains the real-time operational status, active milestones, arc
 
 | Layer | Technology | Key Files | Responsibility |
 | :--- | :--- | :--- | :--- |
-| **Presentation / Routing** | Next.js App Router | `app/layout.tsx`, `app/**/page.tsx` | SSR/SSG pages, route transitions |
-| **UI Components** | React 19, Radix UI | `components/navbar.tsx`, `components/ui/` | Accessible UI primitives & layout |
-| **Design Tokens** | Tailwind CSS 3.4 | `tailwind.config.ts`, `app/globals.css` | Semantic color tokens, typography |
-| **Data Layer** | Static TypeScript | `data/content.ts`, `data/types.ts` | Centralized master content constants |
-| **Design System Engine** | OpenDesigner (stdlib) | `.agents/skills/opendesigner/` | Token synthesis, DTCG tokens, visual QA review |
-| **Agent Skillsets** | Skills CLI | `.agents/skills/`, `.agents/rules/` | Quality verification & engineering rules |
-| **Knowledge Graph** | Graphify (AST) | `graphify-out/` | Code structure & dependency mapping |
-| **Automation & Hooks** | Codex Hooks | `.codex/hooks.json` | Post-edit UI detection & stop checks |
+| **Routing** | Next.js App Router | `app/**/page.tsx`, `app/not-found.tsx` | Static pages and case-study routes |
+| **Design Tokens** | Tailwind + CSS vars | `app/globals.css`, `tailwind.config.ts` | Paper/ink/rule/accent semantics, type scale |
+| **Content** | Static TypeScript | `data/content.ts`, `data/types.ts` | Single source of truth for all copy and project data |
+| **Components** | React 19, no UI library | `components/*.tsx` | Header, footer, work index, gallery, form, SVG marks |
+| **Motion** | CSS + IntersectionObserver | `components/reveal.tsx`, `components/scroll-progress.tsx` | Progressive enhancement; visible without JS |
+| **SEO** | Next Metadata API | `app/layout.tsx`, `app/sitemap.ts`, `app/robots.ts` | JSON-LD, Open Graph, canonical URLs |
+| **Design Engine** | OpenDesigner / Impeccable | `.agents/skills/`, `docs/DESIGN.md` | Token synthesis and anti-pattern verification |
 
 ---
 
 ## 4. Technical Debt Ledger (`ponytail-debt`)
 
-*Any deliberate shortcuts marked with `shortcut:` or `ponytail:` comments in code are indexed here for tracking.*
-
 | ID | Location | Shortcut Description | Deferred Work / Resolution | Severity |
 | :--- | :--- | :--- | :--- | :--- |
-| *None* | Workspace | Clean baseline. | No deliberate shortcuts pending resolution. | Low |
+| D1 | `components/contact-form.tsx` | Contact uses a client-side `mailto:` composition rather than a transactional email service. | Introduce a server route with an email provider if delivery analytics or spam filtering are needed. | Low |
+| D2 | `public/assets/*` | Project screenshots are 2880×1800 PNGs; Next/Image optimises on demand but originals are large. | Pre-encode to WebP/AVIF at 2× display size and drop the PNG originals. | Low |
 
 ---
 
-## 5. Maintenance & Quality Checklist
+## 5. Verification Record
+
+Run against a production build (`next build` + `next start`):
+
+- `npx tsc --noEmit` — clean.
+- `next lint` — no warnings or errors.
+- `impeccable detect` on all 8 routes — **0 anti-patterns**.
+- Automated contrast audit (light + dark, all routes) — **0 WCAG AA failures**, 0 horizontal overflow, exactly one `h1` per page, 0 unlabeled controls.
+- Interaction tests — skip link, tab order, `T` theme shortcut, hover previews, native `<dialog>` menu open/close, gallery paging, form validation with focus management.
+
+---
+
+## 6. Maintenance & Quality Checklist
 
 Before completing work in any session:
-- [ ] Run `git status --short` to inspect working tree.
-- [ ] Run `npx impeccable detect` to catch UI contrast or hierarchy regressions.
+- [ ] Run `git status --short` to inspect the working tree.
+- [ ] Run `npx tsc --noEmit` and `next lint`.
+- [ ] Run `impeccable detect <url>` on every route against a production build.
 - [ ] Update `CHANGELOG.md` under `## [Unreleased]`.
-- [ ] Update `PROJECT_STATE.md` milestone status and debt entries.
-- [ ] Run `python3 -m graphify update .` to synchronize the AST graph.
-- [ ] Author Architecture Decision Record (ADR) under `docs/adr/` if new architecture is introduced.
+- [ ] Update this file's milestone and debt tables.
+- [ ] Author an ADR under `docs/adr/` if architecture changes.
+
